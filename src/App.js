@@ -4,6 +4,7 @@ import {Route, Routes} from "react-router-dom";
 import Header from "./components/Header/Header";
 import EquipmentList from "./components/EquipmentList/EquipmentList";
 import Form from "./components/Form/Form";
+import Menu from "./components/Menu/Menu";
 
 const tg = window.Telegram.WebApp;
 
@@ -21,8 +22,9 @@ function App() {
     <div className="App">
         <Header />
         <Routes>
+            <Route index element={<Menu />}/>
             <Route path={'equipment'} element={<EquipmentList />}/>
-            <Route index element={<Form />}/>
+            <Route path={'form'} element={<Form />}/>
         </Routes>
     </div>
   );
