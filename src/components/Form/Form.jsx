@@ -33,7 +33,7 @@ const Form = () => {
     }, [])
 
     useEffect(() => {
-        if(!Object.values(data).some(v => v)) {
+        if(Object.values(data).some(el=>el==='')) {
             tg.MainButton.hide();
         } else {
             tg.MainButton.show();
