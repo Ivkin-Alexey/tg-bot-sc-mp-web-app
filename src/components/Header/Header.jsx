@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Button from "../Button/Button";
 import {useTelegram} from "../../hooks/useTelegram";
 import './Header.css';
 
+
 const Header = () => {
-    const {user, onClose} = useTelegram();
+    const {tg, user, onClose} = useTelegram();
+
+    useEffect(() => {
+        tg.BackButton.isVisible = true;
+    }, [])
 
     return (
         <div className={'header'}>
