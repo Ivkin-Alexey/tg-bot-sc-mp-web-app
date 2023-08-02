@@ -7,11 +7,11 @@ const Form = () => {
 
 
     const [data, setData] = useState({
-        firstName: '',
-        lastName: '',
+        fName: '',
+        lName: '',
         patronymic: '',
-        phone: '',
-        position: ''
+        phone: '+7',
+        position: 'Студент'
     });
 
     const {tg} = useTelegram();
@@ -65,7 +65,9 @@ const Form = () => {
                 required
                 id="outlined-required"
                 label="Имя"
-                defaultValue=""
+                name="fName"
+                value={data.fName}
+                onChange={onChangeData}
                 fullWidth
                 error={false}
             />
@@ -73,22 +75,26 @@ const Form = () => {
                 required
                 id="outlined-required"
                 label="Фамилия"
-                defaultValue=""
+                name="lName"
+                value={data.lName}
+                onChange={onChangeData}
                 fullWidth
             />
             <TextField
                 required
                 id="outlined-required"
                 label="Отчество"
-                defaultValue=""
+                name="patronymic"
+                value={data.patronymic}
+                onChange={onChangeData}
                 fullWidth
             />
-            <TextField required id="outlined-search" label="Должность" type="search" defaultValue="Студент" fullWidth/>
+            <TextField required id="outlined-search" label="Должность" type="search" value={data.position} fullWidth/>
             <TextField
                 required
                 id="outlined-helperText"
                 label="Мобильный"
-                defaultValue="+7"
+                value={data.phone}
                 helperText="Номер телефона нужен для экстренной связи"
                 fullWidth
             />
