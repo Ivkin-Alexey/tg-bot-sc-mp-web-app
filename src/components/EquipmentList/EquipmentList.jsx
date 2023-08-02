@@ -4,7 +4,7 @@ import './EquipmentList.css';
 const EquipmentList = () => {
     return (
         <div>
-            EquipmentList
+            Equipment
         </div>
     );
 };

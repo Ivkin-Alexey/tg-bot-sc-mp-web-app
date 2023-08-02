@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import './Form.css';
 import {useTelegram} from "../../hooks/useTelegram";
+import {Box, TextField} from "@mui/material";
 
 const Form = () => {
 
@@ -33,7 +34,7 @@ const Form = () => {
     }, [])
 
     useEffect(() => {
-        if(Object.values(data).some(el=>el==='')) {
+        if (Object.values(data).some(el => el === '')) {
             tg.MainButton.hide();
         } else {
             tg.MainButton.show();
@@ -48,47 +49,50 @@ const Form = () => {
     }
 
     return (
-        <div className={"form"}>
-            <h3>Введите ваши данные</h3>
-            <input
-                className={'input'}
-                type="text"
-                placeholder={'Имя'}
-                name="firstName"
-                value={data.firstName}
-                onChange={onChangeData}
+        <Box
+            component="form"
+            sx={{
+                '& .MuiTextField-root': {m: 1, width: '90%'},
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+
+            }}
+            noValidate
+            autoComplete="off"
+        >
+            <TextField
+                required
+                id="outlined-required"
+                label="Имя"
+                defaultValue=""
+                fullWidth
+                error={false}
             />
-            <input
-                className={'input'}
-                type="text"
-                placeholder={'Фамилия'}
-                name="lastName"
-                value={data.lastName}
-                onChange={onChangeData}
+            <TextField
+                required
+                id="outlined-required"
+                label="Фамилия"
+                defaultValue=""
+                fullWidth
             />
-            <input
-                className={'input'}
-                type="text"
-                placeholder={'Отчество'}
-                name="patronymic"
-                value={data.patronymic}
-                onChange={onChangeData}
+            <TextField
+                required
+                id="outlined-required"
+                label="Отчество"
+                defaultValue=""
+                fullWidth
             />
-            <input
-                className={'input'}
-                type="text"
-                placeholder={'Мобильный телефон'}
-                name="phone"
-                value={data.phone}
-                onChange={onChangeData}
+            <TextField required id="outlined-search" label="Должность" type="search" defaultValue="Студент" fullWidth/>
+            <TextField
+                required
+                id="outlined-helperText"
+                label="Мобильный"
+                defaultValue="+7"
+                helperText="Номер телефона нужен для экстренной связи"
+                fullWidth
             />
-            <select name="position" value={data.position} onChange={onChangeData} className={'select'}>
-                <option value={'physical'}>Студент</option>
-                <option value={'physical'}>Аспирант</option>
-                <option value={'legal'}>Преподаватель</option>
-                <option value={'legal'}>Другое</option>
-            </select>
-        </div>
+        </Box>
     );
 };
 
