@@ -3,6 +3,7 @@ import {Box, ListItem, ListItemIcon, Paper} from "@mui/material";
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import {Link} from 'react-router-dom';
+import ListSubheader from "@mui/material/ListSubheader";
 
 export default function Menu() {
 
@@ -20,13 +21,19 @@ export default function Menu() {
     }
 
     return (
-        <Box sx={{width: 360}}>
-            <Paper elevation={0}>
-                <List aria-label="secondary mailbox folders">
-                    <ListItemLink to="/equipmentCategories" primary="Оборудование"/>
-                    <ListItemLink to="/applications" primary="Заявки на исследование"/>
-                </List>
-            </Paper>
+        <Box sx={{width: 400}}>
+            <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
+                  component="nav"
+                  aria-labelledby="nested-list-subheader"
+                  subheader={
+                      <ListSubheader component="div" id="nested-list-subheader">
+                          Меню:
+                      </ListSubheader>
+                  }>
+                <ListItemLink to="/equipment" primary="Оборудование"/>
+                <ListItemLink to="/applications" primary="Заявки на исследование"/>
+                <ListItemLink to="/form" primary="Мои данные"/>
+            </List>
         </Box>
     );
 }

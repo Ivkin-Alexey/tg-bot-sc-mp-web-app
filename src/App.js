@@ -21,8 +21,8 @@ function App() {
         <Header />
         <Routes>
             <Route index element={<Menu />}/>
-            <Route path={'equipmentCategories'} element={<EquipmentCategoryList />}/>
-            <Route path={'equipment'} element={<EquipmentList />}/>
+            <Route path={'equipment'} element={<EquipmentCategoryList />}/>
+            <Route path={'equipment/:category'} element={<EquipmentList />}/>
             <Route path={'applications'} element={<ApplicationList />}/>
             <Route path={'form'} element={<Form />}/>
         </Routes>
