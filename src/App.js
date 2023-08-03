@@ -2,10 +2,10 @@ import './App.css';
 import {useEffect} from "react";
 import {Route, Routes} from "react-router-dom";
 import Header from "./components/Header/Header";
-import EquipmentList from "./components/EquipmentList/EquipmentList";
-import Form from "./components/Form/Form";
-import Menu from "./components/Menu/Menu";
-import ApplicationList from "./components/ApplicationList/ApplicationList";
+import EquipmentList from "./pages/EquipmentCategoryList/EquipmentList";
+import Form from "./pages/Form/Form";
+import Menu from "./pages/Menu/Menu";
+import ApplicationList from "./pages/ApplicationList/ApplicationList";
 
 const tg = window.Telegram.WebApp;
 
