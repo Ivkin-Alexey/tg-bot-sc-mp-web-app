@@ -12,8 +12,7 @@ const EquipmentList = () => {
     console.log(category);
 
     return (
-        <Box sx={{width: 400}}>
-            {list.map((el, i) => {
+            list.map((el, i) => {
                 return (
                     <Card sx={{maxWidth: 345}} key={i}>
                         <CardActionArea>
@@ -37,8 +36,6 @@ const EquipmentList = () => {
                     </Card>
                 )
             })
-            }
-        </Box>
     )
 };
 

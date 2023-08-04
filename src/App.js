@@ -7,7 +7,6 @@ import Form from "./pages/Form/Form";
 import Menu from "./pages/Menu/Menu";
 import ApplicationList from "./pages/ApplicationList/ApplicationList";
 import EquipmentCategoryList from "./pages/EquipmentCategoryList/EquipmentCategoryList"
-import {Box, Container} from "@mui/material";
 
 const tg = window.Telegram.WebApp;
 
@@ -18,7 +17,7 @@ function App() {
     }, [])
 
     return (
-        <Container maxWidth="xs">
+        <>
             <Header/>
             <Routes>
                 <Route index element={<Menu/>}/>
@@ -27,7 +26,7 @@ function App() {
                 <Route path={'applications'} element={<ApplicationList/>}/>
                 <Route path={'form'} element={<Form/>}/>
             </Routes>
-        </Container>
+        </>
     );
 }
 

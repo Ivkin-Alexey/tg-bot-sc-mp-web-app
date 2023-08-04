@@ -21,7 +21,6 @@ export default function Menu() {
     }
 
     return (
-        <Box sx={{width: 400}}>
             <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
                   component="nav"
                   aria-labelledby="nested-list-subheader"
@@ -34,6 +33,5 @@ export default function Menu() {
                 <ListItemLink to="/applications" primary="Заявки на исследование"/>
                 <ListItemLink to="/form" primary="Мои данные"/>
             </List>
-        </Box>
     );
 }

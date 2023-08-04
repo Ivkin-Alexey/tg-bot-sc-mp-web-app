@@ -24,27 +24,26 @@ export default function EquipmentCategoryList() {
     let navigate = useNavigate();
 
     return (
-        <Box sx={{width: 400}}>
-            <List
-                sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
-                component="nav"
-                aria-labelledby="nested-list-subheader"
-                subheader={
-                    <ListSubheader component="div" id="nested-list-subheader">
-                        Выберите категорию оборудования:
-                    </ListSubheader>
-                }
-            >
-                {equipment.map((el, i) => {
-                    return (
-                        <ListItemLink
-                            to={`/equipment/${el.category.en}`}
-                            primary={el.category.ru}
-                            key={i}
-                            onClick={() => navigate(`/equipment/${el.category.en}`)}/>
-                    )
-                })}
-            </List>
-        </Box>
+
+        <List
+            sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
+            component="nav"
+            aria-labelledby="nested-list-subheader"
+            subheader={
+                <ListSubheader component="div" id="nested-list-subheader">
+                    Выберите категорию оборудования:
+                </ListSubheader>
+            }
+        >
+            {equipment.map((el, i) => {
+                return (
+                    <ListItemLink
+                        to={`/equipment/${el.category.en}`}
+                        primary={el.category.ru}
+                        key={i}
+                        onClick={() => navigate(`/equipment/${el.category.en}`)}/>
+                )
+            })}
+        </List>
     );
 }
