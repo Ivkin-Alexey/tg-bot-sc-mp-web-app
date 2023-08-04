@@ -31,6 +31,7 @@ export default function Menu() {
                   }>
                 <ListItemLink to="/equipment" primary="Оборудование"/>
                 <ListItemLink to="/applications" primary="Заявки на исследование"/>
+                <ListItemLink to="/reagents" primary="Реактивы"/>
                 <ListItemLink to="/form" primary="Мои данные"/>
             </List>
     );
