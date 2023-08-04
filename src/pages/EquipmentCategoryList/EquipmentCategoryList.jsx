@@ -4,7 +4,7 @@ import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
 import {equipment} from '../../assets/db';
 import {Box, ListItem, ListItemIcon} from "@mui/material";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 function ListItemLink(props) {
     const {icon, primary, to} = props;
@@ -21,6 +21,8 @@ function ListItemLink(props) {
 
 export default function EquipmentCategoryList() {
 
+    let navigate = useNavigate();
+
     return (
         <Box sx={{width: 400}}>
             <List
@@ -35,7 +37,11 @@ export default function EquipmentCategoryList() {
             >
                 {equipment.map((el, i) => {
                     return (
-                        <ListItemLink to={`/equipment/${el.category.en}`} primary={el.category.ru} key={i}/>
+                        <ListItemLink
+                            to={`/equipment/${el.category.en}`}
+                            primary={el.category.ru}
+                            key={i}
+                            onClick={() => navigate(`/equipment/${el.category.en}`)}/>
                     )
                 })}
             </List>

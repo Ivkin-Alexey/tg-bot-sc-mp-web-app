@@ -7,6 +7,7 @@ import Form from "./pages/Form/Form";
 import Menu from "./pages/Menu/Menu";
 import ApplicationList from "./pages/ApplicationList/ApplicationList";
 import EquipmentCategoryList from "./pages/EquipmentCategoryList/EquipmentCategoryList"
+import {Box, Container} from "@mui/material";
 
 const tg = window.Telegram.WebApp;
 
@@ -16,18 +17,18 @@ function App() {
         tg.ready();
     }, [])
 
-  return (
-    <div className="App">
-        <Header />
-        <Routes>
-            <Route index element={<Menu />}/>
-            <Route path={'equipment'} element={<EquipmentCategoryList />}/>
-            <Route path={'equipment/:category'} element={<EquipmentList />}/>
-            <Route path={'applications'} element={<ApplicationList />}/>
-            <Route path={'form'} element={<Form />}/>
-        </Routes>
-    </div>
-  );
+    return (
+        <Container maxWidth="xs">
+            <Header/>
+            <Routes>
+                <Route index element={<Menu/>}/>
+                <Route path={'equipment'} element={<EquipmentCategoryList/>}/>
+                <Route path={'equipment/:category'} element={<EquipmentList/>}/>
+                <Route path={'applications'} element={<ApplicationList/>}/>
+                <Route path={'form'} element={<Form/>}/>
+            </Routes>
+        </Container>
+    );
 }
 
 export default App;
