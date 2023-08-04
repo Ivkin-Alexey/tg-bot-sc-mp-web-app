@@ -19,13 +19,15 @@ function App() {
     return (
         <>
             <Header/>
-            <Routes>
-                <Route index element={<Menu/>}/>
-                <Route path={'equipment'} element={<EquipmentCategoryList/>}/>
-                <Route path={'equipment/:category'} element={<EquipmentList/>}/>
-                <Route path={'applications'} element={<ApplicationList/>}/>
-                <Route path={'form'} element={<Form/>}/>
-            </Routes>
+            <main className="main">
+                <Routes>
+                    <Route index element={<Menu/>}/>
+                    <Route path={'equipment'} element={<EquipmentCategoryList/>}/>
+                    <Route path={'equipment/:category'} element={<EquipmentList/>}/>
+                    <Route path={'applications'} element={<ApplicationList/>}/>
+                    <Route path={'form'} element={<Form/>}/>
+                </Routes>
+            </main>
         </>
     );
 }
