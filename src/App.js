@@ -3,7 +3,7 @@ import {useEffect} from "react";
 import {Route, Routes} from "react-router-dom";
 import Header from "./components/Header/Header";
 import EquipmentList from "./pages/EquipmentList/EquipmentList";
-import Form from "./pages/Form/Form";
+import EditPersonalData from "./pages/EditPersonalData/EditPersonalData";
 import Menu from "./pages/Menu/Menu";
 import ApplicationList from "./pages/ApplicationList/ApplicationList";
 import EquipmentCategoryList from "./pages/EquipmentCategoryList/EquipmentCategoryList"
@@ -27,7 +27,7 @@ function App() {
                     <Route path={'reagents'} element={<Reagents/>}/>
                     <Route path={'equipment/:category'} element={<EquipmentList/>}/>
                     <Route path={'applications'} element={<ApplicationList/>}/>
-                    <Route path={'form'} element={<Form/>}/>
+                    <Route path={'form'} element={<EditPersonalData/>}/>
                 </Routes>
             </main>
         </>

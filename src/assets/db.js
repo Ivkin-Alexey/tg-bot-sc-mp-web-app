@@ -25,11 +25,11 @@ export const equipment = [
 export const applications = [
     {
         name: 'Термический анализ',
-        fields: []
+        fields: ['Название образца', 'Скорость нагрева', 'Газовая среда', 'Начальная температура анализа', 'Конечная температура анализа']
     },
     {
         name: 'Высокотемпературные процессы',
-        fields: []
+        fields: ['Название образца', 'Температура', 'Время нагрева']
     },
     {
         name: 'Электронная микроскопия',
@@ -44,3 +44,13 @@ export const applications = [
         fields: []
     }
 ]
+
+export const formsFields = {
+    editPersonalData: [
+        {name: '', label: '', type: 'outlined-required', validateRule: ''},
+        {name: '', label: '', type: 'outlined-required', validateRule: ''},
+        {name: '', label: '', type: 'outlined-required', validateRule: ''},
+        {name: '', label: 'Должность', type: 'outlined-search', validateRule: ''},
+        {name: '', label: 'Мобильный', type: 'outlined-helperText', validateRule: ''},
+    ],
+};

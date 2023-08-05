@@ -1,9 +1,9 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import './Form.css';
+import './EditPersonalData.css';
 import {useTelegram} from "../../hooks/useTelegram";
 import {Box, TextField} from "@mui/material";
 
-const Form = () => {
+const EditPersonalData = () => {
 
 
     const [data, setData] = useState({
@@ -89,12 +89,22 @@ const Form = () => {
                 onChange={onChangeData}
                 fullWidth
             />
-            <TextField required id="outlined-search" label="Должность" type="search" value={data.position} fullWidth/>
+            <TextField
+                required
+                id="outlined-search"
+                label="Должность"
+                name="position"
+                type="search"
+                value={data.position}
+                onChange={onChangeData}
+                fullWidth/>
             <TextField
                 required
                 id="outlined-helperText"
                 label="Мобильный"
+                name="phone"
                 value={data.phone}
+                onChange={onChangeData}
                 helperText="Номер телефона нужен для экстренной связи"
                 fullWidth
             />
@@ -102,4 +112,4 @@ const Form = () => {
     );
 };
 
-export default Form;
+export default EditPersonalData;
