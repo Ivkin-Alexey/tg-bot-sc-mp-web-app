@@ -21,3 +21,26 @@ export const equipment = [
         list: ['1', '2', '3', '4']
     }
 ];
+
+export const applications = [
+    {
+        name: 'Термический анализ',
+        fields: []
+    },
+    {
+        name: 'Высокотемпературные процессы',
+        fields: []
+    },
+    {
+        name: 'Электронная микроскопия',
+        fields: []
+    },
+    {
+        name: 'ИК-спектроскопия',
+        fields: []
+    },
+    {
+        name: 'Изготовление аншлифов',
+        fields: []
+    }
+]
