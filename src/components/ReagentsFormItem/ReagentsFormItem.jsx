@@ -2,7 +2,7 @@ import React from 'react';
 import {IconButton, Stack, TextField} from "@mui/material";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
-const RegentsFormItem = (props) => {
+const ReagentsFormItem = (props) => {
 
     const {deleteReagent, onChangeReagent, reagent, index} = props;
 
@@ -12,6 +12,11 @@ const RegentsFormItem = (props) => {
             alignItems="center"
             spacing={2}
         >
+            <Stack
+                direction="column"
+                alignItems="center"
+                spacing={2}
+            >
             <TextField
                 required
                 id="outlined-required"
@@ -32,6 +37,7 @@ const RegentsFormItem = (props) => {
                 fullWidth
                 error={false}
             />
+            </Stack>
             {index === 0 ? null :
             <IconButton aria-label="delete" size="large" onClick={() => deleteReagent(index)}>
                 <RemoveCircleOutlineIcon size="large" color="inherit"/>
@@ -41,4 +47,4 @@ const RegentsFormItem = (props) => {
     );
 };
 
-export default RegentsFormItem;
+export default ReagentsFormItem;

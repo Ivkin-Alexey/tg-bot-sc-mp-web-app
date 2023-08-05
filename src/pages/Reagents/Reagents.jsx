@@ -1,13 +1,11 @@
 import React from 'react';
 import './Reagents.css';
 import AddIcon from '@mui/icons-material/Add';
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import {Box, Button, IconButton, Stack, TextField} from "@mui/material";
+import {Button, Stack} from "@mui/material";
 import {useCallback, useEffect, useState} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
 import {constants} from '../../assets/constants';
-import RegentsFormItem from "../../components/RegentsFormItem/RegentsFormItem";
-import ListSubheader from "@mui/material/ListSubheader";
+import ReagentsFormItem from "../../components/ReagentsFormItem/ReagentsFormItem";
 
 const Reagents = () => {
 
@@ -69,7 +67,7 @@ const Reagents = () => {
             spacing={2}
         >
             {reagentList && reagentList.map((el, i) => {
-                return <RegentsFormItem
+                return <ReagentsFormItem
                     deleteReagent={deleteReagent}
                     onChangeReagent={onChangeReagent}
                     reagent={el}
