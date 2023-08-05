@@ -1,24 +1,9 @@
 import * as React from 'react';
-import {Box, ListItem, ListItemIcon, Paper} from "@mui/material";
 import List from "@mui/material/List";
-import ListItemText from "@mui/material/ListItemText";
-import {Link} from 'react-router-dom';
 import ListSubheader from "@mui/material/ListSubheader";
+import ListItemLink from "../../components/ListItemLink/ListItemLink";
 
 export default function Menu() {
-
-    function ListItemLink(props) {
-        const {icon, primary, to} = props;
-
-        return (
-            <li>
-                <ListItem button component={Link} to={to}>
-                    {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
-                    <ListItemText primary={primary}/>
-                </ListItem>
-            </li>
-        );
-    }
 
     return (
             <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
