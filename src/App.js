@@ -19,7 +19,7 @@ function App() {
 
     return (
         <>
-            <Header/>
+            {/*<Header/>*/}
             <main className="main">
                 <Routes>
                     <Route index element={<Menu/>}/>
