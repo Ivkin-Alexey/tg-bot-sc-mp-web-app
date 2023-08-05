@@ -80,6 +80,7 @@ const Reagents = () => {
                 endIcon={<AddIcon/>}
                 onClick={addReagent}
                 disabled={reagentList.length >= reagents.maxNumberOfReagents}
+                disableElevation
             />
         </Stack>
     );
