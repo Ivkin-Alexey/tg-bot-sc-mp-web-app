@@ -2,11 +2,11 @@ import React from 'react';
 import './Reagents.css';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import {Box, Button, IconButton, Stack, TextField} from "@mui/material";
+import {Box, Button, Divider, IconButton, Stack, TextField} from "@mui/material";
 import {useCallback, useEffect, useState} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
 import {constants} from '../../assets/constants';
-import RegentsFormItem from "../../components/RegentsFormItem/RegentsFormItem";
+import ReagentsFormItem from "../../components/ReagentsFormItem/ReagentsFormItem";
 import ListSubheader from "@mui/material/ListSubheader";
 
 const Reagents = () => {
@@ -69,13 +69,18 @@ const Reagents = () => {
             spacing={2}
         >
             {reagentList && reagentList.map((el, i) => {
-                return <RegentsFormItem
-                    deleteReagent={deleteReagent}
-                    onChangeReagent={onChangeReagent}
-                    reagent={el}
-                    key={i}
-                    index={i}
-                />
+                return (
+                    <>
+                        <ReagentsFormItem
+                            deleteReagent={deleteReagent}
+                            onChangeReagent={onChangeReagent}
+                            reagent={el}
+                            key={i}
+                            index={i}
+                        />
+                        {reagentList.length-1 === i ? null : <Divider/>}
+                    </>
+                )
             })}
             <Button
                 variant="contained"

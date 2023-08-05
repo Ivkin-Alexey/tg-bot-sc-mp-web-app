@@ -2,7 +2,7 @@ import React from 'react';
 import {IconButton, Stack, TextField} from "@mui/material";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
-const RegentsFormItem = (props) => {
+const ReagentsFormItem = (props) => {
 
     const {deleteReagent, onChangeReagent, reagent, index} = props;
 
@@ -49,4 +49,4 @@ const RegentsFormItem = (props) => {
         </Stack>);
 };
 
-export default RegentsFormItem;
+export default ReagentsFormItem;
