@@ -36,9 +36,9 @@ const Reagents = () => {
         reagentList.forEach(reagent => {
             if (Object.values(reagent).some(el => el === '')) {
                 tg.MainButton.hide();
-            } else {
-                tg.MainButton.show();
+                return
             }
+            tg.MainButton.show();
         })
     }, [reagentList])
 
