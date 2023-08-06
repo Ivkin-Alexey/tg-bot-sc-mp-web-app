@@ -30,8 +30,8 @@ function App() {
                     <Route path={'equipment/:category'} element={<EquipmentList/>}/>
                     <Route path={'applications'} element={<ApplicationList/>}/>
                     <Route path={'applications/:application'} element={<Application/>}/>
-                    <Route path={'form'} element={<EditPersonalData/>}/>
                     <Route path={'profile'} element={<Profile/>}/>
+                    <Route path={'profile/editeProfile'} element={<EditPersonalData/>}/>
                 </Routes>
             </main>
         </>
