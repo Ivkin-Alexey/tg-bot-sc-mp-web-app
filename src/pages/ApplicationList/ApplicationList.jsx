@@ -4,8 +4,12 @@ import List from "@mui/material/List";
 import ListSubheader from "@mui/material/ListSubheader";
 import {applications} from "../../assets/db";
 import ListItemLink from "../../components/ListItemLink/ListItemLink";
+import {useNavigate} from "react-router-dom";
 
 const ApplicationList = () => {
+
+    let navigate = useNavigate();
+
     return (
         <List
             sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
@@ -20,10 +24,10 @@ const ApplicationList = () => {
             {applications.map((el, i) => {
                 return (
                     <ListItemLink
-                        // to={`/equipment/${el.category.en}`}
+                        to={`/applications/${el.urlName}`}
                         primary={el.name}
                         key={i}
-                        // onClick={() => navigate(`/equipment/${el.category.en}`)}
+                        onClick={() => navigate(`/applications/${el.urlName}`)}
                     />
                 )
             })}

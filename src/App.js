@@ -8,6 +8,7 @@ import Menu from "./pages/Menu/Menu";
 import ApplicationList from "./pages/ApplicationList/ApplicationList";
 import EquipmentCategoryList from "./pages/EquipmentCategoryList/EquipmentCategoryList"
 import Reagents from "./pages/Reagents/Reagents";
+import Application from "./pages/Application/Application";
 
 const tg = window.Telegram.WebApp;
 
@@ -27,6 +28,7 @@ function App() {
                     <Route path={'reagents'} element={<Reagents/>}/>
                     <Route path={'equipment/:category'} element={<EquipmentList/>}/>
                     <Route path={'applications'} element={<ApplicationList/>}/>
+                    <Route path={'applications/:application'} element={<Application/>}/>
                     <Route path={'form'} element={<EditPersonalData/>}/>
                 </Routes>
             </main>
