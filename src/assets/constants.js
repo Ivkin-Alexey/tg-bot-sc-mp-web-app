@@ -111,7 +111,7 @@ export const forms = {
         },
         {
             inputAttributes: {
-                name: 'start',
+                name: 'startTemperature',
                 label: 'Начальная температура анализа',
                 id: 'outlined-required',
                 required: true
@@ -120,7 +120,7 @@ export const forms = {
         },
         {
             inputAttributes: {
-                name: 'start',
+                name: 'endTemperature',
                 label: 'Конечная температура анализа',
                 id: 'outlined-required',
                 required: true
@@ -168,7 +168,7 @@ export const forms = {
         },
         {
             inputAttributes: {
-                name: 'start',
+                name: 'startTemperature',
                 label: 'Начальная температура анализа',
                 id: 'outlined-required',
                 required: true
@@ -177,7 +177,7 @@ export const forms = {
         },
         {
             inputAttributes: {
-                name: 'start',
+                name: 'endTemperature',
                 label: 'Конечная температура анализа',
                 id: 'outlined-required',
                 required: true
