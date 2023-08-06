@@ -11,6 +11,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import {Grid, ListItem, ListItemIcon} from "@mui/material";
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
+import { Link } from 'react-router-dom';
 
 export default function Profile() {
 
@@ -45,7 +46,7 @@ export default function Profile() {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button variant="contained" disableElevation href={`/profile/editeProfile/`}>
+                    <Button component={Link} to="/profile/editeProfile" variant="contained" color="primary" disableElevation>
                         Редактировать
                     </Button>
                 </CardActions>
