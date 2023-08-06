@@ -45,7 +45,7 @@ export default function Profile() {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button variant="contained" disableElevation>
+                    <Button variant="contained" disableElevation href={`/profile/editeProfile/`}>
                         Редактировать
                     </Button>
                 </CardActions>
