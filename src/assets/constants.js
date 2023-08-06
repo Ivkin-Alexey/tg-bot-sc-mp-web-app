@@ -12,6 +12,9 @@ export const constants = {
         },
         application: {
             tgMainButtonText: 'Отправить данные',
+        },
+        equipmentCategoryList: {
+            header: 'Выберите категорию:'
         }
     },
     components: {},

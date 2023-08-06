@@ -4,6 +4,7 @@ import List from '@mui/material/List';
 import {equipment} from '../../assets/db';
 import {useNavigate} from "react-router-dom";
 import ListItemLink from "../../components/ListItemLink/ListItemLink";
+import {constants} from '../../assets/constants'
 
 export default function EquipmentCategoryList() {
 
@@ -17,7 +18,7 @@ export default function EquipmentCategoryList() {
             aria-labelledby="nested-list-subheader"
             subheader={
                 <ListSubheader component="div" id="nested-list-subheader">
-                    Выберите категорию оборудования:
+                    {constants.pages.equipmentCategoryList.header}
                 </ListSubheader>
             }
         >
