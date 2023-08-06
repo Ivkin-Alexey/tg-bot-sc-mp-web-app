@@ -1,4 +1,4 @@
-import Application from "../pages/Application/Application";
+import {userProfile} from './db/userData';
 
 export const constants = {
     pages: {
@@ -26,7 +26,7 @@ export const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: '', validateRules: []}
+            other: {initValue: userProfile.fName || "", validateRules: []}
         },
         {
             inputAttributes: {
@@ -35,7 +35,7 @@ export const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: '', validateRules: []}
+            other: {initValue: userProfile.lName || "", validateRules: []}
         },
 
         {
@@ -45,7 +45,7 @@ export const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: '', validateRules: []}
+            other: {initValue: userProfile.patronymic || "", validateRules: []}
         },
         {
             inputAttributes: {
@@ -55,7 +55,7 @@ export const forms = {
                 type: 'search',
                 required: true
             },
-            other: {initValue: 'Студент', validateRules: []}
+            other: {initValue: userProfile.position || 'Студент', validateRules: []}
         },
         {
             inputAttributes: {
@@ -65,7 +65,7 @@ export const forms = {
                 helperText: 'Номер телефона нужен для экстренной связи',
                 required: true
             },
-            other: {initValue: '+7', validateRules: []}
+            other: {initValue: userProfile.phone || '+7', validateRules: []}
         },
     ],
     thermalAnalysis: [
