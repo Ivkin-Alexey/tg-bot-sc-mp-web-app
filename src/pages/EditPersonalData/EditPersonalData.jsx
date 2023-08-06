@@ -2,17 +2,15 @@ import React, {useCallback, useEffect, useState} from 'react';
 import './EditPersonalData.css';
 import {useTelegram} from "../../hooks/useTelegram";
 import {Box, TextField} from "@mui/material";
+import {forms} from '../../assets/constants';
+import {constants} from '../../assets/constants'
 
 const EditPersonalData = () => {
 
-
-    const [data, setData] = useState({
-        fName: '',
-        lName: '',
-        patronymic: '',
-        phone: '+7',
-        position: 'Студент'
-    });
+    const textInputs = forms.editPersonalData;
+    const initialTextInputsValues = textInputs.reduce((acc, cur) => ({ ...acc, [cur.inputAttributes.name]: cur.other.initValue}), {})
+    console.log(initialTextInputsValues);
+    const [data, setData] = useState(initialTextInputsValues);
 
     const {tg} = useTelegram();
 
@@ -29,7 +27,7 @@ const EditPersonalData = () => {
 
     useEffect(() => {
         tg.MainButton.setParams({
-            text: 'Отправить данные'
+            text: constants.pages.editPersonalData.tgMainButtonText
         })
     }, [])
 
@@ -61,53 +59,16 @@ const EditPersonalData = () => {
             noValidate
             autoComplete="off"
         >
-            <TextField
-                required
-                id="outlined-required"
-                label="Имя"
-                name="fName"
-                value={data.fName}
-                onChange={onChangeData}
-                fullWidth
-                error={false}
-            />
-            <TextField
-                required
-                id="outlined-required"
-                label="Фамилия"
-                name="lName"
-                value={data.lName}
-                onChange={onChangeData}
-                fullWidth
-            />
-            <TextField
-                required
-                id="outlined-required"
-                label="Отчество"
-                name="patronymic"
-                value={data.patronymic}
-                onChange={onChangeData}
-                fullWidth
-            />
-            <TextField
-                required
-                id="outlined-search"
-                label="Должность"
-                name="position"
-                type="search"
-                value={data.position}
-                onChange={onChangeData}
-                fullWidth/>
-            <TextField
-                required
-                id="outlined-helperText"
-                label="Мобильный"
-                name="phone"
-                value={data.phone}
-                onChange={onChangeData}
-                helperText="Номер телефона нужен для экстренной связи"
-                fullWidth
-            />
+            {textInputs.map((el, i) => {
+                return <TextField
+                    key={i}
+                    onChange={onChangeData}
+                    fullWidth
+                    error={false}
+                    value={data[el.inputAttributes.name]}
+                    {...el.inputAttributes}
+                />
+            })}
         </Box>
     );
 };

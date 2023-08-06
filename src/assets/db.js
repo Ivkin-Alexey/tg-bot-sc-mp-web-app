@@ -43,14 +43,4 @@ export const applications = [
         name: 'Изготовление аншлифов',
         fields: []
     }
-]
-
-export const formsFields = {
-    editPersonalData: [
-        {name: '', label: '', type: 'outlined-required', validateRule: ''},
-        {name: '', label: '', type: 'outlined-required', validateRule: ''},
-        {name: '', label: '', type: 'outlined-required', validateRule: ''},
-        {name: '', label: 'Должность', type: 'outlined-search', validateRule: ''},
-        {name: '', label: 'Мобильный', type: 'outlined-helperText', validateRule: ''},
-    ],
-};
+];
