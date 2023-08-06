@@ -5,15 +5,22 @@ import {TextField} from "@mui/material";
 const Form = (props) => {
 
     const {textInputs, tgMainButtonText} = props;
+    const defaultTextInputsValues = textInputs.reduce((acc, cur) => ({ ...acc, [cur.inputAttributes.name]: cur.other.initValue}), {});
 
-    const initialTextInputsValues = textInputs.reduce((acc, cur) => ({ ...acc, [cur.inputAttributes.name]: cur.other.initValue}), {})
-    const [data, setData] = useState(initialTextInputsValues);
-
-    const {tg} = useTelegram();
+    const [data, setData] = useState(defaultTextInputsValues);
 
     const onSendData = useCallback(() => {
         tg.sendData(JSON.stringify(data));
     }, [data])
+
+    useEffect(() => {
+        tg.onEvent('mainButtonClicked', onSendData)
+        return () => {
+            tg.offEvent('mainButtonClicked', onSendData)
+        }
+    }, [onSendData])
+
+    const {tg} = useTelegram();
 
     useEffect(() => {
         tg.onEvent('mainButtonClicked', onSendData)
