@@ -1,10 +1,10 @@
 import * as React from 'react';
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
-import {equipment} from '../../assets/db';
+import {equipment} from '../../assets/db/db';
 import {useNavigate} from "react-router-dom";
 import ListItemLink from "../../components/ListItemLink/ListItemLink";
-import {constants} from '../../assets/constants'
+import localisations from '../../assets/constants/localisations'
 
 export default function EquipmentCategoryList() {
 
@@ -18,7 +18,7 @@ export default function EquipmentCategoryList() {
             aria-labelledby="nested-list-subheader"
             subheader={
                 <ListSubheader component="div" id="nested-list-subheader">
-                    {constants.pages.equipmentCategoryList.header}
+                    {localisations.pages.equipmentCategoryList.header}
                 </ListSubheader>
             }
         >

@@ -2,7 +2,7 @@ import React from 'react';
 import './ApplicationList.css';
 import List from "@mui/material/List";
 import ListSubheader from "@mui/material/ListSubheader";
-import {applications} from "../../assets/db";
+import {applications} from "../../assets/db/db";
 import ListItemLink from "../../components/ListItemLink/ListItemLink";
 import {useNavigate} from "react-router-dom";
 

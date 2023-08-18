@@ -1,26 +1,6 @@
-import {userProfile} from './db/userData';
+import {userProfile} from "../db/userData";
 
-export const constants = {
-    pages: {
-        reagents: {
-            units: ['г', 'кг', 'мл', 'л'],
-            tgMainButtonText: 'Отправить заявку',
-            maxNumberOfReagents: 5
-        },
-        editPersonalData: {
-            tgMainButtonText: 'Отправить данные',
-        },
-        application: {
-            tgMainButtonText: 'Отправить данные',
-        },
-        equipmentCategoryList: {
-            header: 'Выберите категорию:'
-        }
-    },
-    components: {},
-};
-
-export const forms = {
+const forms = {
     editPersonalData: [
         {
             inputAttributes: {
@@ -185,4 +165,26 @@ export const forms = {
             other: {initValue: '', validateRules: []}
         }
     ],
+    reagentsFormItem: [
+        {
+            inputAttributes: {
+                name: 'reagentName',
+                label: 'Название',
+                id: 'outlined-required',
+                required: true
+            },
+            other: {initValue: "", validateRules: []}
+        },
+        {
+            inputAttributes: {
+                name: 'reagentAmount',
+                label: 'Количество',
+                id: 'outlined-required',
+                required: true
+            },
+            other: {initValue: "", validateRules: []}
+        },
+    ],
 };
+
+export default forms;

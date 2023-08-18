@@ -4,7 +4,7 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
 const ReagentsFormItem = (props) => {
 
-    const {deleteReagent, onChangeReagent, reagent, index} = props;
+    const {inputs, data, index, deleteReagent, onChangeData} = props;
 
     return (
         <Stack
@@ -17,31 +17,21 @@ const ReagentsFormItem = (props) => {
                 alignItems="center"
                 spacing={2}
             >
-            <TextField
-                required
-                id="outlined-required"
-                label="Название"
-                name="name"
-                value={reagent.name}
-                onChange={(e) => onChangeReagent(e, index)}
-                fullWidth
-                error={false}
-            />
-            <TextField
-                required
-                id="outlined-required"
-                label="Количество"
-                name="amount"
-                value={reagent.amount}
-                onChange={(e) => {onChangeReagent(e, index)}}
-                fullWidth
-                error={false}
-            />
+                {inputs.map((el, i) => {
+                    return <TextField
+                        key={i}
+                        onChange={e => onChangeData(e, index)}
+                        fullWidth
+                        error={false}
+                        value={data[index][el.inputAttributes.name]}
+                        {...el.inputAttributes}
+                    />
+                })}
             </Stack>
             {index === 0 ? null :
-            <IconButton aria-label="delete" size="large" onClick={() => deleteReagent(index)}>
-                <RemoveCircleOutlineIcon size="large" color="inherit"/>
-            </IconButton>
+                <IconButton aria-label="delete" size="large" onClick={() => deleteReagent(index)}>
+                    <RemoveCircleOutlineIcon size="large" color="inherit"/>
+                </IconButton>
             }
         </Stack>
     );

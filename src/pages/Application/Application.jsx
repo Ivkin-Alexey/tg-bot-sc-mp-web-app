@@ -1,6 +1,7 @@
 import React from 'react';
 import {Box} from "@mui/material";
-import {constants, forms} from "../../assets/constants";
+import localisations from "../../assets/constants/localisations";
+import forms from "../../assets/constants/forms";
 import Form from "../../components/Form/Form";
 import {useParams} from "react-router-dom";
 
@@ -8,7 +9,7 @@ const Application = () => {
 
     const {application} = useParams();
     const textInputs = forms[application];
-    const {tgMainButtonText} = constants.pages.application;
+    const {tgMainButtonText} = localisations.pages.application;
 
     return (
         <Box
