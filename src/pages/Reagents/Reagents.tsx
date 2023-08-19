@@ -1,12 +1,11 @@
 import React from 'react';
 import './Reagents.css';
 import AddIcon from '@mui/icons-material/Add';
-import {Button, IconButton, Stack, TextField} from "@mui/material";
+import {Button, Stack,} from "@mui/material";
 import {useCallback, useEffect, useState} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
 import localisations from '../../assets/constants/localisations';
 import forms from "../../assets/constants/forms";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import {ITextInputAttributes, IReagentsListItem} from "../../types/interfaces";
 import ReagentsFormItem from "../../components/ReagentsFormItem/ReagentsFormItem";
 
@@ -58,7 +57,6 @@ const Reagents = () => {
             if (Object.values(data[i]).some(el => el === '')) {
                 isDataFilled = false;
                 tg.MainButton.hide();
-                console.log('hide')
                 return;
             }
         }
@@ -71,7 +69,7 @@ const Reagents = () => {
 
     const addReagent = () => {
         setData(data => [...data, defaultTextInputsValues]);
-        setInputsList((list: [ITextInputAttributes[]]) => [...list, defaultInputsList])
+        setInputsList((list: [ITextInputAttributes[]]) => [...list, defaultInputsList]);
     };
 
     const deleteReagent = (index) => {
