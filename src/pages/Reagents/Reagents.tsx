@@ -19,17 +19,27 @@ const Reagents = () => {
         [cur.inputAttributes.name]: cur.other.initValue
     }), {});
 
-    const [data, setData] = useState<IReagentsListItem[]>([defaultTextInputsValues]);
+    const [reagentsData, setReagentsData] = useState<IReagentsListItem[]>([defaultTextInputsValues]);
     const [inputsList, setInputsList] = useState<[ITextInputAttributes[]]>([defaultInputsList]);
 
-    const {tg} = useTelegram();
+    const {tg, queryId} = useTelegram();
 
     const onSendData = useCallback(() => {
-        tg.sendData(JSON.stringify(data));
-    }, [data])
+        const data = {
+            reagentsData,
+            queryId,
+        }
+        fetch('http://92.53.101.85:8000/web-data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+    }, [reagentsData])
 
     const onChangeData = (e, index) => {
-        setData(data => data.map((el, i) => {
+        setReagentsData(data => data.map((el, i) => {
             if (i === index) {
                 return {...el, [e.target.name]: e.target.value}
             } else {
@@ -53,8 +63,8 @@ const Reagents = () => {
 
     useEffect(() => {
         let isDataFilled = true;
-        for (let i = 0; i < data.length; i++) {
-            if (Object.values(data[i]).some(el => el === '')) {
+        for (let i = 0; i < reagentsData.length; i++) {
+            if (Object.values(reagentsData[i]).some(el => el === '')) {
                 isDataFilled = false;
                 tg.MainButton.hide();
                 return;
@@ -65,16 +75,16 @@ const Reagents = () => {
             console.log('show')
         }
 
-    }, [data])
+    }, [reagentsData])
 
     const addReagent = () => {
-        setData(data => [...data, defaultTextInputsValues]);
+        setReagentsData(data => [...data, defaultTextInputsValues]);
         setInputsList((list: [ITextInputAttributes[]]) => [...list, defaultInputsList]);
     };
 
     const deleteReagent = (index) => {
         setInputsList(list => list.filter((_, i) => i !== index));
-        setData(data => data.filter((_, i) => i !== index));
+        setReagentsData(data => data.filter((_, i) => i !== index));
     }
 
     return (
@@ -86,7 +96,7 @@ const Reagents = () => {
                 {inputsList.map((el, i) => {
                     return <ReagentsFormItem
                         inputs={inputsList[i]}
-                        data={data}
+                        data={reagentsData}
                         index={i}
                         key={i}
                         deleteReagent={deleteReagent}
@@ -97,7 +107,7 @@ const Reagents = () => {
                     variant="contained"
                     endIcon={<AddIcon/>}
                     onClick={addReagent}
-                    disabled={data.length >= reagents.maxNumberOfReagents}
+                    disabled={reagentsData.length >= reagents.maxNumberOfReagents}
                     disableElevation
                 />
             </Stack>

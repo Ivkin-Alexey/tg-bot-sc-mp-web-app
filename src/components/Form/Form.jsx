@@ -7,12 +7,22 @@ const Form = (props) => {
     const {textInputs, tgMainButtonText} = props;
     const defaultTextInputsValues = textInputs.reduce((acc, cur) => ({ ...acc, [cur.inputAttributes.name]: cur.other.initValue}), {});
 
-    const [data, setData] = useState(defaultTextInputsValues);
+    const [formData, setFormData] = useState(defaultTextInputsValues);
+    const {tg, queryId} = useTelegram();
 
     const onSendData = useCallback(() => {
-        tg.sendData(JSON.stringify(data));
-        console.log(data);
-    }, [data])
+            const data = {
+                formData,
+                queryId,
+            }
+            fetch('http://92.53.101.85:8000/web-data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+    }, [formData])
 
     useEffect(() => {
         tg.onEvent('mainButtonClicked', onSendData)
@@ -21,7 +31,6 @@ const Form = (props) => {
         }
     }, [onSendData])
 
-    const {tg} = useTelegram();
 
     useEffect(() => {
         tg.MainButton.setParams({
@@ -30,15 +39,15 @@ const Form = (props) => {
     }, [])
 
     useEffect(() => {
-        if (Object.values(data).some(el => el === '')) {
+        if (Object.values(formData).some(el => el === '')) {
             tg.MainButton.hide();
         } else {
             tg.MainButton.show();
         }
-    }, [data])
+    }, [formData])
 
     const onChangeData = (e) => {
-        setData((state) => ({
+        setFormData((state) => ({
             ...state,
             [e.target.name]: e.target.value
         }));
@@ -51,7 +60,7 @@ const Form = (props) => {
                     onChange={onChangeData}
                     fullWidth
                     error={false}
-                    value={data[el.inputAttributes.name]}
+                    value={formData[el.inputAttributes.name]}
                     {...el.inputAttributes}
                 />
             })
