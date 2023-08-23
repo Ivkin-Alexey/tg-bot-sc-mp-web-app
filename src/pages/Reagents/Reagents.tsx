@@ -36,6 +36,8 @@ const Reagents = () => {
             },
             body: JSON.stringify(data)
         })
+        console.log(data);
+        console.log(queryId);
     }, [reagentsData])
 
     const onChangeData = (e, index) => {
