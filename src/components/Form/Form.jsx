@@ -9,6 +9,7 @@ const Form = (props) => {
 
     const [formData, setFormData] = useState(defaultTextInputsValues);
     const {tg, queryId} = useTelegram();
+    const [error, setError] = useState(tgMainButtonText)
 
     const onSendData = useCallback(() => {
             const data = {
@@ -25,6 +26,7 @@ const Form = (props) => {
                     body: JSON.stringify(data)
                 })
             } catch (e) {
+                setError(e)
                 console.log(e);
             }
 
@@ -40,9 +42,9 @@ const Form = (props) => {
 
     useEffect(() => {
         tg.MainButton.setParams({
-            text: tgMainButtonText
+            text: error
         })
-    }, [])
+    }, [error])
 
     useEffect(() => {
         if (Object.values(formData).some(el => el === '')) {
