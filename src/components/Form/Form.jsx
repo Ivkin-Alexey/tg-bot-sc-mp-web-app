@@ -15,13 +15,13 @@ const Form = (props) => {
                 formData,
                 queryId,
             }
-            // fetch('http://92.53.101.85:8000/web-data', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify(data)
-            // })
+            fetch('https://92.53.101.85:8000/web-data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
 
         tg.sendData(JSON.stringify(data.formData))
     }, [formData])
