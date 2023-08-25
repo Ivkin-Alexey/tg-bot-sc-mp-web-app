@@ -22,7 +22,7 @@ const Form = (props) => {
             //     },
             //     body: JSON.stringify(data)
             // })
-        tg.sendData(JSON.stringify(data.formData))
+        tg.sendData(data)
     }, [formData])
 
     useEffect(() => {
