@@ -12,16 +12,6 @@ const Application = () => {
     const textInputs = forms[application];
     const {tgMainButtonText} = localisations.pages.application;
 
-    const navigate = useNavigate();
-    const redirect = () => navigate('/applications');
-
-    useEffect(() => {
-        tg.onEvent('backButtonClicked', redirect)
-        return () => {
-            tg.offEvent('backButtonClicked', redirect)
-        }
-    }, []);
-
     return (
         <Box
             component="form"
