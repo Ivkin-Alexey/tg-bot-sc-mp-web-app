@@ -5,10 +5,22 @@ import {equipment} from '../../assets/db/db';
 import {useNavigate} from "react-router-dom";
 import ListItemLink from "../../components/ListItemLink/ListItemLink";
 import localisations from '../../assets/constants/localisations'
+import {useTelegram} from "../../hooks/useTelegram";
+import {useEffect} from "@types/react";
 
 export default function EquipmentCategoryList() {
 
     let navigate = useNavigate();
+    const {tg} = useTelegram();
+
+    const redirect = () => navigate('/');
+
+    useEffect(() => {
+        tg.onEvent('backButtonClicked', redirect)
+        return () => {
+            tg.offEvent('backButtonClicked', redirect)
+        }
+    }, [])
 
     return (
 

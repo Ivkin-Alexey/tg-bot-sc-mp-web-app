@@ -51,12 +51,9 @@ const Reagents = () => {
         }))
     };
 
-    const redirect = () => {
-        navigate('/')
-    }
+    const redirect = () => navigate('/');
 
     useEffect(() => {
-        tg.BackButton.show()
         tg.onEvent('backButtonClicked', redirect)
         return () => {
             tg.offEvent('backButtonClicked', redirect)
