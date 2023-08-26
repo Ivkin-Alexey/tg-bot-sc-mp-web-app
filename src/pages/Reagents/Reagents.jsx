@@ -6,7 +6,6 @@ import {useCallback, useEffect, useState} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
 import localisations from '../../assets/constants/localisations';
 import forms from "../../assets/constants/forms";
-import {ITextInputAttributes, IReagentsListItem} from "../../types/interfaces";
 import ReagentsFormItem from "../../components/ReagentsFormItem/ReagentsFormItem";
 import {useNavigate} from "react-router-dom";
 
@@ -91,7 +90,7 @@ const Reagents = () => {
 
     const addReagent = () => {
         setReagentsData(data => [...data, defaultTextInputsValues]);
-        setInputsList((list: [ITextInputAttributes[]]) => [...list, defaultInputsList]);
+        setInputsList((list) => [...list, defaultInputsList]);
     };
 
     const deleteReagent = (index) => {
