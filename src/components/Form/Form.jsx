@@ -9,14 +9,12 @@ const Form = (props) => {
 
     const [formData, setFormData] = useState(defaultTextInputsValues);
     const {tg, queryId} = useTelegram();
-    const [error, setError] = useState(tgMainButtonText)
 
     const onSendData = useCallback(() => {
             const data = {
                 formData,
                 queryId,
             }
-
             try {
                 fetch('https://92.53.101.85:8000/web-data', {
                     method: 'POST',
@@ -25,8 +23,8 @@ const Form = (props) => {
                     },
                     body: JSON.stringify(data)
                 })
+                console.log(data);
             } catch (e) {
-                setError(e)
                 console.log(e);
             }
 
@@ -42,9 +40,9 @@ const Form = (props) => {
 
     useEffect(() => {
         tg.MainButton.setParams({
-            text: error
+            text: tgMainButtonText
         })
-    }, [error])
+    }, [])
 
     useEffect(() => {
         if (Object.values(formData).some(el => el === '')) {
@@ -62,7 +60,8 @@ const Form = (props) => {
     }
 
     return (
-            textInputs.map((el, i) => {
+        <>
+            {textInputs.map((el, i) => {
                 return <TextField
                     key={i}
                     onChange={onChangeData}
@@ -71,7 +70,10 @@ const Form = (props) => {
                     value={formData[el.inputAttributes.name]}
                     {...el.inputAttributes}
                 />
-            })
+            })}
+            <button type={"button"} onClick={onSendData}>Отправить</button>
+        </>
+
     );
 };
 

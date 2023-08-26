@@ -8,8 +8,11 @@ import localisations from '../../assets/constants/localisations';
 import forms from "../../assets/constants/forms";
 import {ITextInputAttributes, IReagentsListItem} from "../../types/interfaces";
 import ReagentsFormItem from "../../components/ReagentsFormItem/ReagentsFormItem";
+import {useNavigate} from "react-router-dom";
 
 const Reagents = () => {
+
+    const navigate = useNavigate();
 
     const defaultInputsList: ITextInputAttributes[] = forms.reagentsFormItem;
     const {reagents} = localisations.pages;
@@ -36,8 +39,6 @@ const Reagents = () => {
             },
             body: JSON.stringify(data)
         })
-        console.log(data);
-        console.log(queryId);
     }, [reagentsData])
 
     const onChangeData = (e, index) => {
@@ -49,6 +50,18 @@ const Reagents = () => {
             }
         }))
     };
+
+    const redirect = () => {
+        navigate('/')
+    }
+
+    useEffect(() => {
+        tg.BackButton.show()
+        tg.onEvent('backButtonClicked', redirect)
+        return () => {
+            tg.offEvent('backButtonClicked', redirect)
+        }
+    }, [])
 
     useEffect(() => {
         tg.onEvent('mainButtonClicked', onSendData)
