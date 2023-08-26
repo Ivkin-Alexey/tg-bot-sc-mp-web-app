@@ -7,7 +7,7 @@ import EditPersonalData from "./pages/EditPersonalData/EditPersonalData";
 import Menu from "./pages/Menu/Menu";
 import ApplicationList from "./pages/ApplicationList/ApplicationList";
 import EquipmentCategoryList from "./pages/EquipmentCategoryList/EquipmentCategoryList"
-import Reagents from "./pages/Reagents/Reagents.jsx";
+import Reagents from "./pages/Reagents/Reagents.tsx";
 import Application from "./pages/Application/Application";
 import Profile from "./pages/Profile/Profile";
 
