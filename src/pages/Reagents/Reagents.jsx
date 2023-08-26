@@ -14,16 +14,16 @@ const Reagents = () => {
 
     const navigate = useNavigate();
 
-    const defaultInputsList: ITextInputAttributes[] = forms.reagentsFormItem;
+    const defaultInputsList = forms.reagentsFormItem;
     const {reagents} = localisations.pages;
 
-    const defaultTextInputsValues: IReagentsListItem = defaultInputsList.reduce((acc, cur) => ({
+    const defaultTextInputsValues = defaultInputsList.reduce((acc, cur) => ({
         ...acc,
         [cur.inputAttributes.name]: cur.other.initValue
     }), {});
 
-    const [reagentsData, setReagentsData] = useState<IReagentsListItem[]>([defaultTextInputsValues]);
-    const [inputsList, setInputsList] = useState<[ITextInputAttributes[]]>([defaultInputsList]);
+    const [reagentsData, setReagentsData] = useState([defaultTextInputsValues]);
+    const [inputsList, setInputsList] = useState([defaultInputsList]);
 
     const {tg, queryId} = useTelegram();
 
@@ -51,12 +51,9 @@ const Reagents = () => {
         }))
     };
 
-    const redirect = () => {
-        navigate('/')
-    }
+    const redirect = () => navigate('/');
 
     useEffect(() => {
-        tg.BackButton.show()
         tg.onEvent('backButtonClicked', redirect)
         return () => {
             tg.offEvent('backButtonClicked', redirect)

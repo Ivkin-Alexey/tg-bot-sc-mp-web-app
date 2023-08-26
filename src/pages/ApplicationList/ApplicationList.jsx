@@ -5,10 +5,21 @@ import ListSubheader from "@mui/material/ListSubheader";
 import {applications} from "../../assets/db/db";
 import ListItemLink from "../../components/ListItemLink/ListItemLink";
 import {useNavigate} from "react-router-dom";
+import {useEffect} from "@types/react";
+import {useTelegram} from "../../hooks/useTelegram";
 
 const ApplicationList = () => {
 
     let navigate = useNavigate();
+    const redirect = () => navigate('/');
+    const {tg} = useTelegram();
+
+    useEffect(() => {
+        tg.onEvent('backButtonClicked', redirect)
+        return () => {
+            tg.offEvent('backButtonClicked', redirect)
+        }
+    }, []);
 
     return (
         <List

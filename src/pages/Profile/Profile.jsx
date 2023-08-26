@@ -11,7 +11,9 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import {Grid, ListItem, ListItemIcon} from "@mui/material";
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import {useEffect} from "@types/react";
+import {useTelegram} from "../../hooks/useTelegram";
 
 export default function Profile() {
 
@@ -24,6 +26,17 @@ export default function Profile() {
         scientificAdviser,
         researchTopic
     } = userProfile;
+
+    const navigate = useNavigate();
+    const {tg} = useTelegram();
+    const redirect = () => navigate('/');
+
+    useEffect(() => {
+        tg.onEvent('backButtonClicked', redirect)
+        return () => {
+            tg.offEvent('backButtonClicked', redirect)
+        }
+    }, []);
 
     return (
         <Box sx={{minWidth: 275}}>
