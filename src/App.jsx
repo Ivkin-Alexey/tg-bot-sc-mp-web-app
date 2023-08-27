@@ -18,8 +18,16 @@ function App() {
     useEffect(() => {
         tg.BackButton.isVisible = true;
         tg.ready();
-        
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        tg.onEvent('backButtonClicked', tg.onClose())
+        return () => {
+            tg.offEvent('backButtonClicked', tg.onClose())
+        }
+    }, []);
+
+
 
     return (
         <>

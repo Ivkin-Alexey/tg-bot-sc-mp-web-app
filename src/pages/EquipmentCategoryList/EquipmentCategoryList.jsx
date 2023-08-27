@@ -20,7 +20,7 @@ export default function EquipmentCategoryList() {
         return () => {
             tg.offEvent('backButtonClicked', redirect)
         }
-    }, [])
+    }, []);
 
     return (
 

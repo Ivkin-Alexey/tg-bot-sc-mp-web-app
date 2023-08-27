@@ -57,7 +57,7 @@ const Reagents = () => {
         return () => {
             tg.offEvent('backButtonClicked', redirect)
         }
-    }, [])
+    }, []);
 
     useEffect(() => {
         tg.onEvent('mainButtonClicked', onSendData)

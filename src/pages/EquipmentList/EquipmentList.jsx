@@ -1,16 +1,29 @@
 import React from 'react';
 import {equipment} from "../../assets/db/db";
 import {Button, Card, CardActions, CardContent, CardMedia, Typography} from "@mui/material";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import img from'../../assets/img/Vega 3 LMH.jpeg';
 import './EquipmentList.css';
+import {useTelegram} from "../../hooks/useTelegram";
+import {useEffect} from "react";
 
 const EquipmentList = () => {
 
     const {category} = useParams();
     const {list} = equipment.find(el => el.category.en === category);
 
-    console.log(category);
+    let navigate = useNavigate();
+    const {tg} = useTelegram();
+
+    const redirect = () => navigate('/equipment');
+
+    useEffect(() => {
+        tg.onEvent('backButtonClicked', redirect)
+        return () => {
+            tg.offEvent('backButtonClicked', redirect)
+        }
+    }, [])
+
 
     return (
             list.map((el, i) => {
