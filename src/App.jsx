@@ -15,15 +15,17 @@ const tg = window.Telegram.WebApp;
 
 function App() {
 
+    const callBack = () => tg.onClose()
+
     useEffect(() => {
         tg.BackButton.isVisible = true;
         tg.ready();
     }, []);
 
     useEffect(() => {
-        tg.onEvent('backButtonClicked', tg.onClose())
+        tg.onEvent('backButtonClicked', callBack)
         return () => {
-            tg.offEvent('backButtonClicked', tg.onClose())
+            tg.offEvent('backButtonClicked', callBack)
         }
     }, []);
 
