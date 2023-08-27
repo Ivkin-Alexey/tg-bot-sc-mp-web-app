@@ -9,7 +9,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: userProfile.fName || "", validateRules: []}
+            other: {initValue: "", validateRules: []}
         },
         {
             inputAttributes: {
@@ -18,7 +18,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: userProfile.lName || "", validateRules: []}
+            other: {initValue: "", validateRules: []}
         },
 
         {
@@ -28,7 +28,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: userProfile.patronymic || "", validateRules: []}
+            other: {initValue: "", validateRules: []}
         },
         {
             inputAttributes: {
@@ -38,7 +38,7 @@ const forms = {
                 type: 'search',
                 required: true
             },
-            other: {initValue: userProfile.position || 'Студент', validateRules: []}
+            other: {initValue: 'Студент', validateRules: []}
         },
         {
             inputAttributes: {
@@ -48,7 +48,7 @@ const forms = {
                 helperText: 'Номер телефона нужен для экстренной связи',
                 required: true
             },
-            other: {initValue: userProfile.phone || '+7', validateRules: []}
+            other: {initValue: '+7', validateRules: []}
         },
     ],
     thermalAnalysis: [
