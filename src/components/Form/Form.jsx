@@ -40,15 +40,15 @@ const Form = (props) => {
 
     useEffect(() => {
         tg.MainButton.setParams({
-            text: tgMainButtonText
+            text: tgMainButtonText,
         })
     }, [])
 
     useEffect(() => {
         if (Object.values(formData).some(el => el === '')) {
-            tg.MainButton.hide();
+            tg.MainButton.disable();
         } else {
-            tg.MainButton.show();
+            tg.MainButton.enable();
         }
     }, [formData])
 
