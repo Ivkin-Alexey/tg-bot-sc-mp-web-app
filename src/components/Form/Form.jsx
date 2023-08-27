@@ -71,7 +71,6 @@ const Form = (props) => {
                     {...el.inputAttributes}
                 />
             })}
-            <button type={"button"} onClick={onSendData}>Отправить</button>
         </>
 
     );
