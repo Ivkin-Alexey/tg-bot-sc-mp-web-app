@@ -1,7 +1,7 @@
 import React from 'react';
 import './Reagents.css';
 import AddIcon from '@mui/icons-material/Add';
-import {Button, Stack,} from "@mui/material";
+import {Button, Divider, Stack,} from "@mui/material";
 import {useCallback, useEffect, useState} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
 import localisations from '../../assets/constants/localisations';
@@ -81,7 +81,7 @@ const Reagents = () => {
                 return;
             }
         }
-        if(isDataFilled) {
+        if (isDataFilled) {
             tg.MainButton.show();
             console.log('show')
         }
@@ -105,14 +105,18 @@ const Reagents = () => {
                 spacing={2}
             >
                 {inputsList.map((el, i) => {
-                    return <ReagentsFormItem
-                        inputs={inputsList[i]}
-                        data={reagentsData}
-                        index={i}
-                        key={i}
-                        deleteReagent={deleteReagent}
-                        onChangeData={onChangeData}
-                    />
+                    return (
+                        <>
+                            <ReagentsFormItem
+                                inputs={inputsList[i]}
+                                data={reagentsData}
+                                index={i}
+                                key={i}
+                                deleteReagent={deleteReagent}
+                                onChangeData={onChangeData}
+                            />
+                            {inputsList.length > 1 && <Divider>{'Реактив ' + (i + 1)}</Divider>}
+                        </>)
                 })}
                 <Button
                     variant="contained"

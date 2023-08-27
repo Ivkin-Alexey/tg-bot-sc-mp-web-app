@@ -35,9 +35,6 @@ const ReagentsFormItem = (props) => {
                     </IconButton>
                 }
             </Stack>
-            <Divider>
-                <Chip label={'Реактив ' + (index+1)}/>
-            </Divider>
         </>
     );
 };

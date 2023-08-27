@@ -14,21 +14,11 @@ import {useTelegram} from "./hooks/useTelegram";
 
 function App() {
 
-    const {tg, onClose} = useTelegram();
+    const {tg} = useTelegram();
 
     useEffect(() => {
-        tg.BackButton.isVisible = true;
         tg.ready();
     }, []);
-
-    useEffect(() => {
-        tg.onEvent('backButtonClicked', onClose)
-        return () => {
-            tg.offEvent('backButtonClicked', onClose)
-        }
-    }, []);
-
-
 
     return (
         <>
