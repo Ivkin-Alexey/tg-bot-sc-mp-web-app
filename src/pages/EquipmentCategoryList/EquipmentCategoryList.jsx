@@ -6,7 +6,7 @@ import {useNavigate} from "react-router-dom";
 import ListItemLink from "../../components/ListItemLink/ListItemLink";
 import localisations from '../../assets/constants/localisations'
 import {useTelegram} from "../../hooks/useTelegram";
-import {useEffect} from "@types/react";
+import {useEffect} from "react";
 
 export default function EquipmentCategoryList() {
 

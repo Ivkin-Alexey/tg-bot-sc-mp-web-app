@@ -7,11 +7,11 @@ import {useTelegram} from "../../hooks/useTelegram";
 import localisations from '../../assets/constants/localisations';
 import forms from "../../assets/constants/forms";
 import ReagentsFormItem from "../../components/ReagentsFormItem/ReagentsFormItem";
-// import {useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const Reagents = () => {
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const defaultInputsList = forms.reagentsFormItem;
     const {reagents} = localisations.pages;
@@ -50,14 +50,14 @@ const Reagents = () => {
         }))
     };
 
-    // const redirect = () => navigate('/');
-    //
-    // useEffect(() => {
-    //     tg.onEvent('backButtonClicked', redirect)
-    //     return () => {
-    //         tg.offEvent('backButtonClicked', redirect)
-    //     }
-    // }, [])
+    const redirect = () => navigate('/');
+
+    useEffect(() => {
+        tg.onEvent('backButtonClicked', redirect)
+        return () => {
+            tg.offEvent('backButtonClicked', redirect)
+        }
+    }, [])
 
     useEffect(() => {
         tg.onEvent('mainButtonClicked', onSendData)

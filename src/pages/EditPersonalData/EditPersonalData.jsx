@@ -1,11 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './EditPersonalData.css';
 import {Box} from "@mui/material";
 import forms from '../../assets/constants/forms';
 import localisations from '../../assets/constants/localisations'
 import Form from "../../components/Form/Form";
 import {useNavigate} from "react-router-dom";
-import {useEffect} from "@types/react";
 import {useTelegram} from "../../hooks/useTelegram";
 
 const EditPersonalData = () => {

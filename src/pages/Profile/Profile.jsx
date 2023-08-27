@@ -12,7 +12,7 @@ import {Grid, ListItem, ListItemIcon} from "@mui/material";
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import {Link, useNavigate} from 'react-router-dom';
-import {useEffect} from "@types/react";
+import {useEffect} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
 
 export default function Profile() {
