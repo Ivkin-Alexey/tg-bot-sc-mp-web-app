@@ -2,8 +2,19 @@ import * as React from 'react';
 import List from "@mui/material/List";
 import ListSubheader from "@mui/material/ListSubheader";
 import ListItemLink from "../../components/ListItemLink/ListItemLink";
+import {useEffect} from "react";
+import {useTelegram} from "../../hooks/useTelegram";
 
 export default function Menu() {
+
+    const {tg, onClose} = useTelegram();
+
+    useEffect(() => {
+        tg.onEvent('backButtonClicked', onClose)
+        return () => {
+            tg.offEvent('backButtonClicked', onClose)
+        }
+    }, []);
 
     return (
             <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
