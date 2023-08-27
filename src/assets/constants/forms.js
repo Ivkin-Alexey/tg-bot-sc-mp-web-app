@@ -35,7 +35,6 @@ const forms = {
                 name: 'position',
                 label: 'Должность',
                 id: 'outlined-search',
-                type: 'search',
                 required: true
             },
             other: {initValue: 'Студент', validateRules: []}
