@@ -10,12 +10,11 @@ import EquipmentCategoryList from "./pages/EquipmentCategoryList/EquipmentCatego
 import Reagents from "./pages/Reagents/Reagents.jsx";
 import Application from "./pages/Application/Application";
 import Profile from "./pages/Profile/Profile";
-
-const tg = window.Telegram.WebApp;
+import {useTelegram} from "./hooks/useTelegram";
 
 function App() {
 
-    const callBack = () => tg.onClose()
+    const {tg, onClose} = useTelegram();
 
     useEffect(() => {
         tg.BackButton.isVisible = true;
@@ -23,9 +22,9 @@ function App() {
     }, []);
 
     useEffect(() => {
-        tg.onEvent('backButtonClicked', callBack)
+        tg.onEvent('backButtonClicked', onClose)
         return () => {
-            tg.offEvent('backButtonClicked', callBack)
+            tg.offEvent('backButtonClicked', onClose)
         }
     }, []);
 
