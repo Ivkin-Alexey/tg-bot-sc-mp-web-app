@@ -16,7 +16,9 @@ const tg = window.Telegram.WebApp;
 function App() {
 
     useEffect(() => {
+        tg.BackButton.isVisible = true;
         tg.ready();
+        
     }, [])
 
     return (
