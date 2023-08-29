@@ -14,6 +14,7 @@ const ApplicationList = () => {
     const {tg} = useTelegram();
 
     useEffect(() => {
+        tg.MainButton.isVisible = false;
         tg.onEvent('backButtonClicked', redirect)
         return () => {
             tg.offEvent('backButtonClicked', redirect)

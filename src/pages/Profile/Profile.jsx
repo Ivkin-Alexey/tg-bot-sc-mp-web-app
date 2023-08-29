@@ -32,6 +32,7 @@ export default function Profile() {
     const redirect = () => navigate('/');
 
     useEffect(() => {
+        tg.MainButton.isVisible = false;
         tg.onEvent('backButtonClicked', redirect)
         return () => {
             tg.offEvent('backButtonClicked', redirect)

@@ -10,6 +10,7 @@ export default function Menu() {
     const {tg, onClose} = useTelegram();
 
     useEffect(() => {
+        tg.MainButton.isVisible = false;
         tg.onEvent('backButtonClicked', onClose)
         return () => {
             tg.offEvent('backButtonClicked', onClose)
