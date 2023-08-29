@@ -18,7 +18,7 @@ const Form = (props) => {
                 queryId,
             }
             try {
-                fetch(`https://${staticServerIP}:${port}/web-data`, {
+                fetch(`http://${staticServerIP}:${port}/web-data`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
