@@ -169,7 +169,7 @@ const forms = {
         {
             inputAttributes: {
                 name: 'reagentName',
-                label: 'Название',
+                label: 'Название вещества',
                 id: 'outlined-required',
                 required: true
             },
