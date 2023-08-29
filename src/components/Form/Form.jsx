@@ -1,10 +1,12 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useTelegram} from "../../hooks/useTelegram";
 import {TextField} from "@mui/material";
+import constants from "../../assets/constants/constants";
 
 const Form = (props) => {
 
     const {textInputs, tgMainButtonText} = props;
+    const {port, staticServerIP} = constants;
     const defaultTextInputsValues = textInputs.reduce((acc, cur) => ({ ...acc, [cur.inputAttributes.name]: cur.other.initValue}), {});
 
     const [formData, setFormData] = useState(defaultTextInputsValues);
@@ -16,7 +18,7 @@ const Form = (props) => {
                 queryId,
             }
             try {
-                fetch('https://92.53.101.85:8000/web-data', {
+                fetch(`https://${staticServerIP}:${port}/web-data`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
