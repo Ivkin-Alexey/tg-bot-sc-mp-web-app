@@ -31,6 +31,25 @@ const Form = (props) => {
             }
     }, [formData])
 
+    const sendData = () => {
+        const data = {
+            formData: "12332",
+            queryId: 546,
+        }
+        try {
+            fetch(`http://${staticServerIP}:${port}/web-data`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            console.log(data);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     useEffect(() => {
         tg.onEvent('mainButtonClicked', onSendData)
         return () => {
@@ -71,7 +90,7 @@ const Form = (props) => {
                     {...el.inputAttributes}
                 />
             })}
-            <button onClick={onSendData}>Отправить</button>
+            <button onClick={sendData}>Отправить</button>
         </>
 
     );
