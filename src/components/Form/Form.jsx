@@ -12,7 +12,7 @@ const Form = (props) => {
     const [formData, setFormData] = useState(defaultTextInputsValues);
     const {tg, queryId} = useTelegram();
 
-    console.log(tg);
+    console.log(tg, queryId);
 
     const onSendData = useCallback(() => {
             const data = {
