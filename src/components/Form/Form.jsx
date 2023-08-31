@@ -12,6 +12,8 @@ const Form = (props) => {
     const [formData, setFormData] = useState(defaultTextInputsValues);
     const {tg, queryId} = useTelegram();
 
+    console.log(tg);
+
     const onSendData = useCallback(() => {
             const data = {
                 formData,
@@ -29,6 +31,7 @@ const Form = (props) => {
             } catch (e) {
                 console.log(e);
             }
+
     }, [formData])
 
     useEffect(() => {
