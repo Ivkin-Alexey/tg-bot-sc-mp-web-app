@@ -26,7 +26,7 @@ const Form = (props) => {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(data)
-                })
+                }).then(res => console.log(res))
                 console.log(data);
             } catch (e) {
                 console.log(e);
