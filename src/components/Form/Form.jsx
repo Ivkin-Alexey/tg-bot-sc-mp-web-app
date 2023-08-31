@@ -15,7 +15,7 @@ const Form = (props) => {
     const onSendData = useCallback(() => {
             const data = {
                 formData,
-                queryId: 546,
+                queryId,
             }
             try {
                 fetch(`http://${staticServerIP}:${port}/web-data`, {
@@ -30,25 +30,6 @@ const Form = (props) => {
                 console.log(e);
             }
     }, [formData])
-
-    const sendData = () => {
-        const data = {
-            formData: "12332",
-            queryId: 546,
-        }
-        try {
-            fetch(`http://${staticServerIP}:${port}/web-data`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            })
-            console.log(data);
-        } catch (e) {
-            console.log(e);
-        }
-    }
 
     useEffect(() => {
         tg.onEvent('mainButtonClicked', onSendData)
@@ -90,7 +71,6 @@ const Form = (props) => {
                     {...el.inputAttributes}
                 />
             })}
-            <button onClick={sendData}>Отправить</button>
         </>
 
     );
