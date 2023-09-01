@@ -7,7 +7,10 @@ const Form = (props) => {
 
     const {textInputs, tgMainButtonText} = props;
     const {serverDomain} = constants;
-    const defaultTextInputsValues = textInputs.reduce((acc, cur) => ({ ...acc, [cur.inputAttributes.name]: cur.other.initValue}), {});
+    const defaultTextInputsValues = textInputs.reduce((acc, cur) => ({
+        ...acc,
+        [cur.inputAttributes.name]: cur.other.initValue
+    }), {});
 
     const [formData, setFormData] = useState(defaultTextInputsValues);
     const {tg, queryId} = useTelegram();
@@ -15,22 +18,23 @@ const Form = (props) => {
     console.log(tg, queryId);
 
     const onSendData = useCallback(() => {
-            const data = {
-                formData,
-                queryId,
-            }
-            try {
-                fetch(`${serverDomain}/web-data`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                }).then(res => console.log(res))
-                console.log(data);
-            } catch (e) {
-                console.log(e);
-            }
+        const data = {
+            formData,
+            queryId,
+        }
+        try {
+            fetch(`${serverDomain}/web-data`, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            }).then(res => console.log(res))
+            console.log(data);
+        } catch (e) {
+            console.log(e);
+        }
 
     }, [formData])
 
