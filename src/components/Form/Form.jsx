@@ -6,7 +6,7 @@ import constants from "../../assets/constants/constants";
 const Form = (props) => {
 
     const {textInputs, tgMainButtonText} = props;
-    const {port, staticServerIP} = constants;
+    const {serverDomain} = constants;
     const defaultTextInputsValues = textInputs.reduce((acc, cur) => ({ ...acc, [cur.inputAttributes.name]: cur.other.initValue}), {});
 
     const [formData, setFormData] = useState(defaultTextInputsValues);
@@ -20,7 +20,7 @@ const Form = (props) => {
                 queryId,
             }
             try {
-                fetch(`https://${staticServerIP}:${port}/web-data`, {
+                fetch(`${serverDomain}/web-data`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
