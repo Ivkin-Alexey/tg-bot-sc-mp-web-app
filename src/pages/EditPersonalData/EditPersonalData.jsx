@@ -23,22 +23,7 @@ const EditPersonalData = () => {
         }
     }, []);
 
-    return (
-        <Box
-            component="form"
-            sx={{
-                '& .MuiTextField-root': {m: 1, width: '90%'},
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-
-            }}
-            noValidate
-            autoComplete="off"
-        >
-            <Form textInputs={textInputs} tgMainButtonText={tgMainButtonText}/>
-        </Box>
-    );
+    return <Form textInputs={textInputs} tgMainButtonText={tgMainButtonText}/>;
 };
 
 export default EditPersonalData;

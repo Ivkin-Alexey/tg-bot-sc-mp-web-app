@@ -1,7 +1,8 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useTelegram} from "../../hooks/useTelegram";
-import {TextField} from "@mui/material";
+import {Stack, TextField} from "@mui/material";
 import constants from "../../assets/constants/constants";
+import ListSubheader from "@mui/material/ListSubheader";
 
 const Form = (props) => {
 
@@ -67,7 +68,14 @@ const Form = (props) => {
     }
 
     return (
-        <>
+        <Stack
+            direction="column"
+            spacing={2}
+            width={"350px"}
+        >
+            <ListSubheader component="div">
+                Заполните поля:
+            </ListSubheader>
             {textInputs.map((el, i) => {
                 return <TextField
                     key={i}
@@ -78,7 +86,7 @@ const Form = (props) => {
                     {...el.inputAttributes}
                 />
             })}
-        </>
+        </Stack>
 
     );
 };

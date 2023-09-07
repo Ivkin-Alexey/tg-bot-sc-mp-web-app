@@ -1,6 +1,7 @@
 import React from 'react';
-import {Chip, Divider, IconButton, Stack, TextField} from "@mui/material";
+import {IconButton, Stack, TextField} from "@mui/material";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import "./ReagentsFormItem.css"
 
 const ReagentsFormItem = (props) => {
 
@@ -17,6 +18,7 @@ const ReagentsFormItem = (props) => {
                     direction="column"
                     alignItems="center"
                     spacing={2}
+                    width={"350px"}
                 >
                     {inputs.map((el, i) => {
                         return <TextField
@@ -30,7 +32,7 @@ const ReagentsFormItem = (props) => {
                     })}
                 </Stack>
                 {index === 0 ? null :
-                    <IconButton aria-label="delete" size="large" onClick={() => deleteReagent(index)}>
+                    <IconButton aria-label="delete" size="large" onClick={() => deleteReagent(index)} sx={{ml: "0"}}>
                         <RemoveCircleOutlineIcon size="large" color="inherit"/>
                     </IconButton>
                 }
