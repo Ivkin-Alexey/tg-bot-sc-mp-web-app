@@ -1,6 +1,4 @@
 import React from 'react';
-import './Application.css';
-import {Box} from "@mui/material";
 import localisations from "../../assets/constants/localisations";
 import forms from "../../assets/constants/forms";
 import Form from "../../components/Form/Form";
