@@ -4,7 +4,7 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
 const ReagentsFormItem = (props) => {
 
-    const {inputs, data, index, deleteReagent, onChangeData} = props;
+    const {inputs, data, index, deleteReagent, onChangeData, reagentsNumber} = props;
 
     return (
         <>
@@ -17,7 +17,7 @@ const ReagentsFormItem = (props) => {
                     direction="column"
                     alignItems="center"
                     spacing={2}
-                    width={"350px"}
+                    width={reagentsNumber <= 1 ? "350px" : "300px"}
                 >
                     {inputs.map((el, i) => {
                         return <TextField
@@ -30,8 +30,8 @@ const ReagentsFormItem = (props) => {
                         />
                     })}
                 </Stack>
-                {index === 0 ? null :
-                    <IconButton aria-label="delete" size="large" onClick={() => deleteReagent(index)} sx={{ml: "0"}}>
+                {reagentsNumber <= 1 ? null :
+                    <IconButton aria-label="delete" size="large" onClick={() => deleteReagent(index)} sx={{marginLeft: "0"}}>
                         <RemoveCircleOutlineIcon size="large" color="inherit"/>
                     </IconButton>
                 }

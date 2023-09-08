@@ -8,6 +8,7 @@ import localisations from '../../assets/constants/localisations';
 import forms from "../../assets/constants/forms";
 import ReagentsFormItem from "../../components/ReagentsFormItem/ReagentsFormItem";
 import {useNavigate} from "react-router-dom";
+import ListSubheader from "@mui/material/ListSubheader";
 
 const Reagents = () => {
 
@@ -104,6 +105,9 @@ const Reagents = () => {
                 direction="column"
                 spacing={2}
             >
+                <ListSubheader component="div">
+                    Заполните поля:
+                </ListSubheader>
                 {inputsList.map((el, i) => {
                     return (
                         <>
@@ -111,6 +115,7 @@ const Reagents = () => {
                                 inputs={inputsList[i]}
                                 data={reagentsData}
                                 index={i}
+                                reagentsNumber={inputsList.length}
                                 key={i}
                                 deleteReagent={deleteReagent}
                                 onChangeData={onChangeData}
