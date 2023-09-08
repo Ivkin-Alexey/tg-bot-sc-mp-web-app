@@ -1,7 +1,6 @@
 import React from 'react';
 import {IconButton, Stack, TextField} from "@mui/material";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import "ReagentsFormItem.css"
 
 const ReagentsFormItem = (props) => {
 
