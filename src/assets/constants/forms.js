@@ -87,7 +87,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: '', validateRules: []}
+            other: {initValue: 'Воздух', validateRules: []}
         },
         {
             inputAttributes: {
@@ -144,7 +144,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: '', validateRules: []}
+            other: {initValue: 'Воздух', validateRules: []}
         },
         {
             inputAttributes: {

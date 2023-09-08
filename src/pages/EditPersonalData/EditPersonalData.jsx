@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import './EditPersonalData.css';
+// import './EditPersonalData.css';
 import {Box} from "@mui/material";
 import forms from '../../assets/constants/forms';
 import localisations from '../../assets/constants/localisations'
