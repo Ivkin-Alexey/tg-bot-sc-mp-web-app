@@ -4,11 +4,24 @@ import {Button, Stack, Step, StepContent, StepLabel} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import {useTelegram} from "../../hooks/useTelegram";
+import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 
 const NewUserPage = () => {
 
     const {tg} = useTelegram();
-    
+
+    const navigate = useNavigate();
+    const redirect = () => navigate('/');
+
+    useEffect(() => {
+        tg.MainButton.isVisible = false;
+        tg.onEvent('backButtonClicked', redirect)
+        return () => {
+            tg.offEvent('backButtonClicked', redirect)
+        }
+    }, []);
+
     const steps = [
         {
             label: 'Заполните свои данные',
