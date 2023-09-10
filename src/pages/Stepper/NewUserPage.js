@@ -1,6 +1,7 @@
 import React from 'react';
 import Stepper from '@mui/material/Stepper';
-import {Button, Stack, Step, StepContent, StepLabel} from "@mui/material";
+import {Stack, Step, StepContent, StepLabel} from "@mui/material";
+import Button from "../../components/Button/Button"
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import {useTelegram} from "../../hooks/useTelegram";
@@ -76,7 +77,6 @@ const NewUserPage = () => {
                                         disableElevation
                                         onClick={handleNext}
                                         sx={{mt: 1, mr: 1}}
-                                        color={tg.themeParams.button_color}
                                     >
                                         {step.nextButtonText}
                                     </Button>
@@ -85,7 +85,6 @@ const NewUserPage = () => {
                                         disabled={index === 0}
                                         onClick={handleBack}
                                         sx={{mt: 1, mr: 1}}
-                                        color={tg.themeParams.button_color}
                                     >
                                         Назад
                                     </Button>
