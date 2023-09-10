@@ -11,6 +11,10 @@ import Reagents from "./pages/Reagents/Reagents.jsx";
 import Application from "./pages/Application/Application";
 import Profile from "./pages/Profile/Profile";
 import {useTelegram} from "./hooks/useTelegram";
+import Statistic from "./components/Statistic/Statistic";
+import ActiveEmployees from "./pages/ActiveEmployees/ActiveEmploees";
+import ActiveEquipment from "./pages/ActiveEquipment/ActiveEquipment";
+import NewUserPage from "./pages/Stepper/NewUserPage";
 
 function App() {
 
@@ -32,8 +36,11 @@ function App() {
                     <Route path={'equipment/:category'} element={<EquipmentList/>}/>
                     <Route path={'applications'} element={<ApplicationList/>}/>
                     <Route path={'applications/:application'} element={<Application/>}/>
+                    <Route path={'statistic/activeEquipment'} element={<ActiveEquipment/>}/>
+                    <Route path={'statistic/activeEmployees'} element={<ActiveEmployees/>}/>
                     <Route path={'profile'} element={<Profile/>}/>
                     <Route path={'profile/editeProfile'} element={<EditPersonalData/>}/>
+                    <Route path={'stepper'} element={<NewUserPage/>}/>
                 </Routes>
             </main>
         </>

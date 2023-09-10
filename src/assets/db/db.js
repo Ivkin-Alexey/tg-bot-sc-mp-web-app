@@ -32,3 +32,10 @@ export const applications = [
         urlName: 'furnaces',
     },
 ];
+
+export const statistic = [
+    {user: "Габдулхаков Р.Р.", equipment: "УЗК-1"},
+    {user: "Зубкова О.С.", equipment: "Лоип 1"},
+    {user: "Спецов Е.А.", equipment: "Quantochrom"},
+    {user: "Кудинова А.А.", equipment: "Tescan Vega 3.0"}
+]
