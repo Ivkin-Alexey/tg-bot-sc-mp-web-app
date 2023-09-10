@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import Button from "../Button/Button";
+import {Button} from "@mui/material";
 import {useTelegram} from "../../hooks/useTelegram";
 import './Header.css';
 

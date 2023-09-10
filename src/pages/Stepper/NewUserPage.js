@@ -1,11 +1,14 @@
 import React from 'react';
 import Stepper from '@mui/material/Stepper';
-import {Button, Step, StepContent, StepLabel} from "@mui/material";
+import {Button, Stack, Step, StepContent, StepLabel} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import {useTelegram} from "../../hooks/useTelegram";
 
 const NewUserPage = () => {
 
+    const {tg} = useTelegram();
+    
     const steps = [
         {
             label: 'Заполните свои данные',
@@ -31,53 +34,55 @@ const NewUserPage = () => {
         },
     ];
 
-        const [activeStep, setActiveStep] = React.useState(0);
+    const [activeStep, setActiveStep] = React.useState(0);
 
-        const handleNext = () => {
-            setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        };
+    const handleNext = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    };
 
-        const handleBack = () => {
-            setActiveStep((prevActiveStep) => prevActiveStep - 1);
-        };
+    const handleBack = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
 
     return (
-        <Stepper activeStep={activeStep} orientation="vertical">
-            {steps.map((step, index) => (
-                <Step key={step.label}>
-                    <StepLabel
-                        // optional={
-                        //     index === 2 ? (
-                        //         <Typography variant="caption">Last step</Typography>
-                        //     ) : null
-                        // }
-                    >
-                        {step.label}
-                    </StepLabel>
-                    <StepContent>
-                        <Typography sx={{maxHeight: 'none'}}>{step.description}</Typography>
-                        <Box sx={{ mb: 2 }}>
-                            <div>
-                                <Button
-                                    variant="contained"
-                                    onClick={handleNext}
-                                    sx={{ mt: 1, mr: 1 }}
-                                >
-                                    {step.nextButtonText}
-                                </Button>
-                                <Button
-                                    disabled={index === 0}
-                                    onClick={handleBack}
-                                    sx={{ mt: 1, mr: 1 }}
-                                >
-                                    Назад
-                                </Button>
-                            </div>
-                        </Box>
-                    </StepContent>
-                </Step>
-            ))}
-        </Stepper>
+        <Stack
+            direction="column"
+            spacing={2}
+            width={"350px"}
+        >
+            <Stepper activeStep={activeStep} orientation="vertical">
+                {steps.map((step, index) => (
+                    <Step key={step.label}>
+                        <StepLabel>{step.label}</StepLabel>
+                        <StepContent>
+                            <Typography sx={{maxHeight: 'none'}}>{step.description}</Typography>
+                            <Box sx={{mb: 2}}>
+                                <div>
+                                    <Button
+                                        variant="contained"
+                                        disableElevation
+                                        onClick={handleNext}
+                                        sx={{mt: 1, mr: 1}}
+                                        color={tg.themeParams.button_color}
+                                    >
+                                        {step.nextButtonText}
+                                    </Button>
+                                    <Button
+                                        disableElevation
+                                        disabled={index === 0}
+                                        onClick={handleBack}
+                                        sx={{mt: 1, mr: 1}}
+                                        color={tg.themeParams.button_color}
+                                    >
+                                        Назад
+                                    </Button>
+                                </div>
+                            </Box>
+                        </StepContent>
+                    </Step>
+                ))}
+            </Stepper>
+        </Stack>
     );
 };
 
