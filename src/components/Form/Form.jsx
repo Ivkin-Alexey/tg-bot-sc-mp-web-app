@@ -17,19 +17,17 @@ const Form = (props) => {
     const {tg, queryId} = useTelegram();
 
     const onSendData = useCallback(() => {
-        const data = {
-            formData,
-            queryId,
-        }
         try {
             fetch(`https://${staticServerIP}:${port}/web-data`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({data: 123})
+                body: JSON.stringify({
+                    formData,
+                    queryId,
+                })
             }).then(res => console.log(res))
-            console.log(data);
         } catch (e) {
             console.log(e);
         }
