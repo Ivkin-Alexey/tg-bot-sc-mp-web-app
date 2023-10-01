@@ -27,7 +27,7 @@ const Form = (props) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify({data: 123})
             }).then(res => console.log(res))
             console.log(data);
         } catch (e) {
