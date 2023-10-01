@@ -16,8 +16,6 @@ const Form = (props) => {
     const [formData, setFormData] = useState(defaultTextInputsValues);
     const {tg, queryId} = useTelegram();
 
-    console.log(tg, queryId);
-
     const onSendData = useCallback(() => {
         const data = {
             formData,
@@ -26,7 +24,6 @@ const Form = (props) => {
         try {
             fetch(`https://${staticServerIP}:${port}/web-data`, {
                 method: 'POST',
-                mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json',
                 },
