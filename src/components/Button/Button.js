@@ -1,10 +1,13 @@
 import React from 'react';
 import {Button as MUIButton} from "@mui/material";
-import "./Button.css"
+import { useTheme } from '@mui/material/styles';
 
 const Button = (props) => {
+
+    const theme = useTheme();
+
     return (
-        <MUIButton className="button" {...props}/>
+        <MUIButton className="button" theme={theme} color="tgBtn" {...props}/>
     );
 };
 
