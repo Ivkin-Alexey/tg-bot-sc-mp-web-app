@@ -50,11 +50,11 @@ export default function Menu() {
                   </ListSubheader>
               }>
             {isNew && renderStepperPage()}
-            <ListItemLink to="/equipment" primary="Оборудование"/>
-            <ListItemLink to="/applications" primary="Заявки на исследование"/>
-            <ListItemLink to="/reagents" primary="Заявки на реактивы"/>
+            {/*<ListItemLink to="/equipment" primary="Оборудование"/>*/}
+            {/*<ListItemLink to="/applications" primary="Заявки на исследование"/>*/}
+            {/*<ListItemLink to="/reagents" primary="Заявки на реактивы"/>*/}
             <ListItemLink to="/profile" primary="Профиль"/>
-            {isAdmin && renderAdminPages()}
+            {/*{isAdmin && renderAdminPages()}*/}
         </List>
     );
 }
