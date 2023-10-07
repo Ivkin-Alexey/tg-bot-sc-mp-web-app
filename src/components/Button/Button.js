@@ -7,7 +7,7 @@ const Button = (props) => {
     const theme = useTheme();
 
     return (
-        <MUIButton className="button" theme={theme} color="tgBtn" {...props}/>
+        <MUIButton className="button" color="tgBtn" {...props}/>
     );
 };
 
