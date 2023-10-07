@@ -1,7 +1,7 @@
 import React from 'react';
 import Stepper from '@mui/material/Stepper';
 import {Stack, Step, StepContent, StepLabel} from "@mui/material";
-import Button from "../../components/Button/Button"
+import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import {useTelegram} from "../../hooks/useTelegram";

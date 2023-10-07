@@ -4,8 +4,6 @@ import { useTheme } from '@mui/material/styles';
 
 const Button = (props) => {
 
-    const theme = useTheme();
-
     return (
         <MUIButton className="button" color="tgBtn" {...props}/>
     );
