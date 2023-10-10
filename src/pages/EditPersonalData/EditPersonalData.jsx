@@ -6,8 +6,11 @@ import localisations from '../../assets/constants/localisations'
 import Form from "../../components/Form/Form";
 import {useNavigate} from "react-router-dom";
 import {useTelegram} from "../../hooks/useTelegram";
+import {useSelector} from "react-redux";
 
 const EditPersonalData = () => {
+
+    const {userData} = useSelector(state => state.users);
 
     const navigate = useNavigate();
     const {tg} = useTelegram();
@@ -23,7 +26,7 @@ const EditPersonalData = () => {
         }
     }, []);
 
-    return <Form textInputs={textInputs} tgMainButtonText={tgMainButtonText}/>;
+    return <Form textInputs={textInputs} defaultValues={userData} tgMainButtonText={tgMainButtonText}/>;
 };
 
 export default EditPersonalData;

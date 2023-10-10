@@ -6,8 +6,8 @@ import ListSubheader from "@mui/material/ListSubheader";
 
 const Form = (props) => {
 
-    const {textInputs, tgMainButtonText} = props;
-    const {staticServerIP, port} = constants;
+    const {textInputs, tgMainButtonText, defaultValues} = props;
+    const {serverDomain, port} = constants;
     const defaultTextInputsValues = textInputs.reduce((acc, cur) => ({
         ...acc,
         [cur.inputAttributes.name]: cur.other.initValue
@@ -18,7 +18,7 @@ const Form = (props) => {
 
     const onSendData = useCallback(() => {
         try {
-            fetch(`https://${staticServerIP}:${port}/web-data`, {
+            fetch(`https://${serverDomain}:${port}/web-data`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

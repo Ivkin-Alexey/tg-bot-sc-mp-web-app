@@ -11,25 +11,33 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import {Grid, ListItem, ListItemIcon} from "@mui/material";
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
-import {Link, useNavigate} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import {useEffect} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
+import {useSelector} from "react-redux";
 
 export default function Profile() {
-
-    const {
-        fName,
-        lName,
-        patronymic,
-        phone,
-        position,
-        scientificAdviser,
-        researchTopic
-    } = userProfile;
 
     const navigate = useNavigate();
     const {tg} = useTelegram();
     const redirect = () => navigate('/');
+    let {userData} = useSelector(state => state.users);
+
+    const {
+        firstName,
+        lastName,
+        patronymic,
+        phone,
+        position,
+        study,
+        research,
+        type,
+        otherInfo
+    } = userData;
+
+
+
+
 
     useEffect(() => {
         tg.MainButton.isVisible = false;
@@ -47,17 +55,17 @@ export default function Profile() {
                         {position}
                     </Typography>
                     <Typography variant="h5" component="div" sx={{mb: 1.5}}>
-                        {lName + ' ' + fName + ' ' + patronymic}
+                        {lastName + ' ' + firstName + ' ' + patronymic}
                     </Typography>
                     <Typography sx={{mb: 1.5}}>
-                        Тел.: {phone}
+                        Тел.: {phone ? phone : <b>Не указан</b>}
                     </Typography>
                     <Typography sx={{fontSize: 14, mb: 1.5}}>
-                        Научный руководитель: {scientificAdviser}
+                        {research ? phone : "Не указан"}
                     </Typography>
-                    <Typography sx={{fontSize: 14, mb: 1.5, maxHeight: '500px'}}>
-                        Тема исследований: {researchTopic}
-                    </Typography>
+                    {/*<Typography sx={{fontSize: 14, mb: 1.5, maxHeight: '500px'}}>*/}
+                    {/*    Тема исследований: {researchTopic}*/}
+                    {/*</Typography>*/}
                 </CardContent>
                 <CardActions>
                     <Button component={Link} to="/profile/editeProfile" variant="contained" color="primary" disableElevation>

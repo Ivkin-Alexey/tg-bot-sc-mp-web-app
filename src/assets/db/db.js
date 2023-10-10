@@ -1,3 +1,5 @@
+import {getUsers} from "../../methods/requestsToServer";
+
 export const equipment = [
     {
         category: {ru: 'Избранное', en: 'favourites'},
@@ -39,3 +41,7 @@ export const statistic = [
     {user: "Спецов Е.А.", equipment: "Quantochrom"},
     {user: "Кудинова А.А.", equipment: "Tescan Vega 3.0"}
 ]
+
+export const users = await getUsers();
+
+

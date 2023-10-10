@@ -5,13 +5,18 @@ import ListItemLink from "../../components/ListItemLink/ListItemLink";
 import {useEffect, useState} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
 import {Chip, Divider} from "@mui/material";
+import {fetchUsers} from "../../redux/actions";
+import {useDispatch} from "react-redux";
+import constants from "../../assets/constants/constants";
 
 export default function Menu() {
 
-    const {tg, onClose} = useTelegram();
+    const {tg, onClose, userChatID} = useTelegram();
 
     const [isAdmin, setIsAdmin] = useState(true);
     const [isNew, setIsNew] = useState(true);
+    const dispatch = useDispatch();
+    const {defaultUserChatID} = constants;
 
     useEffect(() => {
         tg.MainButton.isVisible = false;
@@ -21,12 +26,17 @@ export default function Menu() {
         }
     }, []);
 
+    useEffect(() => {
+        dispatch(fetchUsers(userChatID ?? defaultUserChatID));
+    }, []);
+
     const renderAdminPages = () => {
         return (
             <>
                 <Divider/>
-                <ListItemLink to="/statistic/activeEquipment" primary="Активное оборудование"/>
-                <ListItemLink to="/statistic/activeEmployees" primary="Активные работники"/>
+                <ListItemLink to="/userList" primary="Сотрудники лаборатории"/>
+                {/*<ListItemLink to="/statistic/activeEmployees" primary="Активные работники"/>*/}
+                {/*<ListItemLink to="/statistic/activeEmployees" primary="Активные работники"/>*/}
             </>
         )
     }
@@ -54,7 +64,7 @@ export default function Menu() {
             {/*<ListItemLink to="/applications" primary="Заявки на исследование"/>*/}
             {/*<ListItemLink to="/reagents" primary="Заявки на реактивы"/>*/}
             <ListItemLink to="/profile" primary="Мой профиль"/>
-            {/*{isAdmin && renderAdminPages()}*/}
+            {isAdmin && renderAdminPages()}
         </List>
     );
 }

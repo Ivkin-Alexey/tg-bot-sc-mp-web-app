@@ -15,6 +15,7 @@ import Statistic from "./components/Statistic/Statistic";
 import ActiveEmployees from "./pages/ActiveEmployees/ActiveEmploees";
 import ActiveEquipment from "./pages/ActiveEquipment/ActiveEquipment";
 import NewUserPage from "./pages/Stepper/NewUserPage";
+import Users from "./pages/Users/Users";
 
 function App() {
 
@@ -38,6 +39,8 @@ function App() {
                     <Route path={'applications/:application'} element={<Application/>}/>
                     <Route path={'statistic/activeEquipment'} element={<ActiveEquipment/>}/>
                     <Route path={'statistic/activeEmployees'} element={<ActiveEmployees/>}/>
+                    <Route path={'userList'} element={<Users/>}/>
+                    <Route path={'userList/:userChatID'} element={<Profile/>}/>
                     <Route path={'profile'} element={<Profile/>}/>
                     <Route path={'profile/editeProfile'} element={<EditPersonalData/>}/>
                     <Route path={'stepper'} element={<NewUserPage/>}/>
