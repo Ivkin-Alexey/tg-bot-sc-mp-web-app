@@ -22,6 +22,7 @@ const Users = () => {
     }, []);
 
     const {users} = useSelector(state => state.users);
+    console.log(users);
 
     function createName(user) {
         const {firstName, lastName, patronymic} = user;
@@ -30,6 +31,9 @@ const Users = () => {
             name+=lastName;
             if(firstName) name+= " " + firstName[0] + ".";
             if(patronymic) name+=patronymic[0] + ".";
+        } else if (firstName) {
+            name+=firstName;
+            if(patronymic) name+= " " + patronymic;
         }
         return name;
     }
@@ -48,6 +52,7 @@ const Users = () => {
             {users && users.map((el, i) => {
 
                 const name = createName(el);
+                if(!name) return;
 
                 return (
                     <ListItemLink
