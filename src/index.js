@@ -19,20 +19,12 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-let store = createStore(persistedReducer, compose(
-        applyMiddleware(
-            thunk
-        ),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    )
-);
+let store = createStore(persistedReducer, compose(applyMiddleware(thunk)));
 
-let persistor = persistStore(store)
+let persistor = persistStore(store);
 export const history = createBrowserHistory({
     basename: process.env.PUBLIC_URL
 });
-
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
