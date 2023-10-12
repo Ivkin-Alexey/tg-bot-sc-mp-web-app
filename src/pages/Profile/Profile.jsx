@@ -18,10 +18,12 @@ import {useSelector} from "react-redux";
 
 export default function Profile() {
 
+    let {userChatID} = useParams();
+    console.log(userChatID);
     const navigate = useNavigate();
     const {tg} = useTelegram();
     const redirect = () => navigate('/');
-    let {userData} = useSelector(state => state.users);
+    let userData = useSelector(state => state.users.users.find(el => el.chatID === +userChatID));
 
     const {
         firstName,
