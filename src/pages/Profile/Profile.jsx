@@ -11,7 +11,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import {Grid, ListItem, ListItemIcon} from "@mui/material";
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
-import {Link, useNavigate, useParams} from 'react-router-dom';
+import {Link, useLocation, useNavigate, useParams} from 'react-router-dom';
 import {useEffect} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
 import {useSelector} from "react-redux";
@@ -19,7 +19,9 @@ import {useSelector} from "react-redux";
 export default function Profile() {
 
     let {userChatID} = useParams();
-    console.log(userChatID);
+    const {pathname} = useLocation();
+    let path = `/${userChatID}/editeProfile`;
+    if(pathname.includes("userList")) path = `/userList/${userChatID}/editeProfile`
     const navigate = useNavigate();
     const {tg} = useTelegram();
     const redirect = () => navigate('/');
@@ -66,7 +68,7 @@ export default function Profile() {
                     {/*</Typography>*/}
                 </CardContent>
                 <CardActions>
-                    <Button component={Link} to="/profile/editeProfile" variant="contained" color="primary" disableElevation>
+                    <Button component={Link} to={path} variant="contained" color="primary" disableElevation>
                         Редактировать
                     </Button>
                 </CardActions>

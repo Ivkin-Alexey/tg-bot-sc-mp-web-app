@@ -11,12 +11,11 @@ import constants from "../../assets/constants/constants";
 
 export default function Menu() {
 
-    const {tg, onClose, userChatID} = useTelegram();
+    const {tg, onClose, userChatID = constants.defaultUserChatID} = useTelegram();
 
     const [isAdmin, setIsAdmin] = useState(true);
     const [isNew, setIsNew] = useState(true);
     const dispatch = useDispatch();
-    const {defaultUserChatID} = constants;
 
     useEffect(() => {
         tg.MainButton.isVisible = false;
@@ -27,8 +26,7 @@ export default function Menu() {
     }, []);
 
     useEffect(() => {
-        console.log(userChatID, defaultUserChatID);
-        dispatch(fetchUsers(userChatID ?? defaultUserChatID));
+        dispatch(fetchUsers(userChatID));
     }, []);
 
     const renderAdminPages = () => {
@@ -64,7 +62,7 @@ export default function Menu() {
             {/*<ListItemLink to="/equipment" primary="Оборудование"/>*/}
             {/*<ListItemLink to="/applications" primary="Заявки на исследование"/>*/}
             {/*<ListItemLink to="/reagents" primary="Заявки на реактивы"/>*/}
-            <ListItemLink to="/profile" primary="Мой профиль"/>
+            <ListItemLink to={`/${userChatID}`} primary="Мой профиль"/>
             {isAdmin && renderAdminPages()}
         </List>
     );

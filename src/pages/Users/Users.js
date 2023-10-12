@@ -22,7 +22,6 @@ const Users = () => {
     }, []);
 
     const {users} = useSelector(state => state.users);
-    console.log(users);
 
     function createName(user) {
         const {firstName, lastName, patronymic} = user;

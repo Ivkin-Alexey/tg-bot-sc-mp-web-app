@@ -10,10 +10,11 @@ const Form = (props) => {
     const {serverDomain, port} = constants;
     const defaultTextInputsValues = textInputs.reduce((acc, cur) => ({
         ...acc,
-        [cur.inputAttributes.name]: cur.other.initValue
+        [cur.inputAttributes.name]: defaultValues[cur.inputAttributes.name] || cur.other.initValue
     }), {});
 
     const [formData, setFormData] = useState(defaultTextInputsValues);
+    console.log(formData);
     const {tg, queryId} = useTelegram();
 
     const onSendData = useCallback(() => {

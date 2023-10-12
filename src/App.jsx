@@ -41,8 +41,9 @@ function App() {
                     <Route path={'statistic/activeEmployees'} element={<ActiveEmployees/>}/>
                     <Route path={'userList'} element={<Users/>}/>
                     <Route path={'userList/:userChatID'} element={<Profile/>}/>
-                    <Route path={'profile'} element={<Profile/>}/>
-                    <Route path={'profile/editeProfile'} element={<EditPersonalData/>}/>
+                    <Route path={'userList/:userChatID/editeProfile'} element={<EditPersonalData/>}/>
+                    <Route path={'/:userChatID'} element={<Profile/>}/>
+                    <Route path={'/:userChatID/editeProfile'} element={<EditPersonalData/>}/>
                     <Route path={'stepper'} element={<NewUserPage/>}/>
                 </Routes>
             </main>
