@@ -35,10 +35,6 @@ export default function Profile() {
         otherInfo
     } = userData;
 
-
-
-
-
     useEffect(() => {
         tg.MainButton.isVisible = false;
         tg.onEvent('backButtonClicked', redirect)

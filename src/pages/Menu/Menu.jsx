@@ -27,6 +27,7 @@ export default function Menu() {
     }, []);
 
     useEffect(() => {
+        console.log(userChatID, defaultUserChatID);
         dispatch(fetchUsers(userChatID ?? defaultUserChatID));
     }, []);
 
