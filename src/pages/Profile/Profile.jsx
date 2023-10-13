@@ -21,7 +21,7 @@ export default function Profile() {
     let {userChatID} = useParams();
     const {pathname} = useLocation();
     let path = `/${userChatID}/editeProfile`;
-    if(pathname.includes("userList")) path = `/userList/${userChatID}/editeProfile`
+    if (pathname.includes("userList")) path = `/userList/${userChatID}/editeProfile`
     const navigate = useNavigate();
     const {tg} = useTelegram();
     const redirect = () => navigate('/');
@@ -36,8 +36,10 @@ export default function Profile() {
         study,
         research,
         type,
-        otherInfo
+        otherInfo,
     } = userData;
+
+    const {registrationDate, isUserConfirmed, isUserDataSent} = otherInfo;
 
     useEffect(() => {
         tg.MainButton.isVisible = false;
@@ -47,25 +49,46 @@ export default function Profile() {
         }
     }, []);
 
+    function renderRegistrationStatusInfo() {
+        return (
+            <>
+                {isUserDataSent ?
+                    <>
+                        <Typography sx={{mb: 1.5}}>
+                            {"Дата регистрации: " + registrationDate}
+                        </Typography>
+                        {isUserConfirmed ?
+                            <Typography sx={{mb: 1.5}}>
+                                Ваша заявка подтверждена
+                            </Typography> :
+                            <Typography sx={{mb: 1.5}}>
+                                <b>Ожидайте подтверждения заявки</b>
+                            </Typography>
+                        }
+                    </>
+                    : <b>Заполните и отправьте все данные</b>
+                }
+            </>
+        )
+    }
+
     return (
         <Box sx={{minWidth: 275}}>
             <Card variant="outlined">
                 <CardContent>
                     <Typography sx={{fontSize: 14, mb: 1.5}}>
-                        {position}
+                        {position ? position : <b>Должность не указана</b>}
                     </Typography>
                     <Typography variant="h5" component="div" sx={{mb: 1.5}}>
                         {lastName + ' ' + firstName + ' ' + patronymic}
                     </Typography>
                     <Typography sx={{mb: 1.5}}>
-                        Тел.: {phone ? phone : <b>Не указан</b>}
+                        Телефон: {phone ? phone : <b>Не указан</b>}
                     </Typography>
-                    <Typography sx={{fontSize: 14, mb: 1.5}}>
-                        {research ? phone : "Не указан"}
+                    <Typography sx={{mb: 1.5}}>
+                        Научное направление: {research ? research : <b>Не указано</b>}
                     </Typography>
-                    {/*<Typography sx={{fontSize: 14, mb: 1.5, maxHeight: '500px'}}>*/}
-                    {/*    Тема исследований: {researchTopic}*/}
-                    {/*</Typography>*/}
+                    {renderRegistrationStatusInfo()}
                 </CardContent>
                 <CardActions>
                     <Button component={Link} to={path} variant="contained" color="primary" disableElevation>
@@ -73,9 +96,6 @@ export default function Profile() {
                     </Button>
                 </CardActions>
                 <Grid item xs={12} md={6}>
-                    {/*                    <Typography sx={{mt: 4, mb: 2}} variant="h6" component="div">
-                        Требования:
-                    </Typography>*/}
                     <List>
                         {userRequirements.map((el, i) => {
                             return (
