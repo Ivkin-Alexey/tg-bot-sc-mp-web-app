@@ -6,7 +6,7 @@ import ListSubheader from "@mui/material/ListSubheader";
 
 const Form = (props) => {
 
-    const {textInputs, tgMainButtonText, defaultValues} = props;
+    const {textInputs, tgMainButtonText, defaultValues, userChatID} = props;
     const {serverDomain, port} = constants;
     const defaultTextInputsValues = textInputs.reduce((acc, cur) => ({
         ...acc,
@@ -14,12 +14,11 @@ const Form = (props) => {
     }), {});
 
     const [formData, setFormData] = useState(defaultTextInputsValues);
-    console.log(formData);
     const {tg, queryId} = useTelegram();
 
     const onSendData = useCallback(() => {
         try {
-            fetch(`https://${serverDomain}:${port}/web-data`, {
+            fetch(`https://${serverDomain}:${port}/updateUserData`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,6 +26,7 @@ const Form = (props) => {
                 body: JSON.stringify({
                     formData,
                     queryId,
+                    userChatID
                 })
             }).then(res => console.log(res))
         } catch (e) {

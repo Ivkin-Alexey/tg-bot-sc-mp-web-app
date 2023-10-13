@@ -12,7 +12,6 @@ const EditPersonalData = () => {
 
     const {userChatID}= useParams();
     let userData = useSelector(state => state.users.users.find(el => el.chatID === +userChatID));
-    console.log(userData);
 
     const navigate = useNavigate();
     const {tg} = useTelegram();
@@ -28,7 +27,7 @@ const EditPersonalData = () => {
         }
     }, []);
 
-    return <Form textInputs={textInputs} defaultValues={userData} tgMainButtonText={tgMainButtonText}/>;
+    return <Form textInputs={textInputs} defaultValues={userData} tgMainButtonText={tgMainButtonText} userChatID={userChatID}/>;
 };
 
 export default EditPersonalData;
