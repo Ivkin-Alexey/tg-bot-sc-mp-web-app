@@ -18,7 +18,7 @@ const EditPersonalData = () => {
     const textInputs = forms.editPersonalData;
     const {tgMainButtonText} = localisations.pages.editPersonalData;
 
-    const redirect = () => navigate('/profile');
+    const redirect = () => navigate('/' + userChatID);
 
     useEffect(() => {
         tg.onEvent('backButtonClicked', redirect)
