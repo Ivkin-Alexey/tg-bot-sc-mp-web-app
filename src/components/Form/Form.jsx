@@ -30,7 +30,7 @@ const Form = (props) => {
                 })
             }).then((res) => {
                 console.log(res);
-                tg.showAlert(confirmMessage, () => tg.onClose())
+                tg.showAlert(confirmMessage, tg.onClose())
             })
         } catch (e) {
             console.log(e);
@@ -71,6 +71,7 @@ const Form = (props) => {
             direction="column"
             spacing={2}
             width={"350px"}
+            marginBottom={"50px"}
         >
             <ListSubheader component="div">
                 Заполните поля:
