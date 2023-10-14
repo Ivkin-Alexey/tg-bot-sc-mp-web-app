@@ -20,8 +20,8 @@ export default function Profile() {
 
     let {userChatID} = useParams();
     const {pathname} = useLocation();
-    let path = `/${userChatID}/editeProfile`;
-    if (pathname.includes("userList")) path = `/userList/${userChatID}/editeProfile`
+    let path = `/${userChatID}/editProfile`;
+    if (pathname.includes("userList")) path = `/userList/${userChatID}/editProfile`
     const navigate = useNavigate();
     const {tg} = useTelegram();
     const redirect = () => navigate('/');
