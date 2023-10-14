@@ -32,19 +32,19 @@ function App() {
             <main className="main">
                 <Routes>
                     <Route index element={<Menu/>}/>
-                    <Route path={'equipment'} element={<EquipmentCategoryList/>}/>
-                    <Route path={'reagents'} element={<Reagents/>}/>
-                    <Route path={'equipment/:category'} element={<EquipmentList/>}/>
-                    <Route path={'applications'} element={<ApplicationList/>}/>
-                    <Route path={'applications/:application'} element={<Application/>}/>
-                    <Route path={'statistic/activeEquipment'} element={<ActiveEquipment/>}/>
-                    <Route path={'statistic/activeEmployees'} element={<ActiveEmployees/>}/>
+                    {/*<Route path={'equipment'} element={<EquipmentCategoryList/>}/>*/}
+                    {/*<Route path={'reagents'} element={<Reagents/>}/>*/}
+                    {/*<Route path={'equipment/:category'} element={<EquipmentList/>}/>*/}
+                    {/*<Route path={'applications'} element={<ApplicationList/>}/>*/}
+                    {/*<Route path={'applications/:application'} element={<Application/>}/>*/}
+                    {/*<Route path={'statistic/activeEquipment'} element={<ActiveEquipment/>}/>*/}
+                    {/*<Route path={'statistic/activeEmployees'} element={<ActiveEmployees/>}/>*/}
                     <Route path={'userList'} element={<Users/>}/>
                     <Route path={'userList/:userChatID'} element={<Profile/>}/>
                     <Route path={'userList/:userChatID/editProfile'} element={<EditPersonalData/>}/>
                     <Route path={'/:userChatID'} element={<Profile/>}/>
                     <Route path={'/:userChatID/editProfile'} element={<EditPersonalData/>}/>
-                    <Route path={'stepper'} element={<NewUserPage/>}/>
+                    {/*<Route path={'stepper'} element={<NewUserPage/>}/>*/}
                 </Routes>
             </main>
         </>

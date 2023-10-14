@@ -8,13 +8,16 @@ import Typography from '@mui/material/Typography';
 import {userProfile, userRequirements} from "../../assets/db/userData";
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import {Grid, ListItem, ListItemIcon} from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import DoneOutlineRoundedIcon from '@mui/icons-material/DoneOutlineRounded';
+import {Grid, IconButton, ListItem, ListItemIcon} from "@mui/material";
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import {Link, useLocation, useNavigate, useParams} from 'react-router-dom';
 import {useEffect} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
 import {useSelector} from "react-redux";
+import constants from "../../assets/constants/constants";
 
 export default function Profile() {
 
@@ -59,16 +62,40 @@ export default function Profile() {
                         </Typography>
                         {isUserConfirmed ?
                             <Typography sx={{mb: 1.5}}>
-                                Ваша заявка подтверждена
+                                Заявка подтверждена
                             </Typography> :
                             <Typography sx={{mb: 1.5}}>
-                                <b>Ожидайте подтверждения заявки</b>
+                                <b>Ожидается подтверждение заявки</b>
                             </Typography>
                         }
                     </>
                     : <b>Заполните и отправьте все данные</b>
                 }
             </>
+        )
+    }
+
+    function renderSuperAdminButtons() {
+        return (
+            <>
+                {!isUserConfirmed && <IconButton aria-label="done" sx={{marginRight: "8px"}}>
+                    <DoneOutlineRoundedIcon color="success"/>
+                </IconButton>}
+                <Button component={Link} to={path} variant="outlined" color="primary" size="small" disableElevation>
+                    Редактировать
+                </Button>
+                <IconButton aria-label="delete" sx={{marginLeft: "8px"}}>
+                    <DeleteIcon color="error"/>
+                </IconButton>
+            </>
+        )
+    }
+
+    function renderUserButtons() {
+        return (
+            <Button component={Link} to={path} variant="contained" color="primary" size="small" disableElevation>
+                Редактировать
+            </Button>
         )
     }
 
@@ -86,14 +113,12 @@ export default function Profile() {
                         Телефон: {phone ? phone : <b>Не указан</b>}
                     </Typography>
                     <Typography sx={{mb: 1.5}}>
-                        Научное направление: {research ? "\"" + research + "\"": <b>Не указано</b>}
+                        Научное направление: {research ? "\"" + research + "\"" : <b>Не указано</b>}
                     </Typography>
                     {renderRegistrationStatusInfo()}
                 </CardContent>
                 <CardActions>
-                    <Button component={Link} to={path} variant="contained" color="primary" disableElevation>
-                        Редактировать
-                    </Button>
+                    {type === constants.userRoles.superAdmin ? renderSuperAdminButtons() : renderUserButtons()}
                 </CardActions>
                 <Grid item xs={12} md={6}>
                     <List>
