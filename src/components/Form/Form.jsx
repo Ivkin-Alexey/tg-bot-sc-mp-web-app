@@ -31,7 +31,7 @@ const Form = (props) => {
                 })
             }).then((res) => {
                 console.log(res);
-                tg.showAlert(confirmMessage, () => tg.onClose())
+                tg.showAlert(confirmMessage, () => tg.close())
             })
         } catch (e) {
             console.log(e);
@@ -88,7 +88,7 @@ const Form = (props) => {
                     {...el.inputAttributes}
                 />
             })}
-            {/*<Button onClick={onSendData}>Отправить</Button>*/}
+            <Button onClick={onSendData}>Отправить</Button>
         </Stack>
 
     );
