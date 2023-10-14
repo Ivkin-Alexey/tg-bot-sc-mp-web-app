@@ -9,7 +9,7 @@ import {fetchUsers} from "../../redux/actions";
 
 const Users = () => {
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
     const redirect = () => navigate('/');
     const {tg} = useTelegram();
 

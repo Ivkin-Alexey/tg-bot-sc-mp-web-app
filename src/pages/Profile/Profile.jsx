@@ -86,7 +86,7 @@ export default function Profile() {
                         Телефон: {phone ? phone : <b>Не указан</b>}
                     </Typography>
                     <Typography sx={{mb: 1.5}}>
-                        Научное направление: {research ? research : <b>Не указано</b>}
+                        Научное направление: {research ? "\"" + research + "\"": <b>Не указано</b>}
                     </Typography>
                     {renderRegistrationStatusInfo()}
                 </CardContent>

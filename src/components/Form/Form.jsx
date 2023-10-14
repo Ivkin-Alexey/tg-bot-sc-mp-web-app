@@ -6,7 +6,7 @@ import ListSubheader from "@mui/material/ListSubheader";
 
 const Form = (props) => {
 
-    const {textInputs, tgMainButtonText, defaultValues, userChatID} = props;
+    const {textInputs, tgMainButtonText, defaultValues, userChatID, confirmMessage} = props;
     const {serverDomain, port} = constants;
     const defaultTextInputsValues = textInputs.reduce((acc, cur) => ({
         ...acc,
@@ -28,7 +28,10 @@ const Form = (props) => {
                     queryId,
                     userChatID
                 })
-            }).then(res => console.log(res))
+            }).then((res) => {
+                console.log(res);
+                tg.showConfirm(confirmMessage, tg.onClose)
+            })
         } catch (e) {
             console.log(e);
         }

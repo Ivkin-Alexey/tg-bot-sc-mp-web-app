@@ -1,6 +1,4 @@
 import React, {useEffect} from 'react';
-// import './EditPersonalData.css';
-import {Box} from "@mui/material";
 import forms from '../../assets/constants/forms';
 import localisations from '../../assets/constants/localisations'
 import Form from "../../components/Form/Form";
@@ -16,7 +14,7 @@ const EditPersonalData = () => {
     const navigate = useNavigate();
     const {tg} = useTelegram();
     const textInputs = forms.editPersonalData;
-    const {tgMainButtonText} = localisations.pages.editPersonalData;
+    const {tgMainButtonText, confirmMessage} = localisations.pages.editPersonalData;
 
     const redirect = () => navigate('/' + userChatID);
 
@@ -27,7 +25,12 @@ const EditPersonalData = () => {
         }
     }, []);
 
-    return <Form textInputs={textInputs} defaultValues={userData} tgMainButtonText={tgMainButtonText} userChatID={userChatID}/>;
+    return <Form textInputs
+                 defaultValues={userData}
+                 tgMainButtonText
+                 userChatID
+                 confirmMessage
+    />;
 };
 
 export default EditPersonalData;
