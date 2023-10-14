@@ -25,11 +25,11 @@ const EditPersonalData = () => {
         }
     }, []);
 
-    return <Form textInputs
+    return <Form textInputs={textInputs}
                  defaultValues={userData}
-                 tgMainButtonText
-                 userChatID
-                 confirmMessage
+                 tgMainButtonText={tgMainButtonText}
+                 userChatID={userChatID}
+                 confirmMessage={confirmMessage}
     />;
 };
 
