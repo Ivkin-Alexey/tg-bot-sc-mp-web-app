@@ -30,7 +30,7 @@ const Form = (props) => {
                 })
             }).then((res) => {
                 console.log(res);
-                tg.showConfirm(confirmMessage, tg.onClose)
+                tg.showAlert(confirmMessage, () => tg.onClose())
             })
         } catch (e) {
             console.log(e);
