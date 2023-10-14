@@ -3,6 +3,7 @@ import {useTelegram} from "../../hooks/useTelegram";
 import {Stack, TextField} from "@mui/material";
 import constants from "../../assets/constants/constants";
 import ListSubheader from "@mui/material/ListSubheader";
+import Button from "@mui/material/Button";
 
 const Form = (props) => {
 
@@ -30,7 +31,7 @@ const Form = (props) => {
                 })
             }).then((res) => {
                 console.log(res);
-                tg.showAlert(confirmMessage, tg.onClose())
+                tg.showAlert(confirmMessage, () => tg.onClose())
             })
         } catch (e) {
             console.log(e);
@@ -65,6 +66,7 @@ const Form = (props) => {
             [e.target.name]: e.target.value
         }));
     }
+    console.log(tg);
 
     return (
         <Stack
@@ -86,6 +88,7 @@ const Form = (props) => {
                     {...el.inputAttributes}
                 />
             })}
+            {/*<Button onClick={onSendData}>Отправить</Button>*/}
         </Stack>
 
     );
