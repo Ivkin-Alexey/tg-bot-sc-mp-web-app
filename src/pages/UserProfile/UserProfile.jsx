@@ -98,6 +98,7 @@ export default function UserProfile() {
     function onDeletePerson() {
         function callBack(buttonType) {
             if (buttonType === "ok") {
+                console.log("Hi")
                 deletePerson(chatID)
                     .then((res) => {
                         console.log(res);
