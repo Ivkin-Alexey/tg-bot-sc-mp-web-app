@@ -25,7 +25,6 @@ export function fetchUsers(chatID) {
                             if(el.type === admin || el.type === superAdmin) admins.push(el);
                             else users.push(el);
                         });
-                        console.log(users);
                         dispatch({type: SET_USER_LIST, payload: users});
                         dispatch({type: SET_ACCOUNT_DATA, payload: userData});
                         dispatch({type: SET_ADMIN_LIST, payload: admins});

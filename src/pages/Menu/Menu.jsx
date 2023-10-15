@@ -12,7 +12,9 @@ export default function Menu() {
 
     const {admin, superAdmin} = constants.userRoles;
     const {tg, onClose, chatID = constants.defaultUserChatID} = useTelegram();
-    const {type} = useSelector(state => state.users.accountData);
+    const state = useSelector(state => state.users);
+    const {users, admins, accountData} = state;
+    const type = accountData.type;
     const isAdmin = type === admin || type  === superAdmin;
 
     useEffect(() => {
@@ -27,8 +29,8 @@ export default function Menu() {
         return (
             <>
                 <Divider/>
-                <ListItemLink to="/userList" primary="Обучающиеся"/>
-                <ListItemLink to="/adminList" primary="Администраторы"/>
+                <ListItemLink to="/userList" primary={`Обучающиеся (${users.length})`}/>
+                <ListItemLink to="/adminList" primary={`Администраторы (${admins.length})`}/>
                 {/*<ListItemLink to="/statistic/activeEmployees" primary="Активные работники"/>*/}
                 {/*<ListItemLink to="/statistic/activeEmployees" primary="Активные работники"/>*/}
             </>

@@ -33,7 +33,7 @@ export default function UserProfile() {
     const navigationPath = "/userList";
     let path = `/${chatID}/editProfile`;
     if (pathname.includes("userList")) path = `/userList/${chatID}/editProfile`;
-    const redirect = navigate(navigationPath);
+    const redirect = () => navigate(navigationPath);
     const {tg} = useTelegram();
 
     function renderRequirementsBlock() {
@@ -103,7 +103,7 @@ export default function UserProfile() {
         }, callBack)
     }
 
-    function callBack(buttonType) {
+    function callBack() {
             deletePerson(chatID)
                 .then((res) => {
                     console.log(res);
