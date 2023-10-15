@@ -16,6 +16,7 @@ import constants from "../../assets/constants/constants";
 import localisations from "../../assets/constants/localisations";
 import {deletePerson} from "../../methods/postDataToServer";
 import {useTelegram} from "../../hooks/useTelegram";
+import {useEffect} from "@types/react";
 
 export default function UserProfile() {
     const {chatID} = useParams();
@@ -96,22 +97,29 @@ export default function UserProfile() {
     }
 
     function onDeletePerson() {
-        function callBack(buttonType) {
-            if (buttonType === "ok") {
-                console.log("Hi")
-                deletePerson(chatID)
-                    .then((res) => {
-                        console.log(res);
-                        redirect();
-                    })
-                    .catch(e => console.log(e))
-            }
-        }
-        tg.showConfirm({
+        tg.showPopup({
             message: applicationDeleteAlert,
             buttons: [{type: "ok", text: "Да"}, {type: "cancel", text: "Отмена"}]
         }, callBack)
     }
+
+    function callBack(buttonType) {
+        if (buttonType === "ok") {
+            deletePerson(chatID)
+                .then((res) => {
+                    console.log(res);
+                    redirect();
+                })
+                .catch(e => console.log(e))
+        }
+    }
+
+    useEffect(() => {
+        tg.onEvent('popupClosed', callBack)
+        return () => {
+            tg.offEvent('popupClosed', callBack)
+        }
+    }, []);
 
     return <Profile displayedData={displayedData}
                     role={accountData.type}
