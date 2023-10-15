@@ -31,15 +31,8 @@ function App() {
         dispatch(fetchUsers(chatID));
         tg.BackButton.isVisible = true;
     }, []);
-    const role = useSelector(state => state.users.accountData.type);
-    useEffect(() => {
-        if(role) {
-            tg.ready();
-        }
-        tg.BackButton.isVisible = true;
-    }, [role]);
 
-
+    const role = useSelector(state => state.users.accountData?.type);
     const {admin, superAdmin} = constants.userRoles;
     const isAdmin = (role === admin || role === superAdmin);
 

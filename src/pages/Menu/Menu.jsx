@@ -27,7 +27,7 @@ export default function Menu() {
         return (
             <>
                 <Divider/>
-                <ListItemLink to="/userList" primary="Сотрудники лаборатории"/>
+                <ListItemLink to="/userList" primary="Обучающиеся"/>
                 <ListItemLink to="/adminList" primary="Администраторы"/>
                 {/*<ListItemLink to="/statistic/activeEmployees" primary="Активные работники"/>*/}
                 {/*<ListItemLink to="/statistic/activeEmployees" primary="Активные работники"/>*/}
