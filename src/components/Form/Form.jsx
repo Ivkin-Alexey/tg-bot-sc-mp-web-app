@@ -1,14 +1,14 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useTelegram} from "../../hooks/useTelegram";
 import {Stack, TextField} from "@mui/material";
-import constants from "../../assets/constants/constants";
 import ListSubheader from "@mui/material/ListSubheader";
+import {updatePersonData} from "../../methods/postDataToServer";
 import Button from "@mui/material/Button";
 
 const Form = (props) => {
 
-    const {textInputs, tgMainButtonText, defaultValues, userChatID, confirmMessage} = props;
-    const {serverDomain, port} = constants;
+    const {textInputs, tgMainButtonText, defaultValues, chatID, confirmMessage} = props;
+
     const defaultTextInputsValues = textInputs.reduce((acc, cur) => ({
         ...acc,
         [cur.inputAttributes.name]: defaultValues[cur.inputAttributes.name] || cur.other.initValue
@@ -18,25 +18,10 @@ const Form = (props) => {
     const {tg, queryId} = useTelegram();
 
     const onSendData = useCallback(() => {
-        try {
-            fetch(`https://${serverDomain}:${port}/updateUserData`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    formData,
-                    queryId,
-                    userChatID
-                })
-            }).then((res) => {
-                console.log(res);
-                tg.showPopup({message: confirmMessage, buttons: [{type: "ok", text: "Ок"}]}, () => tg.close())
-            })
-        } catch (e) {
-            console.log(e);
-        }
-
+        updatePersonData(formData, queryId, chatID)
+            .then((res) => {
+            tg.showPopup({message: confirmMessage, buttons: [{type: "ok", text: "Ок"}]}, () => tg.close())
+        });
     }, [formData])
 
     useEffect(() => {
@@ -66,7 +51,6 @@ const Form = (props) => {
             [e.target.name]: e.target.value
         }));
     }
-    console.log(tg);
 
     return (
         <Stack
@@ -88,7 +72,7 @@ const Form = (props) => {
                     {...el.inputAttributes}
                 />
             })}
-            {/*<Button onClick={onSendData}>Отправить</Button>*/}
+            <Button onClick={onSendData}>Отправить</Button>
         </Stack>
 
     );

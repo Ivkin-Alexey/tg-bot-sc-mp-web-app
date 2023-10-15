@@ -2,22 +2,18 @@ import * as React from 'react';
 import List from "@mui/material/List";
 import ListSubheader from "@mui/material/ListSubheader";
 import ListItemLink from "../../components/ListItemLink/ListItemLink";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
-import {Chip, Divider} from "@mui/material";
-import {fetchUsers} from "../../redux/actions";
-import {useDispatch, useSelector} from "react-redux";
+import {Divider} from "@mui/material";
+import {useSelector} from "react-redux";
 import constants from "../../assets/constants/constants";
 
 export default function Menu() {
 
-    const {user, admin, superAdmin} = constants.userRoles;
-    const {tg, onClose, userChatID = constants.defaultUserChatID} = useTelegram();
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(fetchUsers(userChatID));
-    }, []);
+    const {admin, superAdmin} = constants.userRoles;
+    const {tg, onClose, chatID = constants.defaultUserChatID} = useTelegram();
+    const {type} = useSelector(state => state.users.accountData);
+    const isAdmin = type === admin || type  === superAdmin;
 
     useEffect(() => {
         tg.MainButton.isVisible = false;
@@ -27,13 +23,12 @@ export default function Menu() {
         }
     }, []);
 
-    const {type} = useSelector(state => state.users.userData);
-
     const renderAdminPages = () => {
         return (
             <>
                 <Divider/>
                 <ListItemLink to="/userList" primary="Сотрудники лаборатории"/>
+                <ListItemLink to="/adminList" primary="Администраторы"/>
                 {/*<ListItemLink to="/statistic/activeEmployees" primary="Активные работники"/>*/}
                 {/*<ListItemLink to="/statistic/activeEmployees" primary="Активные работники"/>*/}
             </>
@@ -62,8 +57,8 @@ export default function Menu() {
             {/*<ListItemLink to="/equipment" primary="Оборудование"/>*/}
             {/*<ListItemLink to="/applications" primary="Заявки на исследование"/>*/}
             {/*<ListItemLink to="/reagents" primary="Заявки на реактивы"/>*/}
-            <ListItemLink to={`/${userChatID}`} primary="Мой профиль"/>
-            {(type === admin || type  === superAdmin) && renderAdminPages()}
+            <ListItemLink to={`/${chatID}`} primary="Мой профиль"/>
+            {isAdmin && renderAdminPages()}
         </List>
     );
 }

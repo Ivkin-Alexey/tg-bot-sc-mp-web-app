@@ -17,6 +17,18 @@ const localisations = {
         equipmentCategoryList: {
             header: 'Выберите категорию:'
         },
+        adminProfile: {
+            applicationDeleteAlert: "Вы действительно хотите удалить этого администратора?"
+        },
+        userProfile: {
+            applicationDeleteAlert: "Вы действительно хотите удалить эту заявку?"
+        },
+        userList: {
+            subHeader: "Обучающиеся"
+        },
+        adminList: {
+            subHeader: "Администраторы"
+        }
     },
     components: {},
 };

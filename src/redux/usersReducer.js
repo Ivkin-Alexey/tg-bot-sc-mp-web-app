@@ -1,16 +1,19 @@
-import {FETCH_USERS, SET_USER_DATA} from "./types";
+import {SET_USER_LIST, SET_ADMIN_LIST, SET_ACCOUNT_DATA} from "./types";
 
 const initialState = {
     users: [],
-    userData: {}
+    admins: [],
+    accountData: {}
 }
 
 export const usersReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_USERS:
+        case SET_USER_LIST:
             return {...state, users: [...action.payload]}
-        case SET_USER_DATA:
-            return {...state, userData: action.payload}
+        case SET_ACCOUNT_DATA:
+            return {...state, accountData: action.payload}
+        case SET_ADMIN_LIST:
+            return {...state, admins: [...action.payload]}
         default:
             return state
     }

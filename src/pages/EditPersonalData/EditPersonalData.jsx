@@ -8,15 +8,18 @@ import {useSelector} from "react-redux";
 
 const EditPersonalData = () => {
 
-    const {userChatID}= useParams();
-    let userData = useSelector(state => state.users.users.find(el => el.chatID === +userChatID));
+    const {chatID} = useParams();
+
+    let users = useSelector(state => state.users);
+    let userData = users.users.find(el => el?.chatID === +chatID);
+    if (!userData) userData = users.admins.find(el => el?.chatID === +chatID);
 
     const navigate = useNavigate();
     const {tg} = useTelegram();
     const textInputs = forms.editPersonalData;
     const {tgMainButtonText, confirmMessage} = localisations.pages.editPersonalData;
 
-    const redirect = () => navigate('/' + userChatID);
+    const redirect = () => navigate('/' + chatID);
 
     useEffect(() => {
         tg.onEvent('backButtonClicked', redirect)
@@ -28,7 +31,7 @@ const EditPersonalData = () => {
     return <Form textInputs={textInputs}
                  defaultValues={userData}
                  tgMainButtonText={tgMainButtonText}
-                 userChatID={userChatID}
+                 userChatID={chatID}
                  confirmMessage={confirmMessage}
     />;
 };

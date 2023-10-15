@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
 import {useTelegram} from "../../hooks/useTelegram";
 import List from "@mui/material/List";
 import ListSubheader from "@mui/material/ListSubheader";
 import ListItemLink from "../../components/ListItemLink/ListItemLink";
-import {useDispatch, useSelector} from 'react-redux';
-import {fetchUsers} from "../../redux/actions";
 
-const Users = () => {
+const ListPage = (props) => {
 
+    const {subHeader, personList, listItemPath} = props;
     const navigate = useNavigate();
     const redirect = () => navigate('/');
     const {tg} = useTelegram();
+    console.log(props);
 
     useEffect(() => {
         tg.MainButton.isVisible = false;
@@ -20,8 +20,6 @@ const Users = () => {
             tg.offEvent('backButtonClicked', redirect)
         }
     }, []);
-
-    const {users} = useSelector(state => state.users);
 
     function createName(user) {
         const {firstName, lastName, patronymic} = user;
@@ -44,21 +42,19 @@ const Users = () => {
             aria-labelledby="nested-list-subheader"
             subheader={
                 <ListSubheader component="div" id="nested-list-subheader">
-                    Список пользователей:
+                    {subHeader}
                 </ListSubheader>
             }
         >
-            {users && users.map((el, i) => {
-
+            {personList && personList.map((el, i) => {
                 const name = createName(el);
                 if(!name) return;
-
                 return (
                     <ListItemLink
-                        to={`/userList/${el.chatID}`}
+                        to={listItemPath + el.chatID}
                         primary={name}
                         key={i}
-                        onClick={() => navigate(`/userList/${el.chatID}`)}
+                        onClick={() => navigate(listItemPath + el.chatID)}
                     />
                 )
             })}
@@ -66,4 +62,4 @@ const Users = () => {
     );
 };
 
-export default Users;
+export default ListPage;
