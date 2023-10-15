@@ -20,7 +20,7 @@ export default function AdminProfile() {
     const isUser = role === constants.userRoles.user;
     const isSuperAdmin = role === constants.userRoles.superAdmin;
     const navigationPath = "/adminList";
-    const applicationDeleteAlert = localisations.pages.adminProfile;
+    const {applicationDeleteAlert} = localisations.pages.adminProfile;
     const navigate = useNavigate();
     const redirect = navigate(navigationPath);
     const {pathname} = useLocation();
@@ -29,7 +29,7 @@ export default function AdminProfile() {
 
     function onDeletePerson() {
         function callBack(buttonType) {
-            if (buttonType === "yes") {
+            if (buttonType === "ok") {
                 deletePerson(chatID)
                     .then((res) => {
                         console.log(res);
@@ -40,7 +40,7 @@ export default function AdminProfile() {
         }
         tg.showPopup({
             message: applicationDeleteAlert,
-            buttons: [{type: "yes", text: "Да"}, {type: "cancel", text: "Отмена"}]
+            buttons: [{type: "ok", text: "Да"}, {type: "cancel", text: "Отмена"}]
         }, callBack)
     }
 

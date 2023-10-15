@@ -26,7 +26,7 @@ export default function UserProfile() {
     const isSuperAdmin = role === constants.userRoles.superAdmin;
     const {otherInfo} = displayedData;
     const {registrationDate, isUserConfirmed, isUserDataSent} = otherInfo;
-    const applicationDeleteAlert = localisations.pages.userProfile;
+    const {applicationDeleteAlert} = localisations.pages.userProfile;
     const {pathname} = useLocation();
     const navigate = useNavigate();
     const navigationPath = "/userList";
@@ -97,13 +97,13 @@ export default function UserProfile() {
 
     function onDeletePerson() {
         function callBack(buttonType) {
-            if (buttonType === "yes") {
+            if (buttonType === "ok") {
                 deletePerson(chatID)
                     .then((res) => {
                         console.log(res);
                         redirect();
-                    });
-
+                    })
+                    .catch(e => console.log(e))
             }
         }
         tg.showPopup({
