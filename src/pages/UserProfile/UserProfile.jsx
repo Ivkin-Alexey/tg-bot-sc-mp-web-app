@@ -104,14 +104,12 @@ export default function UserProfile() {
     }
 
     function callBack(buttonType) {
-        if (buttonType === "ok") {
             deletePerson(chatID)
                 .then((res) => {
                     console.log(res);
                     redirect();
                 })
                 .catch(e => console.log(e))
-        }
     }
 
     useEffect(() => {
