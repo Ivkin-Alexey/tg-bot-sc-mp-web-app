@@ -106,7 +106,7 @@ export default function UserProfile() {
                     .catch(e => console.log(e))
             }
         }
-        tg.showPopup({
+        tg.showConfirm({
             message: applicationDeleteAlert,
             buttons: [{type: "ok", text: "Да"}, {type: "cancel", text: "Отмена"}]
         }, callBack)
