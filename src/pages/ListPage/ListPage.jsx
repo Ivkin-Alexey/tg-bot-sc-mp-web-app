@@ -11,7 +11,6 @@ const ListPage = (props) => {
     const navigate = useNavigate();
     const redirect = () => navigate('/');
     const {tg} = useTelegram();
-    console.log(props);
 
     useEffect(() => {
         tg.MainButton.isVisible = false;
