@@ -38,6 +38,7 @@ function App() {
     const isAdmin = (role === admin || role === superAdmin);
 
     return (
+        role ?
         <>
             {/*<Header/>*/}
             <main className="main">
@@ -61,7 +62,7 @@ function App() {
                     {/*<Route path={'stepper'} element={<NewUserPage/>}/>*/}
                 </Routes>
             </main>
-        </>
+        </> : null
     );
 }
 
