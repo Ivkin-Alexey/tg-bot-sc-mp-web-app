@@ -32,7 +32,7 @@ const EditPersonalData = () => {
     return <Form textInputs={textInputs}
                  defaultValues={userData}
                  tgMainButtonText={tgMainButtonText}
-                 userChatID={chatID}
+                 chatID={chatID}
                  confirmMessage={confirmMessage}
     />;
 };
