@@ -3,6 +3,7 @@ import constants from "../assets/constants/constants";
 const {serverDomain, port} = constants;
 
 export async function updatePersonData(formData, queryId, chatID) {
+    if(!formData || !queryId || !chatID) return;
     try {
         await fetch(`https://${serverDomain}:${port}/updateUserData`, {
             method: 'POST',
