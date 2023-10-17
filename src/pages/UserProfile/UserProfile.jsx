@@ -16,10 +16,11 @@ import constants from "../../assets/constants/constants";
 import localisations from "../../assets/constants/localisations";
 import {deletePerson} from "../../methods/postDataToServer";
 import {useTelegram} from "../../hooks/useTelegram";
-import {useEffect} from "react";
 
 export default function UserProfile() {
     const {chatID} = useParams();
+    const {tg} = useTelegram();
+    const navigate = useNavigate();
     const displayedData = useSelector(state => state.users.users.find(el => el.chatID === +chatID));
     const {accountData} = useSelector(state => state.users);
     const role = accountData.type;
@@ -29,12 +30,11 @@ export default function UserProfile() {
     const {registrationDate, isUserConfirmed, isUserDataSent} = otherInfo;
     const {applicationDeleteAlert} = localisations.pages.userProfile;
     const {pathname} = useLocation();
-    const navigate = useNavigate();
-    const navigationPath = "/userList";
+    const redirectionPath = "/userList";
+    const redirect = navigate(redirectionPath);
+
     let path = `/${chatID}/editProfile`;
     if (pathname.includes("userList")) path = `/userList/${chatID}/editProfile`;
-    const redirect = () => navigate(navigationPath);
-    const {tg} = useTelegram();
 
     function renderRequirementsBlock() {
         return (<Grid item xs={12} md={6}>
@@ -88,7 +88,7 @@ export default function UserProfile() {
                 {isSuperAdmin && <IconButton
                     aria-label="delete"
                     sx={{marginLeft: "8px"}}
-                    onClick={() => onDeletePerson(chatID, applicationDeleteAlert, redirect)}
+                    onClick={onDeletePerson}
                 >
                     <DeleteIcon color="error"/>
                 </IconButton>}
@@ -100,16 +100,15 @@ export default function UserProfile() {
         tg.showPopup({
             message: applicationDeleteAlert,
             buttons: [{type: "ok", text: "Да"}, {type: "cancel", text: "Отмена"}]
-        }, callBack)
+        }, popupCallBack)
     }
 
-    function callBack() {
-            deletePerson(chatID)
-                .then((res) => {
-                    console.log(res);
-                    redirect();
-                })
-                .catch(e => console.log(e))
+    function popupCallBack() {
+        deletePerson(chatID)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch(e => console.log(e))
     }
 
     return <Profile displayedData={displayedData}

@@ -15,7 +15,8 @@ export default function Profile(props) {
         adminRoleBlock = null,
         requirementsBlock = null,
         registrationBlock = null,
-        buttonsBlock = null
+        buttonsBlock = null,
+        redirectionPath
     } = props;
 
     let {chatID} = useParams();
