@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {Link, useLocation, useNavigate, useParams} from 'react-router-dom';
+import {Link, useLocation, useParams} from 'react-router-dom';
+import {useNavigate} from 'react-router';
 import {useSelector} from "react-redux";
 import Profile from "../../components/Profile/Profile";
 import {Grid, IconButton, ListItem, ListItemIcon} from "@mui/material";
