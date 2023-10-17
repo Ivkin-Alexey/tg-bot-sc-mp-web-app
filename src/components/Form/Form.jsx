@@ -20,7 +20,7 @@ const Form = (props) => {
     const onSendData = useCallback(() => {
         updatePersonData(formData, queryId, chatID)
             .then((res) => {
-            tg.showPopup({message: confirmMessage, buttons: [{type: "ok", text: "Ок"}]})
+            tg.showPopup({message: confirmMessage, buttons: [{type: "ok", text: "Ок"}]}, () => tg.clone())
         });
     }, [formData])
 
