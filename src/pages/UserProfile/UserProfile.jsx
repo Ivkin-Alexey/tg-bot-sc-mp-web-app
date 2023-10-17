@@ -112,13 +112,6 @@ export default function UserProfile() {
                 .catch(e => console.log(e))
     }
 
-    useEffect(() => {
-        tg.onEvent('popupClosed', callBack)
-        return () => {
-            tg.offEvent('popupClosed', callBack)
-        }
-    }, []);
-
     return <Profile displayedData={displayedData}
                     role={accountData.type}
                     requirementsBlock={renderRequirementsBlock()}
