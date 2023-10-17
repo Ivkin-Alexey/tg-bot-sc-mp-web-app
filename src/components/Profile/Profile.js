@@ -12,7 +12,7 @@ export default function Profile(props) {
 
     const {
         displayedData,
-        role,
+        adminRoleBlock = null,
         requirementsBlock = null,
         registrationBlock = null,
         buttonsBlock = null
@@ -50,6 +50,7 @@ export default function Profile(props) {
                     <Typography sx={{fontSize: 14, mb: 1.5}}>
                         {position ? position : <b>Должность не указана</b>}
                     </Typography>
+                    {adminRoleBlock}
                     <Typography variant="h5" component="div" sx={{mb: 1.5}}>
                         {lastName + ' ' + firstName + ' ' + patronymic}
                     </Typography>

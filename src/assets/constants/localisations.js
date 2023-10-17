@@ -18,7 +18,8 @@ const localisations = {
             header: 'Выберите категорию:'
         },
         adminProfile: {
-            applicationDeleteAlert: "Вы действительно хотите удалить этого администратора?"
+            applicationDeleteAlert: "Вы действительно хотите удалить этого администратора?",
+            roleTitle: {user: "Обучающийся", admin: "Администратор", superAdmin: "Супер администратор",}
         },
         userProfile: {
             applicationDeleteAlert: "Вы действительно хотите удалить эту заявку?"

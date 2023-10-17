@@ -9,6 +9,7 @@ import constants from "../../assets/constants/constants";
 import localisations from "../../assets/constants/localisations";
 import {deletePerson} from "../../methods/postDataToServer";
 import {useTelegram} from "../../hooks/useTelegram";
+import Typography from "@mui/material/Typography";
 
 export default function AdminProfile() {
     const {chatID} = useParams();
@@ -21,12 +22,12 @@ export default function AdminProfile() {
     const isSuperAdmin = role === constants.userRoles.superAdmin;
     const isOwnAccount = +chatID === accountData.chatID;
     const navigationPath = "/adminList";
-    const {applicationDeleteAlert} = localisations.pages.adminProfile;
+    const {applicationDeleteAlert, roleTitle} = localisations.pages.adminProfile;
     const navigate = useNavigate();
     const redirect = navigate(navigationPath);
     const {pathname} = useLocation();
     let path = `/${chatID}/editProfile`;
-    if (pathname.includes("adminList")) path = `/adminList/${chatID}/editProfile`
+    if (pathname.includes("adminList")) path = `/adminList/${chatID}/editProfile`;
 
     function onDeletePerson() {
         function callBack(buttonType) {
@@ -43,6 +44,12 @@ export default function AdminProfile() {
             message: applicationDeleteAlert,
             buttons: [{type: "ok", text: "Да"}, {type: "cancel", text: "Отмена"}]
         }, callBack)
+    }
+
+    function renderRoleBlock() {
+        return <Typography sx={{fontSize: 14, mb: 1.5}}>
+            {displayedData.type ? "Роль: " + roleTitle[displayedData.type] : <b>Роль не указана</b>}
+        </Typography>
     }
 
     function renderButtonsBlock() {
@@ -69,5 +76,6 @@ export default function AdminProfile() {
         displayedData={displayedData}
         role={accountData.type}
         buttonsBlock={renderButtonsBlock()}
+        adminRoleBlock={renderRoleBlock()}
     />;
 }

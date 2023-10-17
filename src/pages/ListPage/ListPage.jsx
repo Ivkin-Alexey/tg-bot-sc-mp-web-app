@@ -47,7 +47,7 @@ const ListPage = (props) => {
                 </ListSubheader>
             }
         >
-            {personList ? personList.map((el, i) => {
+            {personList.length > 0 ? personList.map((el, i) => {
                 const name = createName(el);
                 if(!name) return;
                 return (
