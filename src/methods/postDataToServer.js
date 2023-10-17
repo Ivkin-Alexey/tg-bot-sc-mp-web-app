@@ -1,4 +1,5 @@
 import constants from "../assets/constants/constants";
+import {fetchUsers} from "../redux/actions";
 
 const {serverDomain, port} = constants;
 

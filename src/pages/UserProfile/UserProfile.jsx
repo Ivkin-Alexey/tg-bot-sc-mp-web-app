@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Link, useLocation, useParams, useNavigate} from 'react-router-dom';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Profile from "../../components/Profile/Profile";
 import {Grid, IconButton, ListItem, ListItemIcon} from "@mui/material";
 import List from "@mui/material/List";
@@ -16,6 +16,7 @@ import constants from "../../assets/constants/constants";
 import localisations from "../../assets/constants/localisations";
 import {deletePerson} from "../../methods/postDataToServer";
 import {useTelegram} from "../../hooks/useTelegram";
+import {fetchUsers} from "../../redux/actions";
 
 export default function UserProfile() {
     const {chatID} = useParams();
@@ -32,6 +33,7 @@ export default function UserProfile() {
     const {pathname} = useLocation();
     const redirectionPath = "/userList";
     const redirect = () => navigate(redirectionPath);
+    const dispatch = useDispatch();
 
     let path = `/${chatID}/editProfile`;
     if (pathname.includes("userList")) path = `/userList/${chatID}/editProfile`;
@@ -108,6 +110,7 @@ export default function UserProfile() {
             .then((res) => {
                 console.log(res);
                 redirect();
+                dispatch(fetchUsers(chatID))
             })
             .catch(e => console.log(e))
     }
