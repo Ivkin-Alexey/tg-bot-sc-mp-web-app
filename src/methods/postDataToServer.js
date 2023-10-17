@@ -4,6 +4,7 @@ const {serverDomain, port} = constants;
 
 export async function updatePersonData(formData, queryId, chatID) {
     if(!formData || !queryId || !chatID) return;
+    console.log(chatID)
     try {
         await fetch(`https://${serverDomain}:${port}/updateUserData`, {
             method: 'POST',

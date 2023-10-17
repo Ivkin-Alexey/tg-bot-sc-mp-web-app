@@ -9,7 +9,6 @@ import {useSelector} from "react-redux";
 const EditPersonalData = () => {
 
     const {chatID} = useParams();
-    console.log(chatID);
 
     let users = useSelector(state => state.users);
     let userData = users.users.find(el => el?.chatID === +chatID);
