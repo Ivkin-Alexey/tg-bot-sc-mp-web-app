@@ -107,6 +107,7 @@ export default function UserProfile() {
         deletePerson(chatID)
             .then((res) => {
                 console.log(res);
+                redirect();
             })
             .catch(e => console.log(e))
     }
