@@ -28,6 +28,9 @@ const localisations = {
         },
         adminList: {
             subHeader: "Администраторы"
+        },
+        listPage: {
+            emptyUserListAlert: "Пользователи ещё не зарегестрированы"
         }
     },
     components: {},

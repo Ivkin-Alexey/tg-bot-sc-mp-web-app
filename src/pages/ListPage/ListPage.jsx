@@ -4,10 +4,12 @@ import {useTelegram} from "../../hooks/useTelegram";
 import List from "@mui/material/List";
 import ListSubheader from "@mui/material/ListSubheader";
 import ListItemLink from "../../components/ListItemLink/ListItemLink";
+import localisations from "../../assets/constants/localisations";
 
 const ListPage = (props) => {
 
     const {subHeader, personList, listItemPath} = props;
+    const {emptyUserListAlert} = localisations.pages.listPage;
     const navigate = useNavigate();
     const redirect = () => navigate('/');
     const {tg} = useTelegram();
@@ -45,7 +47,7 @@ const ListPage = (props) => {
                 </ListSubheader>
             }
         >
-            {personList && personList.map((el, i) => {
+            {personList ? personList.map((el, i) => {
                 const name = createName(el);
                 if(!name) return;
                 return (
@@ -56,7 +58,7 @@ const ListPage = (props) => {
                         onClick={() => navigate(listItemPath + el.chatID)}
                     />
                 )
-            })}
+            }) : emptyUserListAlert}
         </List>
     );
 };
