@@ -14,9 +14,11 @@ import DoneOutlineRoundedIcon from "@mui/icons-material/DoneOutlineRounded";
 import DeleteIcon from "@mui/icons-material/Delete";
 import constants from "../../assets/constants/constants";
 import localisations from "../../assets/constants/localisations";
-import {deletePerson} from "../../methods/postDataToServer";
+import {deletePerson, updatePersonData} from "../../methods/postDataToServer";
 import {useTelegram} from "../../hooks/useTelegram";
 import {fetchUsers} from "../../redux/actions";
+import {useEffect} from "react";
+import {useCallback} from "@types/react";
 
 export default function UserProfile() {
     const {chatID} = useParams();
@@ -98,6 +100,10 @@ export default function UserProfile() {
         )
     }
 
+    useEffect(() => {
+        dispatch(fetchUsers(chatID));
+    }, [onDeletePerson])
+
     function onDeletePerson() {
         tg.showPopup({
             message: applicationDeleteAlert,
@@ -110,7 +116,6 @@ export default function UserProfile() {
             .then((res) => {
                 console.log(res);
                 redirect();
-                dispatch(fetchUsers(chatID))
             })
             .catch(e => console.log(e))
     }
