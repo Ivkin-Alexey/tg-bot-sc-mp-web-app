@@ -123,5 +123,6 @@ export default function UserProfile() {
                     requirementsBlock={renderRequirementsBlock()}
                     registrationBlock={renderRegistrationStatusInfo()}
                     buttonsBlock={renderButtonsBlock()}
+                    redirectionPath={redirectionPath}
     />;
 }

@@ -25,7 +25,7 @@ export default function Profile(props) {
     if (pathname.includes("userList")) path = `/userList/${chatID}/editProfile`
     const navigate = useNavigate();
     const {tg} = useTelegram();
-    const redirectToMenu = () => navigate('/');
+    const redirect = () => navigate(redirectionPath);
 
     const {
         firstName,
@@ -38,9 +38,9 @@ export default function Profile(props) {
 
     useEffect(() => {
         tg.MainButton.isVisible = false;
-        tg.onEvent('backButtonClicked', redirectToMenu)
+        tg.onEvent('backButtonClicked', redirect)
         return () => {
-            tg.offEvent('backButtonClicked', redirectToMenu)
+            tg.offEvent('backButtonClicked', redirect)
         }
     }, []);
 
