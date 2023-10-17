@@ -18,7 +18,6 @@ import {deletePerson, updatePersonData} from "../../methods/postDataToServer";
 import {useTelegram} from "../../hooks/useTelegram";
 import {fetchUsers} from "../../redux/actions";
 import {useEffect} from "react";
-import {useCallback} from "@types/react";
 
 export default function UserProfile() {
     const {chatID} = useParams();
