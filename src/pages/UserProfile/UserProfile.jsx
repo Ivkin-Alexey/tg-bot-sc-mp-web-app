@@ -1,6 +1,5 @@
 import * as React from 'react';
-import {Link, useLocation, useParams} from 'react-router-dom';
-import {useNavigate} from 'react-router';
+import {Link, useLocation, useParams, useNavigate} from 'react-router-dom';
 import {useSelector} from "react-redux";
 import Profile from "../../components/Profile/Profile";
 import {Grid, IconButton, ListItem, ListItemIcon} from "@mui/material";
@@ -32,7 +31,7 @@ export default function UserProfile() {
     const {applicationDeleteAlert} = localisations.pages.userProfile;
     const {pathname} = useLocation();
     const redirectionPath = "/userList";
-    const redirect = navigate(redirectionPath);
+    const redirect = () => navigate(redirectionPath);
 
     let path = `/${chatID}/editProfile`;
     if (pathname.includes("userList")) path = `/userList/${chatID}/editProfile`;
