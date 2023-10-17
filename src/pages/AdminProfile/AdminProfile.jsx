@@ -19,6 +19,7 @@ export default function AdminProfile() {
     const role = accountData.type;
     const isUser = role === constants.userRoles.user;
     const isSuperAdmin = role === constants.userRoles.superAdmin;
+    const isOwnAccount = +chatID === accountData.chatID;
     const navigationPath = "/adminList";
     const {applicationDeleteAlert} = localisations.pages.adminProfile;
     const navigate = useNavigate();
@@ -48,9 +49,10 @@ export default function AdminProfile() {
         return (
             isUser ? null :
                 <>
+                    {(isOwnAccount || (isSuperAdmin && displayedDataRole !== constants.userRoles.superAdmin)) &&
                     <Button component={Link} to={path} variant="outlined" color="primary" size="small" disableElevation>
                         Редактировать
-                    </Button>
+                    </Button>}
                     {isSuperAdmin && displayedDataRole !== constants.userRoles.superAdmin &&
                         <IconButton
                             aria-label="delete"
