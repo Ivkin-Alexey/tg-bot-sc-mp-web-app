@@ -18,6 +18,7 @@ import {deletePerson, updatePersonData} from "../../methods/postDataToServer";
 import {useTelegram} from "../../hooks/useTelegram";
 import {fetchUsers} from "../../redux/actions";
 import {useEffect} from "react";
+import {SET_USERS_DATA_IS_UPDATED} from "../../redux/types";
 
 export default function UserProfile() {
     const {chatID} = useParams();
@@ -99,10 +100,6 @@ export default function UserProfile() {
         )
     }
 
-    useEffect(() => {
-        dispatch(fetchUsers(chatID));
-    }, [onDeletePerson])
-
     function onDeletePerson() {
         tg.showPopup({
             message: applicationDeleteAlert,
@@ -111,9 +108,11 @@ export default function UserProfile() {
     }
 
     function popupCallBack() {
+        dispatch({type: SET_USERS_DATA_IS_UPDATED, payload: false});
         deletePerson(chatID)
             .then((res) => {
                 console.log(res);
+                dispatch(fetchUsers(chatID));
                 redirect();
             })
             .catch(e => console.log(e))

@@ -4,18 +4,20 @@ import ListSubheader from "@mui/material/ListSubheader";
 import ListItemLink from "../../components/ListItemLink/ListItemLink";
 import {useEffect} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
-import {Divider} from "@mui/material";
-import {useSelector} from "react-redux";
+import {CircularProgress, Divider} from "@mui/material";
+import {useDispatch, useSelector} from "react-redux";
 import constants from "../../assets/constants/constants";
+import Box from "@mui/material/Box";
 
 export default function Menu() {
 
     const {admin, superAdmin} = constants.userRoles;
     const {tg, onClose, chatID = constants.defaultUserChatID} = useTelegram();
     const state = useSelector(state => state.users);
+    const isUsersDataUpdated = useSelector(state => state.users.usersDataIsUpdated);
     const {users, admins, accountData} = state;
     const type = accountData.type;
-    const isAdmin = type === admin || type  === superAdmin;
+    const isAdmin = type === admin || type === superAdmin;
 
     useEffect(() => {
         tg.MainButton.isVisible = false;
@@ -24,6 +26,13 @@ export default function Menu() {
             tg.offEvent('backButtonClicked', onClose);
         }
     }, []);
+
+    // useEffect(() => {
+    //     if (isUsersDataUpdated) {
+    //
+    //     }
+    // }, [isUsersDataUpdated]);
+
 
     const renderAdminPages = () => {
         return (
@@ -46,21 +55,24 @@ export default function Menu() {
         )
     }
 
-    return (
-        <List sx={{width: '100%', maxWidth: 350, bgcolor: 'background.paper'}}
-              component="nav"
-              aria-labelledby="nested-list-subheader"
-              subheader={
-                  <ListSubheader component="div" id="nested-list-subheader" sx={{lineHeight: "20px", position: "initial"}}>
-                      Меню:
-                  </ListSubheader>
-              }>
-            {/*{renderStepperPage()}*/}
-            {/*<ListItemLink to="/equipment" primary="Оборудование"/>*/}
-            {/*<ListItemLink to="/applications" primary="Заявки на исследование"/>*/}
-            {/*<ListItemLink to="/reagents" primary="Заявки на реактивы"/>*/}
-            <ListItemLink to={`/${chatID}`} primary="Мой профиль"/>
-            {isAdmin && renderAdminPages()}
-        </List>
+    return (isUsersDataUpdated ?
+            <List sx={{width: '100%', maxWidth: 350, bgcolor: 'background.paper'}}
+                  component="nav"
+                  aria-labelledby="nested-list-subheader"
+                  subheader={
+                      <ListSubheader component="div" id="nested-list-subheader"
+                                     sx={{lineHeight: "20px", position: "initial"}}>
+                          Меню:
+                      </ListSubheader>
+                  }>
+                {/*{renderStepperPage()}*/}
+                {/*<ListItemLink to="/equipment" primary="Оборудование"/>*/}
+                {/*<ListItemLink to="/applications" primary="Заявки на исследование"/>*/}
+                {/*<ListItemLink to="/reagents" primary="Заявки на реактивы"/>*/}
+                <ListItemLink to={`/${chatID}`} primary="Мой профиль"/>
+                {isAdmin && renderAdminPages()}
+            </List> : <Box sx={{display: 'flex'}}>
+                <CircularProgress/>
+            </Box>
     );
 }

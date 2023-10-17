@@ -1,5 +1,5 @@
 import {
-    SET_USER_LIST, SET_ADMIN_LIST, SET_ACCOUNT_DATA
+    SET_USER_LIST, SET_ADMIN_LIST, SET_ACCOUNT_DATA, SET_USERS_DATA_IS_UPDATED
 } from "./types";
 
 import constants from "../assets/constants/constants";
@@ -28,6 +28,9 @@ export function fetchUsers(chatID) {
                         dispatch({type: SET_USER_LIST, payload: users});
                         dispatch({type: SET_ACCOUNT_DATA, payload: userData});
                         dispatch({type: SET_ADMIN_LIST, payload: admins});
+                    })
+                    .then(() => {
+                        dispatch({type: SET_USERS_DATA_IS_UPDATED, payload: true});
                     });
             } catch (e) {
                 console.log(e);
