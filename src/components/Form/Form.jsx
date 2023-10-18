@@ -1,13 +1,22 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useTelegram} from "../../hooks/useTelegram";
-import {Stack, TextField} from "@mui/material";
+import {MenuItem, Stack, TextField} from "@mui/material";
 import ListSubheader from "@mui/material/ListSubheader";
 import {updatePersonData} from "../../methods/postDataToServer";
 import Button from "@mui/material/Button";
 
 const Form = (props) => {
 
-    const {textInputs, tgMainButtonText, defaultValues, chatID, confirmMessage} = props;
+    const {
+        defaultTextInputs,
+        tgMainButtonText,
+        defaultValues,
+        chatID,
+        confirmMessage,
+        filteringRules
+    } = props;
+
+    const [textInputs, setTextInputs] = useState(defaultTextInputs);
 
     const defaultTextInputsValues = textInputs.reduce((acc, cur) => ({
         ...acc,
@@ -15,13 +24,15 @@ const Form = (props) => {
     }), {});
 
     const [formData, setFormData] = useState(defaultTextInputsValues);
+    const observedValue = formData[filteringRules.observedInputName];
+
     const {tg, queryId} = useTelegram();
 
     const onSendData = useCallback(() => {
         updatePersonData(formData, queryId, chatID)
-            .then((res) => {
-            tg.showPopup({message: confirmMessage, buttons: [{type: "ok", text: "Ок"}]}, () => tg.close())
-        });
+            .then(() => {
+                tg.showPopup({message: confirmMessage, buttons: [{type: "ok", text: "Ок"}]}, () => tg.close())
+            });
     }, [formData])
 
     useEffect(() => {
@@ -52,6 +63,23 @@ const Form = (props) => {
         }));
     }
 
+    function filterInputs(input) {
+        const rule = filteringRules.rules?.find(el=>el.selectedOption === observedValue);
+        return input.inputAttributes.name !== rule.hiddenInputName;
+    }
+
+    useEffect(() => {
+        setTextInputs(defaultTextInputs.filter(filterInputs));
+    }, [observedValue])
+
+    function renderSelectOptions(options) {
+        return options.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+                {option.label}
+            </MenuItem>
+        ))
+    }
+
     return (
         <Stack
             direction="column"
@@ -63,6 +91,7 @@ const Form = (props) => {
                 Заполните поля:
             </ListSubheader>
             {textInputs.map((el, i) => {
+                const options = el.other?.selectOptions;
                 return <TextField
                     key={i}
                     onChange={onChangeData}
@@ -70,11 +99,11 @@ const Form = (props) => {
                     error={false}
                     value={formData[el.inputAttributes.name]}
                     {...el.inputAttributes}
-                />
+                >{options && renderSelectOptions(options)}
+                </TextField>
             })}
-            <Button onClick={onSendData}>Отправить</Button>
+            {/*<Button onClick={onSendData}>Отправить</Button>*/}
         </Stack>
-
     );
 };
 

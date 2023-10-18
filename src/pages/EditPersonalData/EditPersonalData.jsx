@@ -19,6 +19,14 @@ const EditPersonalData = () => {
     const textInputs = forms.editPersonalData;
     const {tgMainButtonText, confirmMessage} = localisations.pages.editPersonalData;
 
+    const filteringRules = {
+        observedInputName: "position",
+        rules: [
+            {selectedOption: "student", hiddenInputName: "postGraduateEducationYear"},
+            {selectedOption: "postGraduate", hiddenInputName: "studentsEducationYear"},
+        ]
+    }
+
     const redirect = () => navigate('/' + chatID);
 
     useEffect(() => {
@@ -28,11 +36,12 @@ const EditPersonalData = () => {
         }
     }, []);
 
-    return <Form textInputs={textInputs}
+    return <Form defaultTextInputs={textInputs}
                  defaultValues={userData}
                  tgMainButtonText={tgMainButtonText}
                  chatID={chatID}
                  confirmMessage={confirmMessage}
+                 filteringRules={filteringRules}
     />;
 };
 

@@ -110,9 +110,9 @@ export default function UserProfile() {
     function popupCallBack() {
         dispatch({type: SET_USERS_DATA_IS_UPDATED, payload: false});
         deletePerson(chatID)
-            .then((res) => {
-                console.log(res);
-                dispatch(fetchUsers(chatID));
+            .then((updatedUsersData) => {
+                console.log(updatedUsersData);
+                // dispatch(fetchUsers(chatID));
                 redirect();
             })
             .catch(e => console.log(e))

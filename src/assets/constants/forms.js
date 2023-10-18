@@ -1,3 +1,10 @@
+import localisations from "../constants/localisations";
+const {
+    studentsEducationYearList,
+    postGraduatesEducationYearList,
+    positionList
+} = localisations.components.form;
+
 const forms = {
     editPersonalData: [
         {
@@ -24,7 +31,7 @@ const forms = {
                 name: 'patronymic',
                 label: 'Отчество',
                 id: 'outlined-required',
-                required: true
+                required: false
             },
             other: {initValue: "", validateRules: []}
         },
@@ -32,11 +39,31 @@ const forms = {
             inputAttributes: {
                 name: 'position',
                 label: 'Должность',
-                id: 'outlined-search',
-                type: 'search',
-                required: true
+                select: true,
+                id: 'outlined-select-currency',
+                required: true,
             },
-            other: {initValue: 'Студент', validateRules: []}
+            other: {initValue: positionList[0].value, validateRules: [], selectOptions: positionList}
+        },
+        {
+            inputAttributes: {
+                name: 'studentsEducationYear',
+                label: 'Курс',
+                select: true,
+                id: 'outlined-select-currency',
+                required: true,
+            },
+            other: {initValue: studentsEducationYearList[0].value, validateRules: [], selectOptions: studentsEducationYearList}
+        },
+        {
+            inputAttributes: {
+                name: 'postGraduateEducationYear',
+                label: 'Курс',
+                select: true,
+                id: 'outlined-select-currency',
+                required: true,
+            },
+            other: {initValue: postGraduatesEducationYearList[0].value, validateRules: [], selectOptions: postGraduatesEducationYearList}
         },
         {
             inputAttributes: {

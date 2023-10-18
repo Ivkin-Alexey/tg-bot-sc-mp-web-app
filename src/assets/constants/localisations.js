@@ -34,7 +34,72 @@ const localisations = {
             emptyUserListAlert: "Пользователи ещё не зарегестрированы"
         }
     },
-    components: {},
+    components: {
+        form: {
+            positionList: [
+                {
+                    value: 'student',
+                    label: 'Студент',
+                },
+                {
+                    value: 'postGraduate',
+                    label: 'Аспирант',
+                },
+            ],
+            studentsEducationYearList: [
+                {
+                    value: 'firstYearMaster',
+                    label: '1 курс магистратуры',
+                },
+                {
+                    value: 'secondYearMaster',
+                    label: '2 курс магистратуры',
+                },
+                {
+                    value: 'firstYear',
+                    label: '1 курс',
+                },
+                {
+                    value: 'secondYear',
+                    label: '2 курс',
+                },
+                {
+                    value: 'thirdYear',
+                    label: '3 курс',
+                },
+                {
+                    value: 'fourthYear',
+                    label: '4 курс',
+                },
+                {
+                    value: 'fifthYear',
+                    label: '5 курс',
+                },
+                {
+                    value: 'sixthYear',
+                    label: '6 курс',
+                },
+            ],
+            postGraduatesEducationYearList: [
+                {
+                    value: 'firstYearPostGraduate',
+                    label: '1 год обучения',
+                },
+                {
+                    value: 'secondYearPostGraduate',
+                    label: '2 год обучения',
+                },
+                {
+                    value: 'thirdYearPostGraduate',
+                    label: '3 год обучения',
+                },
+                {
+                    value: 'fourthYearPostGraduate',
+                    label: '4 год обучения',
+                },
+            ]
+        },
+    }
 };
 export default localisations;
 
