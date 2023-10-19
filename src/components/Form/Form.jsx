@@ -13,7 +13,7 @@ const Form = (props) => {
         defaultValues,
         chatID,
         confirmMessage,
-        filteringRules
+        filteringRules = null
     } = props;
 
     const [textInputs, setTextInputs] = useState(defaultTextInputs);
@@ -23,9 +23,14 @@ const Form = (props) => {
         [cur.inputAttributes.name]: defaultValues[cur.inputAttributes.name] || cur.other.initValue
     }), {});
 
-    const [formData, setFormData] = useState(defaultTextInputsValues);
-    const observedValue = formData[filteringRules.observedInputName];
+    // for (let key in formData) {
+    //     if(formData)
+    // }
 
+    const [formData, setFormData] = useState(defaultTextInputsValues);
+    const [requiredFormData, setRequiredFormData] = useState(defaultTextInputsValues);
+
+    const observedValue = formData[filteringRules?.observedInputName];
     const {tg, queryId} = useTelegram();
 
     const onSendData = useCallback(() => {
@@ -64,12 +69,12 @@ const Form = (props) => {
     }
 
     function filterInputs(input) {
-        const rule = filteringRules.rules?.find(el=>el.selectedOption === observedValue);
-        return input.inputAttributes.name !== rule.hiddenInputName;
+        const rule = filteringRules?.rules?.find(el=>el.selectedOption === observedValue);
+        return input.inputAttributes.name !== rule?.hiddenInputName;
     }
 
     useEffect(() => {
-        setTextInputs(defaultTextInputs.filter(filterInputs));
+        if(filteringRules) setTextInputs(defaultTextInputs.filter(filterInputs));
     }, [observedValue])
 
     function renderSelectOptions(options) {

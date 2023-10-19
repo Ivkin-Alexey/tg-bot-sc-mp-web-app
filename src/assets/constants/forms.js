@@ -2,11 +2,12 @@ import localisations from "../constants/localisations";
 const {
     studentsEducationYearList,
     postGraduatesEducationYearList,
-    positionList
+    positionList,
+    researches
 } = localisations.components.form;
 
 const forms = {
-    editPersonalData: [
+    editStudentPersonalData: [
         {
             inputAttributes: {
                 name: 'firstName',
@@ -30,7 +31,7 @@ const forms = {
             inputAttributes: {
                 name: 'patronymic',
                 label: 'Отчество',
-                id: 'outlined-required',
+                id: 'outlined-basic',
                 required: false
             },
             other: {initValue: "", validateRules: []}
@@ -74,6 +75,65 @@ const forms = {
                 required: true
             },
             other: {initValue: '', validateRules: []}
+        },
+        {
+            inputAttributes: {
+                name: 'phone',
+                label: 'Мобильный',
+                id: 'outlined-helperText',
+                helperText: 'Номер телефона нужен для экстренной связи',
+                required: true
+            },
+            other: {initValue: '+7', validateRules: []}
+        },
+    ],
+    editAdminPersonalData: [
+        {
+            inputAttributes: {
+                name: 'firstName',
+                label: 'Имя',
+                id: 'outlined-required',
+                required: true
+            },
+            other: {initValue: "", validateRules: []}
+        },
+        {
+            inputAttributes: {
+                name: 'lastName',
+                label: 'Фамилия',
+                id: 'outlined-required',
+                required: true
+            },
+            other: {initValue: "", validateRules: []}
+        },
+
+        {
+            inputAttributes: {
+                name: 'patronymic',
+                label: 'Отчество',
+                id: 'outlined-basic',
+                required: false
+            },
+            other: {initValue: "", validateRules: []}
+        },
+        {
+            inputAttributes: {
+                name: 'position',
+                label: 'Должность',
+                id: 'outlined-required',
+                required: true,
+            },
+            other: {initValue: "", validateRules: []}
+        },
+        {
+            inputAttributes: {
+                name: 'research',
+                label: 'Научное направление',
+                id: 'outlined-select-currency',
+                select: true,
+                required: true
+            },
+            other: {initValue: researches[0].value, validateRules: [], selectOptions: researches}
         },
         {
             inputAttributes: {

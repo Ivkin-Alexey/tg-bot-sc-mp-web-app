@@ -9,21 +9,27 @@ import {useSelector} from "react-redux";
 const EditPersonalData = () => {
 
     const {chatID} = useParams();
+    const {positionList}  = localisations.components.form;
 
     let users = useSelector(state => state.users);
     let userData = users.users.find(el => el?.chatID === +chatID);
     if (!userData) userData = users.admins.find(el => el?.chatID === +chatID);
 
+    const role = userData.type;
+    let textInputs;
+    if(role === "user") textInputs = forms.editStudentPersonalData;
+    else textInputs = forms.editAdminPersonalData;
+
     const navigate = useNavigate();
     const {tg} = useTelegram();
-    const textInputs = forms.editPersonalData;
+
     const {tgMainButtonText, confirmMessage} = localisations.pages.editPersonalData;
 
     const filteringRules = {
         observedInputName: "position",
         rules: [
-            {selectedOption: "student", hiddenInputName: "postGraduateEducationYear"},
-            {selectedOption: "postGraduate", hiddenInputName: "studentsEducationYear"},
+            {selectedOption: positionList[0].value, hiddenInputName: "postGraduateEducationYear"},
+            {selectedOption: positionList[1].value, hiddenInputName: "studentsEducationYear"},
         ]
     }
 

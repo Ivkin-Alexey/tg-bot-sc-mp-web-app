@@ -83,20 +83,67 @@ const localisations = {
             postGraduatesEducationYearList: [
                 {
                     value: 'firstYearPostGraduate',
-                    label: '1 год обучения',
+                    label: '1 курс',
                 },
                 {
                     value: 'secondYearPostGraduate',
-                    label: '2 год обучения',
+                    label: '2 курс',
                 },
                 {
                     value: 'thirdYearPostGraduate',
-                    label: '3 год обучения',
+                    label: '3 курс',
                 },
                 {
                     value: 'fourthYearPostGraduate',
-                    label: '4 год обучения',
+                    label: '4 курс',
                 },
+            ],
+            researches: [
+                {
+                    value: 'withoutResearch',
+                    label: 'Без направления',
+                },
+                {
+                    value: 'concentration',
+                    label: 'Обогащение',
+                },
+                {
+                    value: 'aluminum',
+                    label: 'Алюминий',
+                },
+                {
+                    value: 'alloys',
+                    label: 'Сплавы',
+                },
+                {
+                    value: 'rareMetals',
+                    label: 'Редкие металлы',
+                },
+                {
+                    value: 'agglomeration',
+                    label: 'Агломерация',
+                },
+                {
+                    value: 'silicaGel',
+                    label: 'Кремнегель',
+                },
+                {
+                    value: 'carbon',
+                    label: 'Углерод',
+                },
+                {
+                    value: 'fertilizers',
+                    label: 'Удобрения',
+                },
+                {
+                    value: 'saponite',
+                    label: 'Сапонит',
+                },
+                {
+                    value: 'kineticsOfProcesses',
+                    label: 'Кинетика процессов',
+                },
+
             ]
         },
     }
