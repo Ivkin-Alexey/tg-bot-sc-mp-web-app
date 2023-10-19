@@ -21,7 +21,7 @@ const Form = (props) => {
 
     const defaultFormData = textInputs.reduce((acc, cur) => {
         const {name, required} = cur.inputAttributes;
-        if(required) defaultRequiredFormData[name] = defaultValues[name] || cur.other.initValue;
+        if (required) defaultRequiredFormData[name] = defaultValues[name] || cur.other.initValue;
         return {
             ...acc,
             [name]: defaultValues[name] || cur.other.initValue
@@ -57,20 +57,25 @@ const Form = (props) => {
     useEffect(() => {
         if (Object.values(requiredFormData).some(el => el === '')) {
             tg.MainButton.hide();
+            console.log("hide");
         } else {
             tg.MainButton.show();
+            console.log("show");
         }
     }, [requiredFormData])
 
     const onChangeData = (e) => {
+        const {name, value} = e.target;
         setFormData((state) => ({
             ...state,
-            [e.target.name]: e.target.value
+            [name]: value
         }));
-        setRequiredFormData((state) => ({
-            ...state,
-            [e.target.name]: e.target.value
-        }));
+        if (requiredFormData[name] !== undefined) {
+            setRequiredFormData((state) => ({
+                ...state,
+                [name]: value
+            }));
+        }
     }
 
     function filterInputs(input) {
