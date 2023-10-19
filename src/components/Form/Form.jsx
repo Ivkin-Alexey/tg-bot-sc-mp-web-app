@@ -17,18 +17,19 @@ const Form = (props) => {
     } = props;
 
     const [textInputs, setTextInputs] = useState(defaultTextInputs);
+    let defaultRequiredFormData = {};
 
-    const defaultTextInputsValues = textInputs.reduce((acc, cur) => ({
-        ...acc,
-        [cur.inputAttributes.name]: defaultValues[cur.inputAttributes.name] || cur.other.initValue
-    }), {});
+    const defaultFormData = textInputs.reduce((acc, cur) => {
+        const {name, required} = cur.inputAttributes;
+        if(required) defaultRequiredFormData[name] = defaultValues[name] || cur.other.initValue;
+        return {
+            ...acc,
+            [name]: defaultValues[name] || cur.other.initValue
+        }
+    }, {});
 
-    // for (let key in formData) {
-    //     if(formData)
-    // }
-
-    const [formData, setFormData] = useState(defaultTextInputsValues);
-    const [requiredFormData, setRequiredFormData] = useState(defaultTextInputsValues);
+    const [formData, setFormData] = useState(defaultFormData);
+    const [requiredFormData, setRequiredFormData] = useState(defaultRequiredFormData);
 
     const observedValue = formData[filteringRules?.observedInputName];
     const {tg, queryId} = useTelegram();
@@ -54,27 +55,31 @@ const Form = (props) => {
     }, [])
 
     useEffect(() => {
-        if (Object.values(formData).some(el => el === '')) {
+        if (Object.values(requiredFormData).some(el => el === '')) {
             tg.MainButton.hide();
         } else {
             tg.MainButton.show();
         }
-    }, [formData])
+    }, [requiredFormData])
 
     const onChangeData = (e) => {
         setFormData((state) => ({
             ...state,
             [e.target.name]: e.target.value
         }));
+        setRequiredFormData((state) => ({
+            ...state,
+            [e.target.name]: e.target.value
+        }));
     }
 
     function filterInputs(input) {
-        const rule = filteringRules?.rules?.find(el=>el.selectedOption === observedValue);
+        const rule = filteringRules?.rules?.find(el => el.selectedOption === observedValue);
         return input.inputAttributes.name !== rule?.hiddenInputName;
     }
 
     useEffect(() => {
-        if(filteringRules) setTextInputs(defaultTextInputs.filter(filterInputs));
+        if (filteringRules) setTextInputs(defaultTextInputs.filter(filterInputs));
     }, [observedValue])
 
     function renderSelectOptions(options) {
