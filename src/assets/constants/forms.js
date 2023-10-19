@@ -70,11 +70,11 @@ const forms = {
             inputAttributes: {
                 name: 'research',
                 label: 'Научное направление',
-                id: 'outlined-search',
-                type: 'search',
+                select: true,
+                id: 'outlined-select-currency',
                 required: true
             },
-            other: {initValue: '', validateRules: []}
+            other: {initValue: researches[0].value, validateRules: [], selectOptions: researches}
         },
         {
             inputAttributes: {
