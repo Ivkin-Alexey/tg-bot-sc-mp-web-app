@@ -33,7 +33,7 @@ export async function deletePerson(chatID) {
             body: JSON.stringify({
                 chatID
             })
-        })
+        }).then(updatedPersonData=> console.log(updatedPersonData))
     } catch (e) {
         console.log(e);
     }
