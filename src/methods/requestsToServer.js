@@ -2,15 +2,12 @@ import constants from "../assets/constants/constants";
 
 const {serverDomain, port} = constants;
 
-export async function updatePersonData(formData, queryId, chatID) {
+export async function updatePersonData(chatID, formData, queryId) {
     const data = {
         formData,
         queryId,
         chatID
     };
-
-    console.log(data);
-
     return await fetch(`https://${serverDomain}:${port}/updatePersonData`, {
         method: 'POST',
         headers: {

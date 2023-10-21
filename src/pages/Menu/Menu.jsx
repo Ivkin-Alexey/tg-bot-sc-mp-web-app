@@ -12,7 +12,7 @@ import constants from "../../assets/constants/constants";
 export default function Menu() {
 
     const {admin, superAdmin} = constants.userRoles;
-    const {tg, onClose, chatID = constants.defaultUserChatID} = useTelegram();
+    const {tg, onClose, accountChatID = constants.defaultUserChatID} = useTelegram();
     const state = useSelector(state => state.users);
     const isUsersDataUpdated = useSelector(state => state.users.usersDataIsUpdated);
     const {users, admins, accountData} = state;
@@ -69,7 +69,7 @@ export default function Menu() {
                 {/*<ListItemLink to="/equipment" primary="Оборудование"/>*/}
                 {/*<ListItemLink to="/applications" primary="Заявки на исследование"/>*/}
                 {/*<ListItemLink to="/reagents" primary="Заявки на реактивы"/>*/}
-                <ListItemLink to={`/${chatID}`} primary="Мой профиль"/>
+                <ListItemLink to={`/${accountChatID}`} primary="Мой профиль"/>
                 {isAdmin && renderAdminPages()}
             </List> : <CircularProgress/>
     );

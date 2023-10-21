@@ -3,7 +3,7 @@ import {useTelegram} from "../../hooks/useTelegram";
 import {MenuItem, Stack, TextField} from "@mui/material";
 import ListSubheader from "@mui/material/ListSubheader";
 import Button from "@mui/material/Button";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {updatePersonDataAction} from "../../redux/actions";
 
 const Form = (props) => {
@@ -18,6 +18,7 @@ const Form = (props) => {
     } = props;
 
     const dispatch = useDispatch();
+    const {accountChatID} = useSelector(state => state.users);
     const [textInputs, setTextInputs] = useState(defaultTextInputs);
     let defaultRequiredFormData = {};
 
@@ -37,7 +38,7 @@ const Form = (props) => {
     const {tg, queryId} = useTelegram();
 
     const onSendData = useCallback(() => {
-        dispatch(updatePersonDataAction(formData, queryId, chatID))
+        dispatch(updatePersonDataAction(chatID, accountChatID, formData, queryId))
             .then(() => {
                 tg.showPopup({message: confirmMessage, buttons: [{type: "ok", text: "Ок"}]}, () => tg.close())
             });
@@ -119,7 +120,7 @@ const Form = (props) => {
                 >{options && renderSelectOptions(options)}
                 </TextField>
             })}
-            {/*<Button onClick={onSendData}>Отправить</Button>*/}
+            <Button onClick={onSendData}>Отправить</Button>
         </Stack>
     );
 };

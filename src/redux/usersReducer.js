@@ -1,14 +1,17 @@
-import {SET_USER_LIST, SET_ADMIN_LIST, SET_ACCOUNT_DATA, SET_USERS_DATA_IS_UPDATED} from "./types";
+import {SET_USER_LIST, SET_ADMIN_LIST, SET_ACCOUNT_DATA, SET_USERS_DATA_IS_UPDATED, SET_ACCOUNT_CHAT_ID} from "./types";
 
 const initialState = {
     users: [],
     admins: [],
     accountData: {},
+    accountChatID: null,
     usersDataIsUpdated: false
 }
 
 export const usersReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_ACCOUNT_CHAT_ID:
+            return {...state, accountChatID: action.payload}
         case SET_USER_LIST:
             return {...state, users: [...action.payload]}
         case SET_ACCOUNT_DATA:

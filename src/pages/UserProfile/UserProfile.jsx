@@ -22,7 +22,7 @@ export default function UserProfile() {
     const {tg} = useTelegram();
     const navigate = useNavigate();
     const displayedData = useSelector(state => state.users.users.find(el => el.chatID === +chatID));
-    const {accountData} = useSelector(state => state.users);
+    const {accountData, accountChatID} = useSelector(state => state.users);
     const role = accountData.type;
     const isAdmin = role === constants.userRoles.admin;
     const isSuperAdmin = role === constants.userRoles.superAdmin;
@@ -106,7 +106,7 @@ export default function UserProfile() {
 
     function popupCallBack() {
         redirect();
-        dispatch(deletePersonAction(chatID))
+        dispatch(deletePersonAction(chatID, accountChatID))
     }
 
     return <Profile displayedData={displayedData}

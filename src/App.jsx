@@ -21,14 +21,16 @@ import constants from "./assets/constants/constants";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchUsersAction} from "./redux/actions";
 import AdminList from "./pages/AdminList/AdminList";
+import {SET_ACCOUNT_CHAT_ID} from "./redux/types";
 
 function App() {
 
-    const {tg, chatID = constants.defaultUserChatID} = useTelegram();
+    const {tg, accountChatID = constants.defaultUserChatID} = useTelegram();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchUsersAction(chatID));
+        dispatch({type: SET_ACCOUNT_CHAT_ID, payload: accountChatID});
+        dispatch(fetchUsersAction(accountChatID));
         tg.BackButton.isVisible = true;
     }, []);
 

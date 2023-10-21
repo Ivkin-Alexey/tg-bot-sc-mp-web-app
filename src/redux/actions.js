@@ -1,51 +1,53 @@
 import {
-    SET_USER_LIST, SET_ADMIN_LIST, SET_ACCOUNT_DATA, SET_USERS_DATA_IS_UPDATED
+    SET_USER_LIST,
+    SET_ADMIN_LIST,
+    SET_ACCOUNT_DATA,
+    SET_USERS_DATA_IS_UPDATED,
 } from "./types";
-
 import constants from "../assets/constants/constants";
 import {deletePerson, getUsers, updatePersonData} from "../methods/requestsToServer";
 
 const {admin, superAdmin} = constants.userRoles;
 
-export function fetchUsersAction(chatID) {
+export function fetchUsersAction(accountChatID) {
     return async dispatch => {
         dispatch({type: SET_USERS_DATA_IS_UPDATED, payload: false});
         try {
-            getUsers().then(data => setUsers(dispatch, data, chatID));
+            getUsers().then(data => setUsers(dispatch, data, accountChatID));
         } catch (e) {
             console.log(e);
         }
     }
 }
 
-export function deletePersonAction(chatID) {
+export function deletePersonAction(chatID, accountChatID) {
     return async dispatch => {
         dispatch({type: SET_USERS_DATA_IS_UPDATED, payload: false});
         try {
-            deletePerson(chatID).then(data => setUsers(dispatch, data, chatID));
+            deletePerson(chatID).then(data => setUsers(dispatch, data, accountChatID));
         } catch (e) {
             console.log(e);
         }
     }
 }
 
-export function updatePersonDataAction(chatID) {
+export function updatePersonDataAction(chatID, accountChatID, formData, queryId) {
     return async dispatch => {
         dispatch({type: SET_USERS_DATA_IS_UPDATED, payload: false});
         try {
-            updatePersonData().then(data => setUsers(dispatch, data, chatID));
+            updatePersonData(chatID, formData, queryId).then(data => setUsers(dispatch, data, accountChatID));
         } catch (e) {
             console.log(e);
         }
     }
 }
 
-export function setUsers(dispatch, data, chatID) {
+export function setUsers(dispatch, data, accountChatID) {
     let admins = [];
     let users = [];
     let userData = {};
     data.map(el => {
-        if (el.chatID === chatID) userData = el;
+        if (el.chatID === accountChatID) userData = el;
         if (el.type === admin || el.type === superAdmin) admins.push(el);
         else users.push(el);
     });

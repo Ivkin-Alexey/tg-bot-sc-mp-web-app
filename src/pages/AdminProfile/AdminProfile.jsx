@@ -17,7 +17,7 @@ export default function AdminProfile() {
     const navigate = useNavigate();
     const displayedData = useSelector(state => state.users.admins.find(el => el.chatID === +chatID));
     const displayedDataRole = displayedData.type;
-    const {accountData} = useSelector(state => state.users);
+    const {accountData, accountChatID} = useSelector(state => state.users);
     const role = accountData.type;
     const isUser = role === constants.userRoles.user;
     const isSuperAdmin = role === constants.userRoles.superAdmin;
@@ -45,7 +45,7 @@ export default function AdminProfile() {
 
     function popupCallBack() {
         redirect();
-        dispatch(deletePersonAction(chatID));
+        dispatch(deletePersonAction(chatID, accountChatID));
     }
 
     function renderButtonsBlock() {

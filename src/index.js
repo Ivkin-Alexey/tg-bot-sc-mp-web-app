@@ -20,6 +20,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 let store = createStore(persistedReducer, compose(applyMiddleware(thunk)));
+export default store;
 
 let persistor = persistStore(store);
 export const history = createBrowserHistory({
