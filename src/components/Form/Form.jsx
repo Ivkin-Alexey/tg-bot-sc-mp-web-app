@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useTelegram} from "../../hooks/useTelegram";
 import {MenuItem, Stack, TextField} from "@mui/material";
 import ListSubheader from "@mui/material/ListSubheader";
-import {updatePersonData} from "../../methods/postDataToServer";
+import {updatePersonData} from "../../methods/requestsToServer";
 import Button from "@mui/material/Button";
 
 const Form = (props) => {

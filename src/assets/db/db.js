@@ -42,6 +42,5 @@ export const statistic = [
     {user: "Кудинова А.А.", equipment: "Tescan Vega 3.0"}
 ]
 
-export const users = await getUsers();
 
 

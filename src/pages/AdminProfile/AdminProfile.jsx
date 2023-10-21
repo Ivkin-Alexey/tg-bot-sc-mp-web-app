@@ -8,7 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import constants from "../../assets/constants/constants";
 import localisations from "../../assets/constants/localisations";
 import Typography from "@mui/material/Typography";
-import {deletePerson} from "../../methods/postDataToServer";
+import {deletePerson} from "../../methods/requestsToServer";
 import {useTelegram} from "../../hooks/useTelegram";
 
 export default function AdminProfile() {

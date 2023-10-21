@@ -14,7 +14,7 @@ import DoneOutlineRoundedIcon from "@mui/icons-material/DoneOutlineRounded";
 import DeleteIcon from "@mui/icons-material/Delete";
 import constants from "../../assets/constants/constants";
 import localisations from "../../assets/constants/localisations";
-import {deletePerson, updatePersonData} from "../../methods/postDataToServer";
+import {deletePerson, updatePersonData} from "../../methods/requestsToServer";
 import {useTelegram} from "../../hooks/useTelegram";
 import {fetchUsers} from "../../redux/actions";
 import {useEffect} from "react";
