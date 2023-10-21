@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Link, useLocation, useParams, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import Profile from "../../components/Profile/Profile";
-import {Grid, IconButton, ListItem, ListItemIcon} from "@mui/material";
+import {Chip, Grid, IconButton, ListItem, ListItemIcon} from "@mui/material";
 import List from "@mui/material/List";
 import {userRequirements} from "../../assets/db/userData";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
@@ -62,9 +62,7 @@ export default function UserProfile() {
                             {"Дата регистрации: " + registrationDate}
                         </Typography>
                         {isUserConfirmed ?
-                            <Typography sx={{mb: 1.5}}>
-                                Заявка подтверждена
-                            </Typography> :
+                            <Chip label="Подтверждён" color="success" /> :
                             <Typography sx={{mb: 1.5}}>
                                 <b>Ожидается подтверждение заявки</b>
                             </Typography>
