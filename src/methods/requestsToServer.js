@@ -3,7 +3,7 @@ import constants from "../assets/constants/constants";
 const {serverDomain, port} = constants;
 
 export async function updatePersonData(formData, queryId, chatID) {
-    return await fetch(`https://${serverDomain}:${port}/updateUserData`, {
+    return await fetch(`https://${serverDomain}:${port}/updatePersonData`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -17,7 +17,7 @@ export async function updatePersonData(formData, queryId, chatID) {
 }
 
 export async function deletePerson(chatID) {
-    return await fetch(`https://${serverDomain}:${port}/deleteUser`, {
+    return await fetch(`https://${serverDomain}:${port}/deletePerson`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export async function deletePerson(chatID) {
 }
 
 export async function getUsers() {
-    return await fetch(`https://${serverDomain}:${port}/users`, {
+    return await fetch(`https://${serverDomain}:${port}/persons`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

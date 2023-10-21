@@ -4,10 +4,10 @@ import ListSubheader from "@mui/material/ListSubheader";
 import ListItemLink from "../../components/ListItemLink/ListItemLink";
 import {useEffect} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
-import {CircularProgress, Divider} from "@mui/material";
-import {useDispatch, useSelector} from "react-redux";
+import {Divider} from "@mui/material";
+import CircularProgress from "../../components/CircularProgress/CircularProgress";
+import {useSelector} from "react-redux";
 import constants from "../../assets/constants/constants";
-import Box from "@mui/material/Box";
 
 export default function Menu() {
 
@@ -71,8 +71,6 @@ export default function Menu() {
                 {/*<ListItemLink to="/reagents" primary="Заявки на реактивы"/>*/}
                 <ListItemLink to={`/${chatID}`} primary="Мой профиль"/>
                 {isAdmin && renderAdminPages()}
-            </List> : <Box sx={{display: 'flex'}}>
-                <CircularProgress/>
-            </Box>
+            </List> : <CircularProgress/>
     );
 }
