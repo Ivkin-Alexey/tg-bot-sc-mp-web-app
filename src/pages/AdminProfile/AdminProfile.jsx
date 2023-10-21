@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Link, useLocation, useParams, useNavigate} from 'react-router-dom';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Profile from "../../components/Profile/Profile";
 import {IconButton} from "@mui/material";
 import Button from "@mui/material/Button";
@@ -8,8 +8,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import constants from "../../assets/constants/constants";
 import localisations from "../../assets/constants/localisations";
 import Typography from "@mui/material/Typography";
-import {deletePerson} from "../../methods/requestsToServer";
 import {useTelegram} from "../../hooks/useTelegram";
+import {deletePersonAction} from "../../redux/actions";
 
 export default function AdminProfile() {
     const {tg} = useTelegram();
@@ -25,7 +25,8 @@ export default function AdminProfile() {
     const redirectionPath = "/adminList";
     const {applicationDeleteAlert, roleTitle} = localisations.pages.adminProfile;
     const {pathname} = useLocation();
-    const redirect = navigate(redirectionPath);
+    const dispatch = useDispatch();
+    const redirect = () => navigate(redirectionPath);
     let path = `/${chatID}/editProfile`;
     if (pathname.includes("adminList")) path = `/adminList/${chatID}/editProfile`;
 
@@ -43,12 +44,8 @@ export default function AdminProfile() {
     }
 
     function popupCallBack() {
-        deletePerson(chatID)
-            .then((res) => {
-                console.log(res);
-                redirect();
-            })
-            .catch(e => console.log(e))
+        redirect();
+        dispatch(deletePersonAction(chatID));
     }
 
     function renderButtonsBlock() {

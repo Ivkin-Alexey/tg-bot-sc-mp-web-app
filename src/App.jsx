@@ -19,7 +19,7 @@ import UserList from "./pages/UserList/UserList";
 import AdminProfile from "./pages/AdminProfile/AdminProfile";
 import constants from "./assets/constants/constants";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchUsers} from "./redux/actions";
+import {fetchUsersAction} from "./redux/actions";
 import AdminList from "./pages/AdminList/AdminList";
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchUsers(chatID));
+        dispatch(fetchUsersAction(chatID));
         tg.BackButton.isVisible = true;
     }, []);
 

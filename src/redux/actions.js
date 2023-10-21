@@ -3,14 +3,37 @@ import {
 } from "./types";
 
 import constants from "../assets/constants/constants";
-import {getUsers} from "../methods/requestsToServer";
+import {deletePerson, getUsers, updatePersonData} from "../methods/requestsToServer";
 
 const {admin, superAdmin} = constants.userRoles;
 
-export function fetchUsers(chatID) {
+export function fetchUsersAction(chatID) {
     return async dispatch => {
+        dispatch({type: SET_USERS_DATA_IS_UPDATED, payload: false});
         try {
             getUsers().then(data => setUsers(dispatch, data, chatID));
+        } catch (e) {
+            console.log(e);
+        }
+    }
+}
+
+export function deletePersonAction(chatID) {
+    return async dispatch => {
+        dispatch({type: SET_USERS_DATA_IS_UPDATED, payload: false});
+        try {
+            deletePerson(chatID).then(data => setUsers(dispatch, data, chatID));
+        } catch (e) {
+            console.log(e);
+        }
+    }
+}
+
+export function updatePersonDataAction(chatID) {
+    return async dispatch => {
+        dispatch({type: SET_USERS_DATA_IS_UPDATED, payload: false});
+        try {
+            updatePersonData().then(data => setUsers(dispatch, data, chatID));
         } catch (e) {
             console.log(e);
         }

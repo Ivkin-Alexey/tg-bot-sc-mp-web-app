@@ -2,8 +2,9 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useTelegram} from "../../hooks/useTelegram";
 import {MenuItem, Stack, TextField} from "@mui/material";
 import ListSubheader from "@mui/material/ListSubheader";
-import {updatePersonData} from "../../methods/requestsToServer";
 import Button from "@mui/material/Button";
+import {useDispatch} from "react-redux";
+import {updatePersonDataAction} from "../../redux/actions";
 
 const Form = (props) => {
 
@@ -16,6 +17,7 @@ const Form = (props) => {
         filteringRules = null
     } = props;
 
+    const dispatch = useDispatch();
     const [textInputs, setTextInputs] = useState(defaultTextInputs);
     let defaultRequiredFormData = {};
 
@@ -35,7 +37,7 @@ const Form = (props) => {
     const {tg, queryId} = useTelegram();
 
     const onSendData = useCallback(() => {
-        updatePersonData(formData, queryId, chatID)
+        dispatch(updatePersonDataAction(formData, queryId, chatID))
             .then(() => {
                 tg.showPopup({message: confirmMessage, buttons: [{type: "ok", text: "Ок"}]}, () => tg.close())
             });

@@ -14,11 +14,8 @@ import DoneOutlineRoundedIcon from "@mui/icons-material/DoneOutlineRounded";
 import DeleteIcon from "@mui/icons-material/Delete";
 import constants from "../../assets/constants/constants";
 import localisations from "../../assets/constants/localisations";
-import {deletePerson, updatePersonData} from "../../methods/requestsToServer";
 import {useTelegram} from "../../hooks/useTelegram";
-import {fetchUsers} from "../../redux/actions";
-import {useEffect} from "react";
-import {SET_USERS_DATA_IS_UPDATED} from "../../redux/types";
+import {deletePersonAction} from "../../redux/actions";
 
 export default function UserProfile() {
     const {chatID} = useParams();
@@ -108,14 +105,8 @@ export default function UserProfile() {
     }
 
     function popupCallBack() {
-        dispatch({type: SET_USERS_DATA_IS_UPDATED, payload: false});
-        deletePerson(chatID)
-            .then((updatedUsersData) => {
-                console.log(updatedUsersData);
-                // dispatch(fetchUsers(chatID));
-                redirect();
-            })
-            .catch(e => console.log(e))
+        redirect();
+        dispatch(deletePersonAction(chatID))
     }
 
     return <Profile displayedData={displayedData}
