@@ -7,4 +7,9 @@ const constants = {
 
 }
 
+export const convertRules = {
+    studentsEducationYear: "study",
+    postGraduateEducationYear: "study"
+}
+
 export default constants;

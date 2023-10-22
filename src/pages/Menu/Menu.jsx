@@ -27,13 +27,6 @@ export default function Menu() {
         }
     }, []);
 
-    // useEffect(() => {
-    //     if (isUsersDataUpdated) {
-    //
-    //     }
-    // }, [isUsersDataUpdated]);
-
-
     const renderAdminPages = () => {
         return (
             <>
@@ -49,6 +42,7 @@ export default function Menu() {
     const renderStepperPage = () => {
         return (
             <>
+                <ListItemLink to={`/${accountChatID}`} primary="Мой профиль"/>
                 <ListItemLink to="/stepper" primary="Допуск в лабораторию"/>
                 <Divider/>
             </>
@@ -65,11 +59,10 @@ export default function Menu() {
                           Меню:
                       </ListSubheader>
                   }>
-                {/*{renderStepperPage()}*/}
-                {/*<ListItemLink to="/equipment" primary="Оборудование"/>*/}
-                {/*<ListItemLink to="/applications" primary="Заявки на исследование"/>*/}
-                {/*<ListItemLink to="/reagents" primary="Заявки на реактивы"/>*/}
-                <ListItemLink to={`/${accountChatID}`} primary="Мой профиль"/>
+                {renderStepperPage()}
+                <ListItemLink to="/equipment" primary="Оборудование"/>
+                <ListItemLink to="/applications" primary="Заявки на исследование"/>
+                <ListItemLink to="/reagents" primary="Заявки на реактивы"/>
                 {isAdmin && renderAdminPages()}
             </List> : <CircularProgress/>
     );

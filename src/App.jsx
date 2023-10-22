@@ -45,13 +45,13 @@ function App() {
             <main className="main">
                 <Routes>
                     <Route index element={<Menu/>}/>
-                    {/*<Route path={'equipment'} element={<EquipmentCategoryList/>}/>*/}
-                    {/*<Route path={'reagents'} element={<Reagents/>}/>*/}
-                    {/*<Route path={'equipment/:category'} element={<EquipmentList/>}/>*/}
-                    {/*<Route path={'applications'} element={<ApplicationList/>}/>*/}
-                    {/*<Route path={'applications/:application'} element={<Application/>}/>*/}
-                    {/*<Route path={'statistic/activeEquipment'} element={<ActiveEquipment/>}/>*/}
-                    {/*<Route path={'statistic/activeEmployees'} element={<ActiveEmployees/>}/>*/}
+                    <Route path={'equipment'} element={<EquipmentCategoryList/>}/>
+                    <Route path={'reagents'} element={<Reagents/>}/>
+                    <Route path={'equipment/:category'} element={<EquipmentList/>}/>
+                    <Route path={'applications'} element={<ApplicationList/>}/>
+                    <Route path={'applications/:application'} element={<Application/>}/>
+                    <Route path={'statistic/activeEquipment'} element={<ActiveEquipment/>}/>
+                    <Route path={'statistic/activeEmployees'} element={<ActiveEmployees/>}/>
                     <Route path={'userList'} element={<UserList/>}/>
                     <Route path={'userList/:chatID'} element={<UserProfile/>}/>
                     <Route path={'userList/:chatID/editProfile'} element={<EditPersonalData/>}/>
@@ -60,7 +60,7 @@ function App() {
                     <Route path={'adminList'} element={<AdminList/>}/>
                     <Route path={'adminList/:chatID'} element={<AdminProfile/>}/>
                     <Route path={'adminList/:chatID/editProfile'} element={<EditPersonalData/>}/>
-                    {/*<Route path={'stepper'} element={<NewUserPage/>}/>*/}
+                    <Route path={'stepper'} element={<NewUserPage/>}/>
                 </Routes>
             </main>
         </> : null

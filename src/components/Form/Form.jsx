@@ -1,4 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
+import {convertRules} from "../../assets/constants/constants";
 import {useTelegram} from "../../hooks/useTelegram";
 import {MenuItem, Stack, TextField} from "@mui/material";
 import ListSubheader from "@mui/material/ListSubheader";
@@ -63,7 +64,6 @@ const Form = (props) => {
             console.log("hide");
         } else {
             tg.MainButton.show();
-            console.log("show");
         }
     }, [requiredFormData])
 
@@ -120,7 +120,7 @@ const Form = (props) => {
                 >{options && renderSelectOptions(options)}
                 </TextField>
             })}
-            <Button onClick={onSendData}>Отправить</Button>
+            {/*<Button onClick={onSendData}>Отправить</Button>*/}
         </Stack>
     );
 };
