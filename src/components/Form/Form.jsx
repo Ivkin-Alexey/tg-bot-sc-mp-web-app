@@ -61,7 +61,6 @@ const Form = (props) => {
     useEffect(() => {
         if (Object.values(requiredFormData).some(el => el === '')) {
             tg.MainButton.hide();
-            console.log("hide");
         } else {
             tg.MainButton.show();
         }

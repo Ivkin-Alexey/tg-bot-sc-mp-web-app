@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import {useEffect} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
+import {Chip} from "@mui/material";
 
 export default function Profile(props) {
 
@@ -34,6 +35,7 @@ export default function Profile(props) {
         phone,
         position,
         research,
+        isUserConfirmed,
     } = displayedData;
 
     useEffect(() => {
@@ -48,6 +50,10 @@ export default function Profile(props) {
         <Box sx={{minWidth: 275}}>
             <Card variant="outlined">
                 <CardContent>
+                    {isUserConfirmed ?
+                        <Chip label="Подтверждён" color="success" /> :
+                        <Chip label="Не подтверждён" color="error" />
+                    }
                     <Typography sx={{fontSize: 14, mb: 1.5}}>
                         {position ? position : <b>Должность не указана</b>}
                     </Typography>

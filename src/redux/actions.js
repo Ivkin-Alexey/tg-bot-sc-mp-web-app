@@ -42,6 +42,11 @@ export function updatePersonDataAction(chatID, accountChatID, formData, queryId)
     }
 }
 
+export function confirmPersonAction(chatID, accountChatID) {
+    const formData = {"isUserConfirmed": true};
+    updatePersonDataAction(chatID, accountChatID, formData);
+}
+
 export function setUsers(dispatch, data, accountChatID) {
     let admins = [];
     let users = [];

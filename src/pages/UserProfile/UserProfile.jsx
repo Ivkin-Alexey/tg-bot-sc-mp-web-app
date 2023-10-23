@@ -15,7 +15,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import constants from "../../assets/constants/constants";
 import localisations from "../../assets/constants/localisations";
 import {useTelegram} from "../../hooks/useTelegram";
-import {deletePersonAction} from "../../redux/actions";
+import {confirmPersonAction, deletePersonAction} from "../../redux/actions";
 
 export default function UserProfile() {
     const {chatID} = useParams();
@@ -26,8 +26,8 @@ export default function UserProfile() {
     const role = accountData.type;
     const isAdmin = role === constants.userRoles.admin;
     const isSuperAdmin = role === constants.userRoles.superAdmin;
-    const {otherInfo} = displayedData;
-    const {registrationDate, isUserConfirmed, isUserDataSent} = otherInfo;
+    const {otherInfo, isUserConfirmed} = displayedData;
+    const {registrationDate, isUserDataSent} = otherInfo;
     const {applicationDeleteAlert} = localisations.pages.userProfile;
     const {pathname} = useLocation();
     const redirectionPath = "/userList";
@@ -62,7 +62,7 @@ export default function UserProfile() {
                             {"Дата регистрации: " + registrationDate}
                         </Typography>
                         {isUserConfirmed ?
-                            <Chip label="Подтверждён" color="success" /> :
+                            null :
                             <Typography sx={{mb: 1.5}}>
                                 <b>Ожидается подтверждение заявки</b>
                             </Typography>
@@ -78,7 +78,12 @@ export default function UserProfile() {
         return (
             isAdmin ? null :
             <>
-                {isSuperAdmin && !isUserConfirmed && <IconButton aria-label="done" sx={{marginRight: "8px"}}>
+                {isSuperAdmin && !isUserConfirmed &&
+                    <IconButton
+                    aria-label="done"
+                    sx={{marginRight: "8px"}}
+                    onClick={onConfirmPerson}
+                >
                     <DoneOutlineRoundedIcon color="success"/>
                 </IconButton>}
                 <Button component={Link} to={path} variant="outlined" color="primary" size="small" disableElevation>
@@ -105,6 +110,10 @@ export default function UserProfile() {
     function popupCallBack() {
         redirect();
         dispatch(deletePersonAction(chatID, accountChatID))
+    }
+
+    function onConfirmPerson() {
+        dispatch(confirmPersonAction(chatID, accountChatID))
     }
 
     return <Profile displayedData={displayedData}
