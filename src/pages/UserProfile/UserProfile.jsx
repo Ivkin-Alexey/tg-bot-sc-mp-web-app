@@ -28,7 +28,7 @@ export default function UserProfile() {
     const isSuperAdmin = role === constants.userRoles.superAdmin;
     const {otherInfo, isUserConfirmed} = displayedData;
     const {registrationDate, isUserDataSent} = otherInfo;
-    const {applicationDeleteAlert} = localisations.pages.userProfile;
+    const {applicationDeleteMessage, applicationConfirmAlert} = localisations.pages.userProfile;
     const {pathname} = useLocation();
     const redirectionPath = "/userList";
     const redirect = () => navigate(redirectionPath);
@@ -102,7 +102,7 @@ export default function UserProfile() {
 
     function onDeletePerson() {
         tg.showPopup({
-            message: applicationDeleteAlert,
+            message: applicationDeleteMessage,
             buttons: [{type: "ok", text: "Да"}, {type: "cancel", text: "Отмена"}]
         }, popupCallBack)
     }
@@ -113,7 +113,11 @@ export default function UserProfile() {
     }
 
     function onConfirmPerson() {
-        dispatch(confirmPersonAction(chatID, accountChatID))
+        if(!isUserDataSent) {
+            tg.showAlert(applicationConfirmAlert);
+        } else {
+            dispatch(confirmPersonAction(chatID, accountChatID));
+        }
     }
 
     return <Profile displayedData={displayedData}

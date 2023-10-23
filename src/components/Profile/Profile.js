@@ -8,6 +8,7 @@ import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import {useEffect} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
 import {Chip} from "@mui/material";
+import {confirmPersonAction} from "../../redux/actions";
 
 export default function Profile(props) {
 
@@ -51,8 +52,8 @@ export default function Profile(props) {
             <Card variant="outlined">
                 <CardContent>
                     {isUserConfirmed ?
-                        <Chip label="Подтверждён" color="success" /> :
-                        <Chip label="Не подтверждён" color="error" />
+                        <Chip label="Подтверждён" size="small" color="success" variant="outlined"/> :
+                        <Chip label="Не подтверждён" size="small" color="error" variant="outlined"/>
                     }
                     <Typography sx={{fontSize: 14, mb: 1.5}}>
                         {position ? position : <b>Должность не указана</b>}

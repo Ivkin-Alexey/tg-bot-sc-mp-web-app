@@ -22,7 +22,8 @@ const localisations = {
             roleTitle: {user: "Обучающийся", admin: "Администратор", superAdmin: "Супер администратор",}
         },
         userProfile: {
-            applicationDeleteAlert: "Вы действительно хотите удалить эту заявку?"
+            applicationDeleteMessage: "Вы действительно хотите удалить эту заявку?",
+            applicationConfirmAlert: "У пользователя не заполнены обязательные поля"
         },
         userList: {
             subHeader: "Обучающиеся"
