@@ -37,10 +37,7 @@ export default function AdminProfile() {
     }
 
     function onDeletePerson() {
-        tg.showPopup({
-            message: applicationDeleteAlert,
-            buttons: [{type: "ok", text: "Да"}, {type: "cancel", text: "Отмена"}]
-        }, popupCallBack)
+        tg.showConfirm(applicationDeleteAlert, popupCallBack)
     }
 
     function popupCallBack() {

@@ -101,10 +101,7 @@ export default function UserProfile() {
     }
 
     function onDeletePerson() {
-        tg.showPopup({
-            message: applicationDeleteMessage,
-            buttons: [{type: "ok", text: "Да"}, {type: "cancel", text: "Отмена"}]
-        }, popupCallBack)
+        tg.showConfirm(applicationDeleteMessage, popupCallBack)
     }
 
     function popupCallBack() {
