@@ -16,7 +16,7 @@ import constants from "../../assets/constants/constants";
 import localisations from "../../assets/constants/localisations";
 import {useTelegram} from "../../hooks/useTelegram";
 import {confirmPersonAction, deletePersonAction} from "../../redux/actions";
-import {useEffect} from "@types/react";
+import {useEffect} from "react";
 
 export default function UserProfile() {
     const {chatID} = useParams();
