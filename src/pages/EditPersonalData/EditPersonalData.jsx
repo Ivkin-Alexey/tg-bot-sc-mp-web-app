@@ -33,7 +33,7 @@ const EditPersonalData = () => {
         ]
     }
 
-    const redirect = () => navigate('/' + chatID);
+    const redirect = () => navigate(-1);
 
     useEffect(() => {
         tg.onEvent('backButtonClicked', redirect)
