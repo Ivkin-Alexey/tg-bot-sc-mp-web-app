@@ -105,8 +105,9 @@ export default function UserProfile() {
         tg.showConfirm(applicationDeleteMessage, popupCallBack)
     }
 
-    function popupCallBack() {
-            redirect();
+    function popupCallBack(button_id) {
+        console.log(button_id);
+        redirect();
             dispatch(deletePersonAction(chatID, accountChatID));
     }
 
