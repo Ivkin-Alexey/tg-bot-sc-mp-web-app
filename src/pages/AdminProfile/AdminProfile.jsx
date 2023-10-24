@@ -40,8 +40,8 @@ export default function AdminProfile() {
         tg.showConfirm(applicationDeleteAlert, popupCallBack)
     }
 
-    function popupCallBack(button_id) {
-        if(button_id === "ok") {
+    function popupCallBack(pressedButtonIsOk) {
+        if(pressedButtonIsOk) {
             redirect();
             dispatch(deletePersonAction(chatID, accountChatID));
         }
