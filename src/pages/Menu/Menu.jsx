@@ -33,6 +33,9 @@ export default function Menu() {
                 <Divider/>
                 <ListItemLink to="/userList" primary={`Обучающиеся (${users.length})`}/>
                 <ListItemLink to="/adminList" primary={`Администраторы (${admins.length})`}/>
+                <ListItemLink to="/equipment" primary="Оборудование"/>
+                <ListItemLink to="/applications" primary="Заявки на исследование"/>
+                <ListItemLink to="/reagents" primary="Заявки на реактивы"/>
                 {/*<ListItemLink to="/statistic/activeEmployees" primary="Активные работники"/>*/}
                 {/*<ListItemLink to="/statistic/activeEmployees" primary="Активные работники"/>*/}
             </>
@@ -60,9 +63,6 @@ export default function Menu() {
                       </ListSubheader>
                   }>
                 {renderStepperPage()}
-                <ListItemLink to="/equipment" primary="Оборудование"/>
-                <ListItemLink to="/applications" primary="Заявки на исследование"/>
-                <ListItemLink to="/reagents" primary="Заявки на реактивы"/>
                 {isAdmin && renderAdminPages()}
             </List> : <CircularProgress/>
     );
