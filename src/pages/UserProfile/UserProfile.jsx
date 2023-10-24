@@ -16,6 +16,7 @@ import constants from "../../assets/constants/constants";
 import localisations from "../../assets/constants/localisations";
 import {useTelegram} from "../../hooks/useTelegram";
 import {confirmPersonAction, deletePersonAction} from "../../redux/actions";
+import {useEffect} from "@types/react";
 
 export default function UserProfile() {
     const {chatID} = useParams();
@@ -104,11 +105,9 @@ export default function UserProfile() {
         tg.showConfirm(applicationDeleteMessage, popupCallBack)
     }
 
-    function popupCallBack(button_id) {
-        if(button_id === "ok") {
+    function popupCallBack() {
             redirect();
             dispatch(deletePersonAction(chatID, accountChatID));
-        }
     }
 
     function onConfirmPerson() {
