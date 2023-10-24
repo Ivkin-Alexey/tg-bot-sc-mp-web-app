@@ -105,10 +105,11 @@ export default function UserProfile() {
         tg.showConfirm(applicationDeleteMessage, popupCallBack)
     }
 
-    function popupCallBack(button_id) {
-        console.log(button_id);
-        redirect();
+    function popupCallBack(pressedButtonIsOk) {
+        if(pressedButtonIsOk) {
+            redirect();
             dispatch(deletePersonAction(chatID, accountChatID));
+        }
     }
 
     function onConfirmPerson() {
