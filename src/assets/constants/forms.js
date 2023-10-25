@@ -1,9 +1,10 @@
 import localisations from "../constants/localisations";
+import {researchesSelectOptions} from "../db/db";
+
 const {
     studentsEducationYearList,
     postGraduatesEducationYearList,
     positionList,
-    researches
 } = localisations.components.form;
 
 const forms = {
@@ -74,7 +75,7 @@ const forms = {
                 id: 'outlined-select-currency',
                 required: true
             },
-            other: {initValue: researches[0].value, validateRules: [], selectOptions: researches}
+            other: {initValue: researchesSelectOptions[0].value, validateRules: [], selectOptions: researchesSelectOptions}
         },
         {
             inputAttributes: {
@@ -133,7 +134,7 @@ const forms = {
                 select: true,
                 required: true
             },
-            other: {initValue: researches[0].value, validateRules: [], selectOptions: researches}
+            other: {initValue: researchesSelectOptions[0].value, validateRules: [], selectOptions: researchesSelectOptions}
         },
         {
             inputAttributes: {

@@ -20,6 +20,7 @@ const Form = (props) => {
 
     const dispatch = useDispatch();
     const {accountChatID} = useSelector(state => state.users);
+    const {researches} = useSelector(state => state.researches);
     const [textInputs, setTextInputs] = useState(defaultTextInputs);
     let defaultRequiredFormData = {};
 

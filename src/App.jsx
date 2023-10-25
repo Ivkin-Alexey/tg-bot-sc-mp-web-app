@@ -19,7 +19,7 @@ import UserList from "./pages/UserList/UserList";
 import AdminProfile from "./pages/AdminProfile/AdminProfile";
 import constants from "./assets/constants/constants";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchUsersAction} from "./redux/actions";
+import {fetchResearchesAction, fetchUsersAction} from "./redux/actions";
 import AdminList from "./pages/AdminList/AdminList";
 import {SET_ACCOUNT_CHAT_ID} from "./redux/types";
 
@@ -31,6 +31,7 @@ function App() {
     useEffect(() => {
         dispatch({type: SET_ACCOUNT_CHAT_ID, payload: accountChatID});
         dispatch(fetchUsersAction(accountChatID));
+        dispatch(fetchResearchesAction());
         tg.BackButton.isVisible = true;
     }, []);
 

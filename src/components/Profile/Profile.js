@@ -8,7 +8,7 @@ import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import {useEffect} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
 import {Chip} from "@mui/material";
-import {confirmPersonAction} from "../../redux/actions";
+import {researchesSelectOptions} from "../../assets/db/db"
 
 export default function Profile(props) {
 

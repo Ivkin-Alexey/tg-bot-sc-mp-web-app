@@ -3,9 +3,10 @@ import {
     SET_ADMIN_LIST,
     SET_ACCOUNT_DATA,
     SET_USERS_DATA_IS_UPDATED,
+    SET_RESEARCHES
 } from "./types";
 import constants from "../assets/constants/constants";
-import {deletePerson, getUsers, updatePersonData} from "../methods/requestsToServer";
+import {deletePerson, getUsers, updatePersonData, getResearches} from "../methods/requestsToServer";
 
 const {admin, superAdmin} = constants.userRoles;
 
@@ -45,6 +46,17 @@ export function updatePersonDataAction(chatID, accountChatID, formData, queryId)
 export function confirmPersonAction(chatID, accountChatID) {
     const formData = {"isUserConfirmed": true};
     return updatePersonDataAction(chatID, accountChatID, formData);
+}
+
+export function fetchResearchesAction() {
+    return async dispatch => {
+        dispatch({type: SET_USERS_DATA_IS_UPDATED, payload: false});
+        try {
+            getResearches().then(researchList => dispatch({type: SET_RESEARCHES, payload: researchList}));
+        } catch (e) {
+            console.log(e);
+        }
+    }
 }
 
 export function setUsers(dispatch, data, accountChatID) {
