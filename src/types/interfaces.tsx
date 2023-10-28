@@ -5,7 +5,7 @@ export interface ITextInputAttributes {
         id: TTextInputID,
         required: boolean
     },
-    other: {initValue: string, validateRules: string[]}
+    other: {initValue: string, validateRule: string}
 }
 
 export interface IReagentsListItem {

@@ -1,11 +1,11 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {convertRules} from "../../assets/constants/constants";
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {useTelegram} from "../../hooks/useTelegram";
 import {MenuItem, Stack, TextField} from "@mui/material";
 import ListSubheader from "@mui/material/ListSubheader";
 import Button from "@mui/material/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {updatePersonDataAction} from "../../redux/actions";
+import validateInputValue from "../../methods/validators";
 
 const Form = (props) => {
 
@@ -20,31 +20,34 @@ const Form = (props) => {
 
     const dispatch = useDispatch();
     const {accountChatID} = useSelector(state => state.users);
-    const {researches} = useSelector(state => state.researches);
     const [textInputs, setTextInputs] = useState(defaultTextInputs);
-    let defaultRequiredFormData = {};
 
     const defaultFormData = textInputs.reduce((acc, cur) => {
         const {name, required} = cur.inputAttributes;
-        if (required) defaultRequiredFormData[name] = defaultValues[name] || cur.other.initValue;
+        const {initValue, validateRule = null} = cur.other;
         return {
             ...acc,
-            [name]: defaultValues[name] || cur.other.initValue
+            [name]: {
+                value: defaultValues[name] || initValue,
+                required,
+                valid: {isValid: true},
+                validateRule
+            }
         }
     }, {});
 
     const [formData, setFormData] = useState(defaultFormData);
-    const [requiredFormData, setRequiredFormData] = useState(defaultRequiredFormData);
-
     const observedValue = formData[filteringRules?.observedInputName];
     const {tg, queryId} = useTelegram();
 
     const onSendData = useCallback(() => {
-        dispatch(updatePersonDataAction(chatID, accountChatID, formData, queryId))
+        const formDataEntries = Object.entries(formData).map(el => [el[0], el[1].value]);
+        const data = Object.fromEntries(formDataEntries);
+        dispatch(updatePersonDataAction(chatID, accountChatID, data, queryId))
             .then(() => {
                 tg.showPopup({message: confirmMessage, buttons: [{type: "ok", text: "Ок"}]}, () => tg.close())
             });
-    }, [formData])
+    }, [formData]);
 
     useEffect(() => {
         tg.onEvent('mainButtonClicked', onSendData)
@@ -57,28 +60,31 @@ const Form = (props) => {
         tg.MainButton.setParams({
             text: tgMainButtonText
         })
-    }, [])
+    }, []);
 
     useEffect(() => {
-        if (Object.values(requiredFormData).some(el => el === '')) {
+        if (Object.values(formData).find(el => el.valid.isValid === false)) {
             tg.MainButton.hide();
         } else {
             tg.MainButton.show();
         }
-    }, [requiredFormData])
+    }, [formData]);
 
     const onChangeData = (e) => {
-        const {name, value} = e.target;
-        setFormData((state) => ({
-            ...state,
-            [name]: value
-        }));
-        if (requiredFormData[name] !== undefined) {
-            setRequiredFormData((state) => ({
+        let {name, value} = e.target;
+        value = value ? value[0].toUpperCase() + value.slice(1) : "";
+        setFormData(state => {
+            const {validateRule, required} = state[name];
+            return {
                 ...state,
-                [name]: value
-            }));
-        }
+                [name]: {
+                    ...state[name],
+                    value,
+                    valid: validateInputValue(value, validateRule, required)
+                }
+            };
+        })
+        console.log(formData);
     }
 
     function filterInputs(input) {
@@ -109,13 +115,16 @@ const Form = (props) => {
                 Заполните поля:
             </ListSubheader>
             {textInputs.map((el, i) => {
+                const {name, helperText = null} = el.inputAttributes;
+                const {value, valid} = formData[name];
                 const options = el.other?.selectOptions;
                 return <TextField
+                    error={!valid.isValid}
+                    helperText={valid.errorText}
                     key={i}
                     onChange={onChangeData}
                     fullWidth
-                    error={false}
-                    value={formData[el.inputAttributes.name]}
+                    value={value}
                     {...el.inputAttributes}
                 >{options && renderSelectOptions(options)}
                 </TextField>

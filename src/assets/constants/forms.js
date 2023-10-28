@@ -1,5 +1,8 @@
 import localisations from "../constants/localisations";
+import constants from "../constants/constants";
 import {researchesSelectOptions} from "../db/db";
+
+const {cyrillicTextOnly, phone} = constants.validateRules;
 
 const {
     studentsEducationYearList,
@@ -16,7 +19,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: "", validateRules: []}
+            other: {initValue: "", validateRule: cyrillicTextOnly}
         },
         {
             inputAttributes: {
@@ -25,7 +28,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: "", validateRules: []}
+            other: {initValue: "", validateRule: cyrillicTextOnly}
         },
 
         {
@@ -35,7 +38,7 @@ const forms = {
                 id: 'outlined-basic',
                 required: false
             },
-            other: {initValue: "", validateRules: []}
+            other: {initValue: "", validateRule: cyrillicTextOnly}
         },
         {
             inputAttributes: {
@@ -45,7 +48,7 @@ const forms = {
                 id: 'outlined-select-currency',
                 required: true,
             },
-            other: {initValue: positionList[0].value, validateRules: [], selectOptions: positionList}
+            other: {initValue: positionList[0].value, validateRule: cyrillicTextOnly, selectOptions: positionList}
         },
         {
             inputAttributes: {
@@ -55,7 +58,7 @@ const forms = {
                 id: 'outlined-select-currency',
                 required: true,
             },
-            other: {initValue: studentsEducationYearList[0].value, validateRules: [], selectOptions: studentsEducationYearList}
+            other: {initValue: studentsEducationYearList[0].value, selectOptions: studentsEducationYearList}
         },
         {
             inputAttributes: {
@@ -65,7 +68,7 @@ const forms = {
                 id: 'outlined-select-currency',
                 required: true,
             },
-            other: {initValue: postGraduatesEducationYearList[0].value, validateRules: [], selectOptions: postGraduatesEducationYearList}
+            other: {initValue: postGraduatesEducationYearList[0].value, selectOptions: postGraduatesEducationYearList}
         },
         {
             inputAttributes: {
@@ -75,17 +78,16 @@ const forms = {
                 id: 'outlined-select-currency',
                 required: true
             },
-            other: {initValue: researchesSelectOptions[0].value, validateRules: [], selectOptions: researchesSelectOptions}
+            other: {initValue: researchesSelectOptions[0].value, selectOptions: researchesSelectOptions}
         },
         {
             inputAttributes: {
                 name: 'phone',
                 label: 'Мобильный',
                 id: 'outlined-helperText',
-                helperText: 'Номер телефона нужен для экстренной связи',
                 required: true
             },
-            other: {initValue: '+7', validateRules: []}
+            other: {initValue: '+7', validateRule: phone}
         },
     ],
     editAdminPersonalData: [
@@ -96,7 +98,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: "", validateRules: []}
+            other: {initValue: "", validateRule: cyrillicTextOnly}
         },
         {
             inputAttributes: {
@@ -105,7 +107,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: "", validateRules: []}
+            other: {initValue: "", validateRule: cyrillicTextOnly}
         },
 
         {
@@ -115,7 +117,7 @@ const forms = {
                 id: 'outlined-basic',
                 required: false
             },
-            other: {initValue: "", validateRules: []}
+            other: {initValue: "", validateRule: cyrillicTextOnly}
         },
         {
             inputAttributes: {
@@ -124,7 +126,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true,
             },
-            other: {initValue: "", validateRules: []}
+            other: {initValue: "", validateRule: cyrillicTextOnly}
         },
         {
             inputAttributes: {
@@ -134,17 +136,16 @@ const forms = {
                 select: true,
                 required: true
             },
-            other: {initValue: researchesSelectOptions[0].value, validateRules: [], selectOptions: researchesSelectOptions}
+            other: {initValue: researchesSelectOptions[0].value, selectOptions: researchesSelectOptions}
         },
         {
             inputAttributes: {
                 name: 'phone',
                 label: 'Мобильный',
                 id: 'outlined-helperText',
-                helperText: 'Номер телефона нужен для экстренной связи',
                 required: true
             },
-            other: {initValue: '+7', validateRules: []}
+            other: {initValue: '+7', validateRule: phone}
         },
     ],
     thermalAnalysis: [
@@ -155,7 +156,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: '', validateRules: []}
+            other: {initValue: ''}
         },
         {
             inputAttributes: {
@@ -164,7 +165,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: '', validateRules: []}
+            other: {initValue: ''}
         },
         {
             inputAttributes: {
@@ -173,7 +174,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: '', validateRules: []}
+            other: {initValue: '',}
         },
         {
             inputAttributes: {
@@ -183,7 +184,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: 'Воздух', validateRules: []}
+            other: {initValue: 'Воздух',}
         },
         {
             inputAttributes: {
@@ -192,7 +193,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: '', validateRules: []}
+            other: {initValue: '',}
         },
         {
             inputAttributes: {
@@ -201,7 +202,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: '', validateRules: []}
+            other: {initValue: '',}
         }
     ],
     furnaces: [
@@ -212,7 +213,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: '', validateRules: []}
+            other: {initValue: '',}
         },
         {
             inputAttributes: {
@@ -221,7 +222,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: '', validateRules: []}
+            other: {initValue: '',}
         },
         {
             inputAttributes: {
@@ -230,7 +231,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: '', validateRules: []}
+            other: {initValue: '',}
         },
         {
             inputAttributes: {
@@ -240,7 +241,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: 'Воздух', validateRules: []}
+            other: {initValue: 'Воздух',}
         },
         {
             inputAttributes: {
@@ -249,7 +250,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: '', validateRules: []}
+            other: {initValue: '',}
         },
         {
             inputAttributes: {
@@ -258,7 +259,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: '', validateRules: []}
+            other: {initValue: '',}
         }
     ],
     reagentsFormItem: [
@@ -269,7 +270,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: "", validateRules: []}
+            other: {initValue: "",}
         },
         {
             inputAttributes: {
@@ -278,7 +279,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: "", validateRules: []}
+            other: {initValue: "",}
         },
     ],
 };
