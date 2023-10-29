@@ -48,7 +48,7 @@ const forms = {
                 id: 'outlined-select-currency',
                 required: true,
             },
-            other: {initValue: positionList[0].value, validateRule: cyrillicTextWithSpace, selectOptions: positionList}
+            other: {initValue: positionList[0].value, selectOptions: positionList}
         },
         {
             inputAttributes: {

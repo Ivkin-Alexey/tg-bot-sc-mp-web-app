@@ -41,63 +41,63 @@ const localisations = {
         form: {
             positionList: [
                 {
-                    value: 'student',
+                    value: 'Студент',
                     label: 'Студент',
                 },
                 {
-                    value: 'postGraduate',
+                    value: 'Аспирант',
                     label: 'Аспирант',
                 },
             ],
             studentsEducationYearList: [
                 {
-                    value: 'firstYearMaster',
+                    value: '1 курс магистратуры',
                     label: '1 курс магистратуры',
                 },
                 {
-                    value: 'secondYearMaster',
+                    value: '2 курс магистратуры',
                     label: '2 курс магистратуры',
                 },
                 {
-                    value: 'firstYear',
+                    value: '1 курс',
                     label: '1 курс',
                 },
                 {
-                    value: 'secondYear',
+                    value: '2 курс',
                     label: '2 курс',
                 },
                 {
-                    value: 'thirdYear',
+                    value: '3 курс',
                     label: '3 курс',
                 },
                 {
-                    value: 'fourthYear',
+                    value: '4 курс',
                     label: '4 курс',
                 },
                 {
-                    value: 'fifthYear',
+                    value: '5 курс',
                     label: '5 курс',
                 },
                 {
-                    value: 'sixthYear',
+                    value: '6 курс',
                     label: '6 курс',
                 },
             ],
             postGraduatesEducationYearList: [
                 {
-                    value: 'firstYearPostGraduate',
+                    value: '1 курс',
                     label: '1 курс',
                 },
                 {
-                    value: 'secondYearPostGraduate',
+                    value: '2 курс',
                     label: '2 курс',
                 },
                 {
-                    value: 'thirdYearPostGraduate',
+                    value: '3 курс',
                     label: '3 курс',
                 },
                 {
-                    value: 'fourthYearPostGraduate',
+                    value: '4 курс',
                     label: '4 курс',
                 },
             ],
