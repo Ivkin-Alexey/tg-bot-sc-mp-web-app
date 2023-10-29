@@ -57,6 +57,7 @@ const Form = (props) => {
     }, [onSendData])
 
     useEffect(() => {
+        tg.expand();
         tg.MainButton.setParams({
             text: tgMainButtonText
         })
