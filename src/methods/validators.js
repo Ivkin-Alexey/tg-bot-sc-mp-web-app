@@ -1,10 +1,13 @@
-const cyrillicRegExp = /[а-яА-ЯЁё]/;
-const phoneRegExp = /^\+?[1-9][0-9]{10}$/;
+const cyrillicRegExp = /^[а-яёА-ЯЁ]*$/;
+const cyrillicWithSpaceRegExp = /^[а-яёА-ЯЁ]+([\s][а-яёА-ЯЁ]+)*$/;
+const phoneRegExp = /^\+?[1-9]\d{10}$/;
 
 const errorTexts = {
     cyrillicError: "Допустима только кириллица",
     emptyError: "Введите значение",
-    phoneError: "Допустимы только цифры и символ \"+\"",
+    phoneError: "Допустимы только цифры и символ \"+\" в начале",
+    spaceError: "Пробелы недопустимы",
+    spaceBetweenWordsError: "Пробелы допустимы только между словами"
 }
 
 export default function validateInputValue(value, rule, required) {
@@ -16,14 +19,31 @@ export default function validateInputValue(value, rule, required) {
         return result;
     }
     if(!rule) return result;
+    const start = value[0];
+    const end = value[value.length-1];
         switch (rule) {
             case "cyrillicTextOnly":
                if(cyrillicRegExp.test(value)) result.isValid = true;
+               else if(value.indexOf(" ") >= 0) {
+                   result.isValid = false;
+                   result.errorText = errorTexts.spaceError;
+               }
                else {
                    result.isValid = false;
                    result.errorText = errorTexts.cyrillicError;
                }
                break;
+            case "cyrillicTextWithSpace":
+                if(cyrillicWithSpaceRegExp.test(value)) result.isValid = true;
+                else if(start === " " || end === " ") {
+                    result.isValid = false;
+                    result.errorText = errorTexts.spaceBetweenWordsError;
+                }
+                else {
+                    result.isValid = false;
+                    result.errorText = errorTexts.cyrillicError;
+                }
+                break;
             case "phone":
                 if(phoneRegExp.test(value)) result.isValid = true;
                 else {

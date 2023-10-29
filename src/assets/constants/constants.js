@@ -6,6 +6,7 @@ const constants = {
     userRoles: {admin: "admin", superAdmin: "superAdmin", user: "user"},
     validateRules: {
         cyrillicTextOnly: "cyrillicTextOnly",
+        cyrillicTextWithSpace: "cyrillicTextWithSpace",
         phone: "phone",
     }
 }

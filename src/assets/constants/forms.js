@@ -2,7 +2,7 @@ import localisations from "../constants/localisations";
 import constants from "../constants/constants";
 import {researchesSelectOptions} from "../db/db";
 
-const {cyrillicTextOnly, phone} = constants.validateRules;
+const {cyrillicTextOnly, phone, cyrillicTextWithSpace} = constants.validateRules;
 
 const {
     studentsEducationYearList,
@@ -48,7 +48,7 @@ const forms = {
                 id: 'outlined-select-currency',
                 required: true,
             },
-            other: {initValue: positionList[0].value, validateRule: cyrillicTextOnly, selectOptions: positionList}
+            other: {initValue: positionList[0].value, validateRule: cyrillicTextWithSpace, selectOptions: positionList}
         },
         {
             inputAttributes: {
@@ -126,7 +126,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true,
             },
-            other: {initValue: "", validateRule: cyrillicTextOnly}
+            other: {initValue: "", validateRule: cyrillicTextWithSpace}
         },
         {
             inputAttributes: {

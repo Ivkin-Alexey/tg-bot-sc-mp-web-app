@@ -115,7 +115,7 @@ const Form = (props) => {
                 Заполните поля:
             </ListSubheader>
             {textInputs.map((el, i) => {
-                const {name, helperText = null} = el.inputAttributes;
+                const {name} = el.inputAttributes;
                 const {value, valid} = formData[name];
                 const options = el.other?.selectOptions;
                 return <TextField
@@ -125,6 +125,7 @@ const Form = (props) => {
                     onChange={onChangeData}
                     fullWidth
                     value={value}
+                    margin="dense"
                     {...el.inputAttributes}
                 >{options && renderSelectOptions(options)}
                 </TextField>
