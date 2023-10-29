@@ -5,10 +5,13 @@ import Form from "../../components/Form/Form";
 import {useNavigate, useParams} from "react-router-dom";
 import {useTelegram} from "../../hooks/useTelegram";
 import {useSelector} from "react-redux";
+import {useLocation} from "react-router-dom";
 
 const EditPersonalData = () => {
 
     const {chatID} = useParams();
+    const {pathname} = useLocation();
+    const redirectionPath = pathname.replace("/editProfile", "");
     const {positionList}  = localisations.components.form;
 
     let users = useSelector(state => state.users);
@@ -33,7 +36,7 @@ const EditPersonalData = () => {
         ]
     }
 
-    const redirect = () => navigate(-1);
+    const redirect = () => navigate(redirectionPath);
 
     useEffect(() => {
         tg.onEvent('backButtonClicked', redirect)
