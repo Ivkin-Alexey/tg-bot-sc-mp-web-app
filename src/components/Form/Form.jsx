@@ -84,7 +84,6 @@ const Form = (props) => {
                 }
             };
         })
-        console.log(formData);
     }
 
     function filterInputs(input) {
@@ -125,7 +124,6 @@ const Form = (props) => {
                     onChange={onChangeData}
                     fullWidth
                     value={value}
-                    margin="dense"
                     {...el.inputAttributes}
                 >{options && renderSelectOptions(options)}
                 </TextField>
