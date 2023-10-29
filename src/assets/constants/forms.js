@@ -1,8 +1,8 @@
 import localisations from "../constants/localisations";
-import constants from "../constants/constants";
+import {validateRules} from "../constants/validateRules";
 import {researchesSelectOptions} from "../db/db";
 
-const {cyrillicTextOnly, phone, cyrillicTextWithSpace} = constants.validateRules;
+const {cyrillicTextOnly, phone, spaceBetweenWordsOnly} = validateRules;
 
 const {
     studentsEducationYearList,
@@ -19,7 +19,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: "", validateRule: cyrillicTextOnly}
+            other: {initValue: "", validateRules: [cyrillicTextOnly]}
         },
         {
             inputAttributes: {
@@ -28,7 +28,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: "", validateRule: cyrillicTextOnly}
+            other: {initValue: "", validateRules: [cyrillicTextOnly]}
         },
 
         {
@@ -38,7 +38,7 @@ const forms = {
                 id: 'outlined-basic',
                 required: false
             },
-            other: {initValue: "", validateRule: cyrillicTextOnly}
+            other: {initValue: "", validateRules: [cyrillicTextOnly]}
         },
         {
             inputAttributes: {
@@ -48,7 +48,7 @@ const forms = {
                 id: 'outlined-select-currency',
                 required: true,
             },
-            other: {initValue: positionList[0].value, selectOptions: positionList}
+            other: {initValue: positionList[0].value, validateRules: [cyrillicTextOnly, spaceBetweenWordsOnly], selectOptions: positionList}
         },
         {
             inputAttributes: {
@@ -58,7 +58,7 @@ const forms = {
                 id: 'outlined-select-currency',
                 required: true,
             },
-            other: {initValue: studentsEducationYearList[0].value, selectOptions: studentsEducationYearList}
+            other: {initValue: studentsEducationYearList[0].value, validateRules: [spaceBetweenWordsOnly], selectOptions: studentsEducationYearList}
         },
         {
             inputAttributes: {
@@ -68,7 +68,7 @@ const forms = {
                 id: 'outlined-select-currency',
                 required: true,
             },
-            other: {initValue: postGraduatesEducationYearList[0].value, selectOptions: postGraduatesEducationYearList}
+            other: {initValue: postGraduatesEducationYearList[0].value, validateRules: [spaceBetweenWordsOnly], selectOptions: postGraduatesEducationYearList}
         },
         {
             inputAttributes: {
@@ -78,7 +78,7 @@ const forms = {
                 id: 'outlined-select-currency',
                 required: true
             },
-            other: {initValue: researchesSelectOptions[0].value, selectOptions: researchesSelectOptions}
+            other: {initValue: researchesSelectOptions[0].value, validateRules: [cyrillicTextOnly, spaceBetweenWordsOnly], selectOptions: researchesSelectOptions}
         },
         {
             inputAttributes: {
@@ -87,7 +87,7 @@ const forms = {
                 id: 'outlined-helperText',
                 required: true
             },
-            other: {initValue: '+7', validateRule: phone}
+            other: {initValue: '+7', validateRules: [phone]}
         },
     ],
     editAdminPersonalData: [
@@ -98,7 +98,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: "", validateRule: cyrillicTextOnly}
+            other: {initValue: "", validateRules: [cyrillicTextOnly]}
         },
         {
             inputAttributes: {
@@ -107,7 +107,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: "", validateRule: cyrillicTextOnly}
+            other: {initValue: "", validateRules: [cyrillicTextOnly]}
         },
 
         {
@@ -117,7 +117,7 @@ const forms = {
                 id: 'outlined-basic',
                 required: false
             },
-            other: {initValue: "", validateRule: cyrillicTextOnly}
+            other: {initValue: "", validateRules: [cyrillicTextOnly]}
         },
         {
             inputAttributes: {
@@ -126,7 +126,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true,
             },
-            other: {initValue: "", validateRule: cyrillicTextWithSpace}
+            other: {initValue: "", validateRules: [cyrillicTextOnly, spaceBetweenWordsOnly]}
         },
         {
             inputAttributes: {
@@ -136,7 +136,7 @@ const forms = {
                 select: true,
                 required: true
             },
-            other: {initValue: researchesSelectOptions[0].value, selectOptions: researchesSelectOptions}
+            other: {initValue: researchesSelectOptions[0].value, validateRules: [cyrillicTextOnly, spaceBetweenWordsOnly], selectOptions: researchesSelectOptions}
         },
         {
             inputAttributes: {
@@ -145,7 +145,7 @@ const forms = {
                 id: 'outlined-helperText',
                 required: true
             },
-            other: {initValue: '+7', validateRule: phone}
+            other: {initValue: '+7', validateRules: [phone]}
         },
     ],
     thermalAnalysis: [

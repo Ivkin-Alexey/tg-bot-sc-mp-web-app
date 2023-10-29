@@ -1,66 +1,100 @@
+import {validateRules, errorMessages} from "../assets/constants/validateRules";
+
 const cyrillicRegExp = /^[а-яёА-ЯЁ]*$/;
-const cyrillicWithSpaceRegExp = /^[а-яёА-ЯЁ]+([\s][а-яёА-ЯЁ]+)*$/;
 const phoneRegExp = /^\+?[1-9]\d{10}$/;
-const phoneNumberLength = 11;
-const maxLength = 100;
 
-const errorTexts = {
-    cyrillicError: "Допустима только кириллица",
-    emptyError: "Введите значение",
-    phoneError: "Допустимы только номера из 11 цифр и символа \"+\" в начале",
-    spaceError: "Пробелы недопустимы",
-    spaceBetweenWordsError: "Пробелы допустимы только между словами",
-    maxLengthError: `Допустимо не более ${maxLength} символов`
-}
+const {
+    cyrillicTextOnly,
+    maxLength30,
+    maxLength100,
+    minLength2,
+    phone,
+    spaceBetweenWordsOnly
+} = validateRules;
 
-export default function validateInputValue(value, rule, required) {
-    let result = {isValid: true};
-    if(value.length > maxLength) {
-        result.isValid = false;
-        result.errorText = errorTexts.maxLengthError;
-        return result;
-    }
-    if(!rule) return result;
-    if(value === "" && required === false) return result;
-    if(value === "" && required === true) {
-        result.isValid = false;
-        result.errorText = errorTexts.emptyError;
-        return result;
-    }
-    const start = value[0];
-    const end = value[value.length-1];
+const {
+    emptyError,
+    cyrillicError,
+    spaceBetweenWordsOnlyError,
+    maxLengthError,
+    minLengthError,
+    phoneError,
+    spaceError
+} = errorMessages;
+
+export default function validateInputValue(value, rules, required) {
+
+    let result = {isValid: true, errorTexts: ""};
+
+    rules?.forEach(rule => {
+        if(!result.isValid) return result;
         switch (rule) {
-            case "cyrillicTextOnly":
-               if(cyrillicRegExp.test(value)) result.isValid = true;
-               else if(value.indexOf(" ") >= 0) {
-                   result.isValid = false;
-                   result.errorText = errorTexts.spaceError;
-               }
-               else {
-                   result.isValid = false;
-                   result.errorText = errorTexts.cyrillicError;
-               }
-               break;
-            case "cyrillicTextWithSpace":
-                if(cyrillicWithSpaceRegExp.test(value)) result.isValid = true;
-                else if(start === " " || end === " ") {
-                    result.isValid = false;
-                    result.errorText = errorTexts.spaceBetweenWordsError;
-                }
-                else {
-                    result.isValid = false;
-                    result.errorText = errorTexts.cyrillicError;
-                }
+            case cyrillicTextOnly:
+                checkIsCyrillicOnly();
                 break;
-            case "phone":
-                if(phoneRegExp.test(value)) result.isValid = true;
-                else {
-                    result.isValid = false;
-                    result.errorText = errorTexts.phoneError;
-                }
+            case spaceBetweenWordsOnly:
+                checkIsSpaceBetweenWords();
                 break;
-            default:
-                return result;
+            case phone:
+                checkIsPhone();
+                break;
+            case maxLength30:
+            case maxLength100:
+                checkIsMaxLengthCorrect(rule);
+                break;
+            case minLength2:
+                checkIsPhone();
+                break;
         }
-        return result;
-};
+    })
+
+    executeDefaultCheck();
+
+    return result;
+
+    function checkIsCyrillicOnly() {
+        const valueWithoutSpaces = value.replaceAll(" ", "");
+        if (!cyrillicRegExp.test(valueWithoutSpaces)){
+            result.isValid = false;
+            result.errorText = cyrillicError;
+        }
+    }
+
+    function checkIsSpaceBetweenWords() {
+        const start = value[0];
+        const end = value[value.length - 1];
+        if (start === " " || end === " ") {
+            result.isValid = false;
+            result.errorText = spaceBetweenWordsOnlyError;
+        }
+    }
+
+    function checkIsPhone() {
+        if (phoneRegExp.test(value)) result.isValid = true;
+        else {
+            result.isValid = false;
+            result.errorText = phoneError;
+        }
+    }
+
+    function checkIsMaxLengthCorrect(rule) {
+        let maxLength;
+        if(rule === "maxLength100") maxLength = 100;
+        if(rule === "maxLength30") maxLength = 30;
+        if (value.length > maxLength) {
+            result.isValid = false;
+            result.errorText = maxLengthError;
+        }
+    }
+
+    function executeDefaultCheck() {
+        if (value === "" && required === true) {
+            result.isValid = false;
+            result.errorText = emptyError;
+        }
+        if (!rules?.includes(spaceBetweenWordsOnly) && value.indexOf(" ") >= 0) {
+            result.isValid = false;
+            result.errorText = spaceError;
+        }
+    }
+}

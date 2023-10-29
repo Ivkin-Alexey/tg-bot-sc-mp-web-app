@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useTelegram} from "../../hooks/useTelegram";
 import {MenuItem, Stack, TextField} from "@mui/material";
 import ListSubheader from "@mui/material/ListSubheader";
@@ -24,14 +24,14 @@ const Form = (props) => {
 
     const defaultFormData = textInputs.reduce((acc, cur) => {
         const {name, required} = cur.inputAttributes;
-        const {initValue, validateRule = null} = cur.other;
+        const {initValue, validateRules = null} = cur.other;
         return {
             ...acc,
             [name]: {
                 value: defaultValues[name] || initValue,
                 required,
                 valid: {isValid: true},
-                validateRule
+                validateRules
             }
         }
     }, {});
@@ -75,13 +75,13 @@ const Form = (props) => {
         let {name, value} = e.target;
         value = value ? value[0].toUpperCase() + value.slice(1) : "";
         setFormData(state => {
-            const {validateRule, required} = state[name];
+            const {validateRules, required} = state[name];
             return {
                 ...state,
                 [name]: {
                     ...state[name],
                     value,
-                    valid: validateInputValue(value, validateRule, required)
+                    valid: validateInputValue(value, validateRules, required)
                 }
             };
         })
