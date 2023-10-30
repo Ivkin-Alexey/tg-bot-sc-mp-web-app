@@ -2,7 +2,7 @@ import localisations from "../constants/localisations";
 import {validateRules} from "../constants/validateRules";
 import {researchesSelectOptions} from "../db/db";
 
-const {cyrillicTextOnly, phone, spaceBetweenWordsOnly} = validateRules;
+const {cyrillicTextOnly, phone, spaceBetweenWordsOnly, maxLength30, minLength2, maxLength100} = validateRules;
 
 const {
     studentsEducationYearList,
@@ -19,7 +19,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: "", validateRules: [cyrillicTextOnly]}
+            other: {initValue: "", validateRules: [cyrillicTextOnly, minLength2, maxLength30]}
         },
         {
             inputAttributes: {
@@ -48,7 +48,7 @@ const forms = {
                 id: 'outlined-select-currency',
                 required: true,
             },
-            other: {initValue: positionList[0].value, validateRules: [cyrillicTextOnly, spaceBetweenWordsOnly], selectOptions: positionList}
+            other: {initValue: positionList[0].value, validateRules: [cyrillicTextOnly, spaceBetweenWordsOnly, ], selectOptions: positionList}
         },
         {
             inputAttributes: {
@@ -98,7 +98,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: "", validateRules: [cyrillicTextOnly]}
+            other: {initValue: "", validateRules: [cyrillicTextOnly, maxLength30, minLength2]}
         },
         {
             inputAttributes: {
@@ -107,7 +107,7 @@ const forms = {
                 id: 'outlined-required',
                 required: true
             },
-            other: {initValue: "", validateRules: [cyrillicTextOnly]}
+            other: {initValue: "", validateRules: [cyrillicTextOnly, maxLength30, minLength2]}
         },
 
         {
@@ -117,7 +117,7 @@ const forms = {
                 id: 'outlined-basic',
                 required: false
             },
-            other: {initValue: "", validateRules: [cyrillicTextOnly]}
+            other: {initValue: "", validateRules: [cyrillicTextOnly, maxLength30, minLength2]}
         },
         {
             inputAttributes: {

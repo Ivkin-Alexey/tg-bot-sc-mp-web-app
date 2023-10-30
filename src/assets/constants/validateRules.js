@@ -5,7 +5,7 @@ export const errorMessages = {
     spaceError: "Пробелы недопустимы",
     phoneError: "Допустимы только номера из 11 цифр и символа \"+\" в начале",
     maxLengthError: "Превышена максимальная длина значения",
-    minLengthError: "Минимальная длина 2 символа",
+    minLengthError: "Длина значения меньше требуемого",
 }
 
 export const validateRules = {

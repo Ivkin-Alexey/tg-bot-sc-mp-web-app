@@ -43,7 +43,7 @@ export default function validateInputValue(value, rules, required) {
                 checkIsMaxLengthCorrect(rule);
                 break;
             case minLength2:
-                checkIsPhone();
+                checkIsMinLengthCorrect(rule);
                 break;
         }
     })
@@ -78,12 +78,22 @@ export default function validateInputValue(value, rules, required) {
     }
 
     function checkIsMaxLengthCorrect(rule) {
-        let maxLength;
-        if(rule === "maxLength100") maxLength = 100;
-        if(rule === "maxLength30") maxLength = 30;
-        if (value.length > maxLength) {
+        let length;
+        if(rule === "maxLength100") length = 100;
+        if(rule === "maxLength30") length = 30;
+        if (value.length > length) {
             result.isValid = false;
             result.errorText = maxLengthError;
+        }
+    }
+
+    function checkIsMinLengthCorrect(rule) {
+        let length;
+        if(rule === "minLength2") length = 2;
+        if (value.length < length) {
+            if(value === "" && !required) return
+            result.isValid = false;
+            result.errorText = minLengthError;
         }
     }
 
