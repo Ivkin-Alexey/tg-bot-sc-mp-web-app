@@ -89,7 +89,6 @@ const Form = (props) => {
 
     function filterInputs(input) {
         const rule = filteringRules?.rules?.find(el => el.selectedOption === observedValue.value);
-        console.log(filteringRules, rule, observedValue);
         return input.inputAttributes.name !== rule?.hiddenInputName;
     }
 
