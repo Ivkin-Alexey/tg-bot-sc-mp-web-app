@@ -2,12 +2,9 @@ import * as React from 'react';
 import {Link, useLocation, useParams, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import Profile from "../../components/Profile/Profile";
-import {Chip, Grid, IconButton, ListItem, ListItemIcon} from "@mui/material";
+import {Checkbox, Chip, Grid, IconButton, ListItem, ListItemIcon} from "@mui/material";
 import List from "@mui/material/List";
 import {userRequirements} from "../../assets/db/userData";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import DoneOutlineRoundedIcon from "@mui/icons-material/DoneOutlineRounded";
@@ -43,15 +40,20 @@ export default function UserProfile() {
             <List>
                 {userRequirements.map((el, i) => {
                     return (
-                        <ListItem key={i}>
-                            <ListItemIcon>
-                                {el.done ? <CheckBoxIcon/> : <CheckBoxOutlineBlankIcon/>}
-                            </ListItemIcon>
-                            <ListItemText primary={el.requirement}/>
-                        </ListItem>)
+                        <Checkbox
+                            key={i}
+                            label={el.requirement}
+                            checked={el.done}
+                            onChange={onToggleCheckBox}
+                        />)
                 })}
             </List>
         </Grid>)
+    }
+
+    function onToggleCheckBox(e) {
+       let {checked} = e.target;
+        console.log(checked);
     }
 
     function renderRegistrationStatusInfo() {

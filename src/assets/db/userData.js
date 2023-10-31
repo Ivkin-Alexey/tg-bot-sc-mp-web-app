@@ -3,5 +3,3 @@ export const userRequirements = [
     {requirement: 'Соглашение о конфиденциальности', done: false},
     {requirement: 'Техника безопасности', done: false}
 ];
-
-
