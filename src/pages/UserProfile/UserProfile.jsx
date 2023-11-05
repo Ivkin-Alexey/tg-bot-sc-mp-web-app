@@ -55,9 +55,10 @@ export default function UserProfile() {
         const id = +e.target.attributes.id.value;
         const {checked} = e.target;
         const data = requirements.map((el, i) => {
-            if(i === id) el.done = !checked;
+            if(i === id) el.done = checked;
             return el;
         })
+        console.log(id, checked, data);
         dispatch(updatePersonDataAction(chatID, accountChatID, data));
     }
 
