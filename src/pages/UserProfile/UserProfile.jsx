@@ -59,7 +59,7 @@ export default function UserProfile() {
             return el;
         })
         console.log(id, checked, data);
-        dispatch(updatePersonDataAction(chatID, accountChatID, data));
+        dispatch(updatePersonDataAction(chatID, accountChatID, {requirements: data}));
     }
 
     function renderRegistrationStatusInfo() {
