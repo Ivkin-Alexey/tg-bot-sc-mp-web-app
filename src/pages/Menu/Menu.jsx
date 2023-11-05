@@ -14,7 +14,7 @@ export default function Menu() {
     const {admin, superAdmin} = constants.userRoles;
     const {tg, onClose, accountChatID = constants.defaultUserChatID} = useTelegram();
     const state = useSelector(state => state.users);
-    const isUsersDataUpdated = useSelector(state => state.users.usersDataIsUpdated);
+
     const {users, admins, accountData} = state;
     const type = accountData.type;
     const isAdmin = type === admin || type === superAdmin;
@@ -52,7 +52,7 @@ export default function Menu() {
         )
     }
 
-    return (isUsersDataUpdated ?
+    return (
             <List sx={{width: '100%', maxWidth: 350, bgcolor: 'background.paper'}}
                   component="nav"
                   aria-labelledby="nested-list-subheader"
@@ -64,6 +64,6 @@ export default function Menu() {
                   }>
                 {renderStepperPage()}
                 {isAdmin && renderAdminPages()}
-            </List> : <CircularProgress/>
+            </List>
     );
 }

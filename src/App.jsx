@@ -22,6 +22,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchResearchesAction, fetchUsersAction} from "./redux/actions";
 import AdminList from "./pages/AdminList/AdminList";
 import {SET_ACCOUNT_CHAT_ID} from "./redux/types";
+import CircularProgress from "./components/CircularProgress/CircularProgress";
+import * as React from "react";
 
 function App() {
 
@@ -36,11 +38,12 @@ function App() {
     }, []);
 
     const role = useSelector(state => state.users.accountData?.type);
+    const isUsersDataUpdated = useSelector(state => state.users.usersDataIsUpdated);
     const {admin, superAdmin} = constants.userRoles;
     const isAdmin = (role === admin || role === superAdmin);
 
     return (
-        role ?
+        isUsersDataUpdated ?
         <>
             {/*<Header/>*/}
             <main className="main">
@@ -64,7 +67,7 @@ function App() {
                     <Route path={'stepper'} element={<NewUserPage/>}/>
                 </Routes>
             </main>
-        </> : null
+        </> : <CircularProgress/>
     );
 }
 

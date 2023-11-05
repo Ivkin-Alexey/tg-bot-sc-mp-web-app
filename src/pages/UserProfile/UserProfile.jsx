@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Link, useLocation, useParams, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import Profile from "../../components/Profile/Profile";
-import {Checkbox, Chip, Grid, IconButton, ListItem, ListItemIcon} from "@mui/material";
+import {Checkbox, Chip, FormControlLabel, FormGroup, Grid, IconButton, ListItem, ListItemIcon} from "@mui/material";
 import List from "@mui/material/List";
 import {userRequirements} from "../../assets/db/userData";
 import Typography from "@mui/material/Typography";
@@ -12,7 +12,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import constants from "../../assets/constants/constants";
 import localisations from "../../assets/constants/localisations";
 import {useTelegram} from "../../hooks/useTelegram";
-import {confirmPersonAction, deletePersonAction} from "../../redux/actions";
+import {confirmPersonAction, deletePersonAction, updatePersonDataAction} from "../../redux/actions";
 import {useEffect} from "react";
 
 export default function UserProfile() {
@@ -24,7 +24,7 @@ export default function UserProfile() {
     const role = accountData.type;
     const isAdmin = role === constants.userRoles.admin;
     const isSuperAdmin = role === constants.userRoles.superAdmin;
-    const {otherInfo, isUserConfirmed} = displayedData;
+    const {otherInfo, isUserConfirmed, requirements} = displayedData;
     const {registrationDate, isUserDataSent} = otherInfo;
     const {applicationDeleteMessage, applicationConfirmAlert} = localisations.pages.userProfile;
     const {pathname} = useLocation();
@@ -35,25 +35,30 @@ export default function UserProfile() {
     let path = `/${chatID}/editProfile`;
     if (pathname.includes("userList")) path = `/userList/${chatID}/editProfile`;
 
+    console.log(displayedData);
+
     function renderRequirementsBlock() {
-        return (<Grid item xs={12} md={6}>
-            <List>
-                {userRequirements.map((el, i) => {
+        return (<FormGroup>
+                {requirements.map((el, i) => {
                     return (
-                        <Checkbox
+                        <FormControlLabel
                             key={i}
-                            label={el.requirement}
-                            checked={el.done}
+                            control={<Checkbox checked={el.done} id={`${i}`}/>}
+                            label={el.name}
                             onChange={onToggleCheckBox}
                         />)
                 })}
-            </List>
-        </Grid>)
+        </FormGroup>)
     }
 
     function onToggleCheckBox(e) {
-       let {checked} = e.target;
-        console.log(checked);
+        const id = +e.target.attributes.id.value;
+        const {checked} = e.target;
+        const data = requirements.map((el, i) => {
+            if(i === id) el.done = !checked;
+            return el;
+        })
+        dispatch(updatePersonDataAction(chatID, accountChatID, data));
     }
 
     function renderRegistrationStatusInfo() {
