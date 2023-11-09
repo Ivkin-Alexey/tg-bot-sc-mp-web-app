@@ -2,7 +2,17 @@ import * as React from 'react';
 import {Link, useLocation, useParams, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import Profile from "../../components/Profile/Profile";
-import {Checkbox, Chip, FormControlLabel, FormGroup, Grid, IconButton, ListItem, ListItemIcon} from "@mui/material";
+import {
+    Checkbox,
+    Chip,
+    Container,
+    FormControlLabel,
+    FormGroup,
+    Grid,
+    IconButton,
+    ListItem,
+    ListItemIcon
+} from "@mui/material";
 import List from "@mui/material/List";
 import {userRequirements} from "../../assets/db/userData";
 import Typography from "@mui/material/Typography";
@@ -35,30 +45,29 @@ export default function UserProfile() {
     let path = `/${chatID}/editProfile`;
     if (pathname.includes("userList")) path = `/userList/${chatID}/editProfile`;
 
-    console.log(displayedData);
-
     function renderRequirementsBlock() {
-        return (<FormGroup>
+        return (<Container sx={{padding: 2, width: "auto"}}>
+            <FormGroup>
                 {requirements.map((el, i) => {
                     return (
                         <FormControlLabel
                             key={i}
-                            control={<Checkbox checked={el.done} id={`${i}`}/>}
+                            control={<Checkbox checked={el.done} id={`${i}`} disabled={!isAdmin && !isSuperAdmin}/>}
                             label={el.name}
                             onChange={onToggleCheckBox}
                         />)
                 })}
-        </FormGroup>)
+            </FormGroup>
+        </Container>)
     }
 
     function onToggleCheckBox(e) {
         const id = +e.target.attributes.id.value;
         const {checked} = e.target;
         const data = requirements.map((el, i) => {
-            if(i === id) el.done = checked;
+            if (i === id) el.done = checked;
             return el;
         })
-        console.log(id, checked, data);
         dispatch(updatePersonDataAction(chatID, accountChatID, {requirements: data}));
     }
 
@@ -86,26 +95,26 @@ export default function UserProfile() {
     function renderButtonsBlock() {
         return (
             isAdmin ? null :
-            <>
-                {isSuperAdmin && !isUserConfirmed &&
-                    <IconButton
-                    aria-label="done"
-                    sx={{marginRight: "8px"}}
-                    onClick={onConfirmPerson}
-                >
-                    <DoneOutlineRoundedIcon color="success"/>
-                </IconButton>}
-                <Button component={Link} to={path} variant="outlined" color="primary" size="small" disableElevation>
-                    Редактировать
-                </Button>
-                {isSuperAdmin && <IconButton
-                    aria-label="delete"
-                    sx={{marginLeft: "8px"}}
-                    onClick={onDeletePerson}
-                >
-                    <DeleteIcon color="error"/>
-                </IconButton>}
-            </>
+                <>
+                    {isSuperAdmin && !isUserConfirmed &&
+                        <IconButton
+                            aria-label="done"
+                            sx={{marginRight: "8px"}}
+                            onClick={onConfirmPerson}
+                        >
+                            <DoneOutlineRoundedIcon color="success"/>
+                        </IconButton>}
+                    <Button component={Link} to={path} variant="outlined" color="primary" size="small" disableElevation>
+                        Редактировать
+                    </Button>
+                    {isSuperAdmin && <IconButton
+                        aria-label="delete"
+                        sx={{marginLeft: "8px"}}
+                        onClick={onDeletePerson}
+                    >
+                        <DeleteIcon color="error"/>
+                    </IconButton>}
+                </>
         )
     }
 
@@ -114,14 +123,14 @@ export default function UserProfile() {
     }
 
     function popupCallBack(pressedButtonIsOk) {
-        if(pressedButtonIsOk) {
+        if (pressedButtonIsOk) {
             redirect();
             dispatch(deletePersonAction(chatID, accountChatID));
         }
     }
 
     function onConfirmPerson() {
-        if(!isUserDataSent) {
+        if (!isUserDataSent) {
             tg.showAlert(applicationConfirmAlert);
         } else {
             dispatch(confirmPersonAction(chatID, accountChatID));

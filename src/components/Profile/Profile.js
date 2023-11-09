@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import {useEffect} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
-import {Chip} from "@mui/material";
+import {Chip, Container} from "@mui/material";
 import {researchesSelectOptions} from "../../assets/db/db"
 
 export default function Profile(props) {
@@ -48,13 +48,15 @@ export default function Profile(props) {
     }, []);
 
     return (
-        <Box sx={{minWidth: 275}}>
-            <Card variant="outlined">
-                <CardContent>
-                    {isUserConfirmed ?
-                        <Chip label="Подтверждён" size="small" color="success" variant="outlined"/> :
-                        <Chip label="Не подтверждён" size="small" color="error" variant="outlined"/>
-                    }
+        <Container sx={{minWidth: 275, width: "auto"}}>
+            <Card variant="outlined" sx={{margin: 0, border: "none"}}>
+                <CardContent sx={{paddingLeft: 3, paddingRight: 3}}>
+                    <Box sx={{display: "flex", justifyContent: "flex-end", marginBottom: "15px"}}>
+                        {isUserConfirmed ?
+                            <Chip label="Подтверждён" size="small" color="success" variant="outlined"/> :
+                            <Chip label="Не подтверждён" size="small" color="error" variant="outlined"/>
+                        }
+                    </Box>
                     <Typography sx={{fontSize: 14, mb: 1.5}}>
                         {position ? position : <b>Должность не указана</b>}
                     </Typography>
@@ -73,6 +75,6 @@ export default function Profile(props) {
                 <CardActions>{buttonsBlock}</CardActions>
                 {requirementsBlock}
             </Card>
-        </Box>
+        </Container>
     );
 }
