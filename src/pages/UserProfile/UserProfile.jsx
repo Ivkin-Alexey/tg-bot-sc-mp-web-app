@@ -11,11 +11,13 @@ import {
     Grid,
     IconButton,
     ListItem,
-    ListItemIcon
+    ListItemIcon, Stack
 } from "@mui/material";
 import List from "@mui/material/List";
 import {userRequirements} from "../../assets/db/userData";
 import Typography from "@mui/material/Typography";
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import DoDisturbOnIcon from '@mui/icons-material/DoDisturbOn';
 import Button from "@mui/material/Button";
 import DoneOutlineRoundedIcon from "@mui/icons-material/DoneOutlineRounded";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -24,6 +26,7 @@ import localisations from "../../assets/constants/localisations";
 import {useTelegram} from "../../hooks/useTelegram";
 import {confirmPersonAction, deletePersonAction, updatePersonDataAction} from "../../redux/actions";
 import {useEffect} from "react";
+import ListItemText from "@mui/material/ListItemText";
 
 export default function UserProfile() {
     const {chatID} = useParams();
@@ -47,17 +50,33 @@ export default function UserProfile() {
 
     function renderRequirementsBlock() {
         return (<Container sx={{padding: 2, width: "auto"}}>
-            <FormGroup>
-                {requirements.map((el, i) => {
-                    return (
-                        <FormControlLabel
-                            key={i}
-                            control={<Checkbox checked={el.done} id={`${i}`} disabled={!isAdmin && !isSuperAdmin}/>}
-                            label={el.name}
-                            onChange={onToggleCheckBox}
-                        />)
-                })}
-            </FormGroup>
+            {role === "user" ?
+                <List>
+                    {requirements.map(el => {
+                        return (
+                            <ListItem>
+                                <ListItemIcon>
+                                    {el.done ? <CheckCircleOutlineIcon/> : <DoDisturbOnIcon/>}
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={el.name}
+                                />
+                            </ListItem>
+                        )
+                    })}
+                </List> :
+                <FormGroup>
+                    {requirements.map((el, i) => {
+                        return (
+                            <FormControlLabel
+                                key={i}
+                                control={<Checkbox checked={el.done} id={`${i}`} disabled={!isAdmin && !isSuperAdmin}/>}
+                                label={el.name}
+                                onChange={onToggleCheckBox}
+                            />)
+                    })}
+                </FormGroup>
+            }
         </Container>)
     }
 
