@@ -41,6 +41,7 @@ export default function Profile(props) {
 
     useEffect(() => {
         tg.MainButton.isVisible = false;
+        tg.expand();
         tg.onEvent('backButtonClicked', redirect)
         return () => {
             tg.offEvent('backButtonClicked', redirect)
