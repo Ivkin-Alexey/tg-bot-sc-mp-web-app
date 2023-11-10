@@ -24,7 +24,7 @@ const {
 
 export default function validateInputValue(value, rules, required) {
 
-    let result = {isValid: true, errorTexts: ""};
+    let result = {isValid: true, errorText: ""};
 
     rules?.forEach(rule => {
         if(!result.isValid) return result;
@@ -49,7 +49,7 @@ export default function validateInputValue(value, rules, required) {
     })
 
     executeDefaultCheck();
-
+    console.log(result);
     return result;
 
     function checkIsCyrillicOnly() {

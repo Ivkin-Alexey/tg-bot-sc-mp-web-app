@@ -25,12 +25,13 @@ const Form = (props) => {
     const defaultFormData = textInputs.reduce((acc, cur) => {
         const {name, required} = cur.inputAttributes;
         const {initValue, validateRules = null} = cur.other;
+        const value = defaultValues[name] || initValue;
         return {
             ...acc,
             [name]: {
-                value: defaultValues[name] || initValue,
+                value,
                 required,
-                valid: {isValid: true},
+                valid: validateInputValue(value, validateRules, required),
                 validateRules
             }
         }
@@ -64,12 +65,13 @@ const Form = (props) => {
     }, []);
 
     useEffect(() => {
-        if (Object.values(formData).find(el => el.valid.isValid === false)) {
+        if (validateFormData()) {
             tg.MainButton.hide();
         } else {
             tg.MainButton.show();
         }
     }, [formData]);
+
 
     const onChangeData = (e) => {
         let {name, value} = e.target;
@@ -92,6 +94,10 @@ const Form = (props) => {
         return input.inputAttributes.name !== rule?.hiddenInputName;
     }
 
+    function validateFormData() {
+        return Object.values(formData).find(el => el.valid.isValid === false);
+    }
+
     useEffect(() => {
         if (filteringRules) setTextInputs(defaultTextInputs.filter(filterInputs));
     }, [observedValue])
@@ -110,6 +116,9 @@ const Form = (props) => {
             spacing={2}
             width={"350px"}
             marginBottom={"50px"}
+            component="form"
+            noValidate
+            autoComplete="off"
         >
             <ListSubheader component="div">
                 Заполните поля:
