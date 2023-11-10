@@ -4,17 +4,14 @@ import {useDispatch, useSelector} from "react-redux";
 import Profile from "../../components/Profile/Profile";
 import {
     Checkbox,
-    Chip,
     Container,
     FormControlLabel,
     FormGroup,
-    Grid,
     IconButton,
     ListItem,
-    ListItemIcon, Stack
+    ListItemIcon,
 } from "@mui/material";
 import List from "@mui/material/List";
-import {userRequirements} from "../../assets/db/userData";
 import Typography from "@mui/material/Typography";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import DoDisturbOnIcon from '@mui/icons-material/DoDisturbOn';
@@ -25,7 +22,6 @@ import constants from "../../assets/constants/constants";
 import localisations from "../../assets/constants/localisations";
 import {useTelegram} from "../../hooks/useTelegram";
 import {confirmPersonAction, deletePersonAction, updatePersonDataAction} from "../../redux/actions";
-import {useEffect} from "react";
 import ListItemText from "@mui/material/ListItemText";
 
 export default function UserProfile() {
@@ -42,7 +38,7 @@ export default function UserProfile() {
     const {applicationDeleteMessage, applicationConfirmAlert} = localisations.pages.userProfile;
     const {pathname} = useLocation();
     const redirectionPath = "/userList";
-    const redirect = () => navigate(redirectionPath);
+    const redirect = () => navigate(-1);
     const dispatch = useDispatch();
 
     let path = `/${chatID}/editProfile`;
