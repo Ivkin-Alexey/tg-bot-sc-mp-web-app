@@ -31,9 +31,9 @@ export default function Menu() {
         return (
             <>
                 <Divider/>
-                <ListItemLink to="/newUserList" primary={`Новые заявки (${newUsers.length})`}/>
-                <ListItemLink to="/userList" primary={`Обучающиеся (${users.length})`}/>
-                <ListItemLink to="/adminList" primary={`Администраторы (${admins.length})`}/>
+                <ListItemLink to="/newUserList" primary={`Новые заявки (${newUsers?.length})`}/>
+                <ListItemLink to="/userList" primary={`Обучающиеся (${users?.length})`}/>
+                <ListItemLink to="/adminList" primary={`Администраторы (${admins?.length})`}/>
                 <ListItemLink to="/equipment" primary="Оборудование"/>
                 <ListItemLink to="/applications" primary="Заявки на исследование"/>
                 <ListItemLink to="/reagents" primary="Заявки на реактивы"/>
