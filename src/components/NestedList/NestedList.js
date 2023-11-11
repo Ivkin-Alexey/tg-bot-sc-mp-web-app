@@ -46,12 +46,14 @@ const NestedList = () => {
         return (
             <List component="div" disablePadding>
                 {subItems.map(el => {
+                    const isNew = el.isUserConfirmed === false;
                     return <ListItemLink
                         to={listItemPath + el.chatID}
                         primary={createUserName(el)}
                         key={el.chatID}
                         onClick={() => navigate(listItemPath + el.chatID)}
-                    />
+                    >{isNew && <Chip label="Новый" color="error" size="small" sx={{marginRight: "10px"}}/>}
+                    </ListItemLink>
                 })}
             </List>
         )
@@ -77,10 +79,7 @@ const NestedList = () => {
                     <div key={i}>
                         <ListItemButton onClick={() => handleClick(value)}>
                             <ListItemText primary={value + ` (${subItems.length})`}/>
-                            <ListItemIcon>
-                                <InboxIcon />
-                            </ListItemIcon>
-                            {newUsersNumber > 0 ? <Chip label={newUsersNumber} color="error" size="small"/> : null}
+                            {newUsersNumber > 0 ? <Chip label={newUsersNumber} color="error" size="small" sx={{marginRight: "10px"}}/> : null}
                             {subItems.length > 0 ? (isOpen ? <ExpandLess/> : <ExpandMore/>) : null}
                         </ListItemButton>
                         <Collapse in={isOpen} timeout="auto" unmountOnExit>
