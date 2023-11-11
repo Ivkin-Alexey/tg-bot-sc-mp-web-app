@@ -41,8 +41,7 @@ export default function UserProfile() {
     const redirect = () => navigate(-1);
     const dispatch = useDispatch();
 
-    let path = `/${chatID}/editProfile`;
-    if (pathname.includes("userList")) path = `/userList/${chatID}/editProfile`;
+    let path = pathname + "/editProfile";
 
     function renderRequirementsBlock() {
         return (<Container sx={{padding: 2, width: "auto"}}>

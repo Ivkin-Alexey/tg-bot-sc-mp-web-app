@@ -24,6 +24,8 @@ import AdminList from "./pages/AdminList/AdminList";
 import {SET_ACCOUNT_CHAT_ID} from "./redux/types";
 import CircularProgress from "./components/CircularProgress/CircularProgress";
 import * as React from "react";
+import NewUserList from "./pages/NewUserList/NewUserList";
+import NestedList from "./components/NestedList/NestedList";
 
 function App() {
 
@@ -56,7 +58,10 @@ function App() {
                     <Route path={'applications/:application'} element={<Application/>}/>
                     <Route path={'statistic/activeEquipment'} element={<ActiveEquipment/>}/>
                     <Route path={'statistic/activeEmployees'} element={<ActiveEmployees/>}/>
-                    <Route path={'userList'} element={<UserList/>}/>
+                    <Route path={'newUserList'} element={<NewUserList/>}/>
+                    <Route path={'newUserList/:chatID'} element={<UserProfile/>}/>
+                    <Route path={'newUserList/:chatID/editProfile'} element={<EditPersonalData/>}/>
+                    <Route path={'userList'} element={<NestedList/>}/>
                     <Route path={'userList/:chatID'} element={<UserProfile/>}/>
                     <Route path={'userList/:chatID/editProfile'} element={<EditPersonalData/>}/>
                     <Route path={'/:chatID'} element={isAdmin ? <AdminProfile/> : <UserProfile/>}/>

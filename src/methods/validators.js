@@ -49,7 +49,6 @@ export default function validateInputValue(value, rules, required) {
     })
 
     executeDefaultCheck();
-    console.log(result);
     return result;
 
     function checkIsCyrillicOnly() {

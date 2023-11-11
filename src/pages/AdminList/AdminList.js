@@ -5,8 +5,8 @@ import ListPage from "../ListPage/ListPage";
 
 const UserList = () => {
     const {admins} = useSelector(state => state.users);
-    const {subHeader} = localisations.pages.adminList;
-    return <ListPage subHeader={subHeader} personList={admins} listItemPath={"/adminList/"}/>;
+    const {subHeader, listIsEmpty} = localisations.pages.adminList;
+    return <ListPage subHeader={subHeader} personList={admins} listItemPath={"/adminList/"} listIsEmptyMsg={listIsEmpty}/>;
 };
 
 export default UserList;

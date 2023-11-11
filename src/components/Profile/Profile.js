@@ -27,7 +27,7 @@ export default function Profile(props) {
     if (pathname.includes("userList")) path = `/userList/${chatID}/editProfile`
     const navigate = useNavigate();
     const {tg} = useTelegram();
-    const redirect = () => navigate(redirectionPath);
+    const redirect = () => navigate(-1);
 
     const {
         firstName,

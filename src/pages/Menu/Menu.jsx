@@ -15,7 +15,7 @@ export default function Menu() {
     const {tg, onClose, accountChatID = constants.defaultUserChatID} = useTelegram();
     const state = useSelector(state => state.users);
 
-    const {users, admins, accountData} = state;
+    const {newUsers, users, admins, accountData} = state;
     const type = accountData.type;
     const isAdmin = type === admin || type === superAdmin;
 
@@ -31,6 +31,7 @@ export default function Menu() {
         return (
             <>
                 <Divider/>
+                <ListItemLink to="/newUserList" primary={`Новые заявки (${newUsers.length})`}/>
                 <ListItemLink to="/userList" primary={`Обучающиеся (${users.length})`}/>
                 <ListItemLink to="/adminList" primary={`Администраторы (${admins.length})`}/>
                 <ListItemLink to="/equipment" primary="Оборудование"/>

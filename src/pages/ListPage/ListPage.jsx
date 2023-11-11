@@ -4,12 +4,11 @@ import {useTelegram} from "../../hooks/useTelegram";
 import List from "@mui/material/List";
 import ListSubheader from "@mui/material/ListSubheader";
 import ListItemLink from "../../components/ListItemLink/ListItemLink";
-import localisations from "../../assets/constants/localisations";
+import {createUserName} from "../../methods/helpers";
 
 const ListPage = (props) => {
 
-    const {subHeader, personList, listItemPath} = props;
-    const {emptyUserListAlert} = localisations.pages.listPage;
+    const {subHeader, personList, listItemPath, listIsEmptyMsg} = props;
     const navigate = useNavigate();
     const redirect = () => navigate('/');
     const {tg} = useTelegram();
@@ -21,20 +20,6 @@ const ListPage = (props) => {
             tg.offEvent('backButtonClicked', redirect)
         }
     }, []);
-
-    function createName(user) {
-        const {firstName, lastName, patronymic} = user;
-        let name = "";
-        if(lastName) {
-            name+=lastName;
-            if(firstName) name+= " " + firstName[0] + ".";
-            if(patronymic) name+=patronymic[0] + ".";
-        } else if (firstName) {
-            name+=firstName;
-            if(patronymic) name+= " " + patronymic;
-        }
-        return name;
-    }
 
     return (
         <List
@@ -48,7 +33,7 @@ const ListPage = (props) => {
             }
         >
             {personList.length > 0 ? personList.map((el, i) => {
-                const name = createName(el);
+                const name = createUserName(el);
                 if(!name) return;
                 return (
                     <ListItemLink
@@ -58,7 +43,7 @@ const ListPage = (props) => {
                         onClick={() => navigate(listItemPath + el.chatID)}
                     />
                 )
-            }) : emptyUserListAlert}
+            }) : listIsEmptyMsg}
         </List>
     );
 };

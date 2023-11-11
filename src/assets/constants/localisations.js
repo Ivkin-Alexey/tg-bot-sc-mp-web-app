@@ -28,13 +28,20 @@ const localisations = {
             applicationConfirmAlert: "У пользователя не заполнены обязательные поля"
         },
         userList: {
-            subHeader: "Обучающиеся"
+            subHeader: "Обучающиеся:",
+            listIsEmpty: "Пользователи ещё не зарегестрированы"
+        },
+        newUserList: {
+            subHeader: "Новые обучающиеся:",
+            listIsEmpty: "Нет новых заявок"
         },
         adminList: {
-            subHeader: "Администраторы"
+            subHeader: "Администраторы:",
+            listIsEmpty: "Пользователи ещё не зарегестрированы"
         },
-        listPage: {
-            emptyUserListAlert: "Пользователи ещё не зарегестрированы"
+        nestedList: {
+            subHeader: "Обучающиеся:",
+            listIsEmpty: "Пользователи ещё не зарегестрированы"
         }
     },
     components: {
