@@ -10,11 +10,6 @@ import {useSelector} from "react-redux";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
 import localisations from "../../assets/constants/localisations";
 import {createUserName} from "../../methods/helpers";
-import { red, deepOrange } from '@mui/material/colors';
-
-function InboxIcon() {
-    return null;
-}
 
 const NestedList = () => {
 
