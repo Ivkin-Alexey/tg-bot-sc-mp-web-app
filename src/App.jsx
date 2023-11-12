@@ -33,6 +33,7 @@ function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        tg.expand();
         dispatch({type: SET_ACCOUNT_CHAT_ID, payload: accountChatID});
         dispatch(fetchUsersAction(accountChatID));
         dispatch(fetchResearchesAction());
