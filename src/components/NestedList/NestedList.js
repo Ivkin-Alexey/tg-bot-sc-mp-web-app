@@ -4,7 +4,7 @@ import {useTelegram} from "../../hooks/useTelegram";
 import List from "@mui/material/List";
 import ListSubheader from "@mui/material/ListSubheader";
 import ListItemLink from "../ListItemLink/ListItemLink";
-import {Chip, Collapse, ListItemButton, ListItemIcon} from "@mui/material";
+import {Chip, Collapse, ListItem, ListItemButton, ListItemIcon} from "@mui/material";
 import ListItemText from "@mui/material/ListItemText";
 import {useSelector} from "react-redux";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
@@ -42,7 +42,7 @@ const NestedList = () => {
         setOpenLists(state => ({...state, [name]: !state[name]}));
     }
 
-    function renderSubItemsList(subItems) {
+    function renderSubItemList(subItems) {
         return (
             <List component="div" disablePadding>
                 {subItems.map(el => {
@@ -70,24 +70,24 @@ const NestedList = () => {
                 </ListSubheader>
             }
         >
-            {researches.map((el, i) => {
+            {researches ? researches.map((el, i) => {
                 const value = el.value;
                 const isOpen = openLists[value];
                 const subItems = users.filter(user => user.research === value);
                 const newUsersNumber = subItems.filter(user => user.isUserConfirmed === false).length;
                 return (
                     <div key={i}>
-                        <ListItemButton onClick={() => handleClick(value)}>
+                        <ListItem onClick={() => handleClick(value)}>
                             <ListItemText primary={value + ` (${subItems.length})`}/>
                             {newUsersNumber > 0 ? <Chip label={newUsersNumber} color="error" size="small" sx={{marginRight: "10px"}}/> : null}
                             {subItems.length > 0 ? (isOpen ? <ExpandLess/> : <ExpandMore/>) : null}
-                        </ListItemButton>
+                        </ListItem>
                         <Collapse in={isOpen} timeout="auto" unmountOnExit>
-                            {renderSubItemsList(subItems)}
+                            {renderSubItemList(subItems)}
                         </Collapse>
                     </div>
                 )
-            })}
+            }) : listIsEmpty}
         </List>
     );
 };
