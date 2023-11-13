@@ -3,10 +3,11 @@ import {
     SET_ADMIN_LIST,
     SET_ACCOUNT_DATA,
     SET_USERS_DATA_IS_UPDATED,
-    SET_RESEARCHES
+    SET_RESEARCHES, SET_EQUIPMENTS,
+    SET_EQUIPMENTS_CATEGORIES
 } from "./types";
 import constants from "../assets/constants/constants";
-import {deletePerson, getUsers, updatePersonData, getResearches} from "../methods/requestsToServer";
+import {deletePerson, getUsers, updatePersonData, getResearches, getEquipments} from "../methods/requestsToServer";
 
 const {admin, superAdmin} = constants.userRoles;
 
@@ -15,6 +16,19 @@ export function fetchUsersAction(accountChatID) {
         dispatch({type: SET_USERS_DATA_IS_UPDATED, payload: false});
         try {
             getUsers().then(data => setUsers(dispatch, data, accountChatID));
+        } catch (e) {
+            console.log(e);
+        }
+    }
+}
+
+export function fetchEquipmentsAction() {
+    return async dispatch => {
+        try {
+            getEquipments().then(equipmentList => {
+                dispatch({type: SET_EQUIPMENTS, payload: equipmentList})
+                dispatch({type: SET_EQUIPMENTS_CATEGORIES, payload: Object.keys(equipmentList)})
+            });
         } catch (e) {
             console.log(e);
         }

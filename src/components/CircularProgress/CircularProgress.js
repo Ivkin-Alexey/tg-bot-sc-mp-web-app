@@ -4,7 +4,7 @@ import * as React from "react";
 
 const CircularProgress = () => {
 
-    return <Box sx={{display: 'flex'}}>
+    return <Box sx={{display: 'flex', justifyContent: "center", alignItems: "center", height: "100vh"}}>
         <MUICircularProgress/>
     </Box>
 };

@@ -38,6 +38,15 @@ export async function getUsers() {
     }).then(res => res.json())
 }
 
+export async function getEquipments() {
+    return await fetch(`https://${serverDomain}:${port}/equipmentList`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(res => res.json())
+}
+
 export async function getResearches() {
     return await fetch(`https://${serverDomain}:${port}/researches`, {
         method: 'GET',

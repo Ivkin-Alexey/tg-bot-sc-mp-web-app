@@ -1,17 +1,19 @@
 import * as React from 'react';
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
-import {equipment} from '../../assets/db/db';
 import {useNavigate} from "react-router-dom";
 import ListItemLink from "../../components/ListItemLink/ListItemLink";
 import localisations from '../../assets/constants/localisations'
 import {useTelegram} from "../../hooks/useTelegram";
 import {useEffect} from "react";
+import {useSelector} from "react-redux";
 
 export default function EquipmentCategoryList() {
 
     let navigate = useNavigate();
     const {tg} = useTelegram();
+    const {categories, equipments} = useSelector(state => state.equipments);
+    console.log(equipments);
 
     const redirect = () => navigate('/');
 
@@ -34,13 +36,13 @@ export default function EquipmentCategoryList() {
                 </ListSubheader>
             }
         >
-            {equipment.map((el, i) => {
+            {categories.map((el, i) => {
                 return (
                     <ListItemLink
-                        to={`/equipment/${el.category.en}`}
-                        primary={el.category.ru}
+                        to={`/equipment/${el}`}
+                        primary={el}
                         key={i}
-                        onClick={() => navigate(`/equipment/${el.category.en}`)}/>
+                        onClick={() => navigate(`/equipment/${el}`)}/>
                 )
             })}
         </List>
