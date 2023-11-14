@@ -29,6 +29,18 @@ export async function deletePerson(chatID) {
     }).then(res => res.json())
 }
 
+export async function startWorkWithEquipment(chatID, accountData, equipment) {
+    return await fetch(`https://${serverDomain}:${port}/equipmentStart`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            chatID, accountData, equipment
+        })
+    }).then(res => res.json())
+}
+
 export async function getUsers() {
     return await fetch(`https://${serverDomain}:${port}/persons`, {
         method: 'GET',

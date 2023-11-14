@@ -1,16 +1,16 @@
 import React from 'react';
-import {equipment} from "../../assets/db/db";
 import {Button, Card, CardActions, CardContent, CardMedia, Typography} from "@mui/material";
 import {useNavigate, useParams} from "react-router-dom";
-import img from'../../assets/img/Vega 3 LMH.jpeg';
 import './EquipmentList.css';
 import {useTelegram} from "../../hooks/useTelegram";
 import {useEffect} from "react";
 import {useSelector} from "react-redux";
+import {startWorkWithEquipment} from "../../methods/requestsToServer";
 
 const EquipmentList = () => {
 
     const {category} = useParams();
+    const {accountChatID, accountData} = useSelector(state => state.users);
     const {equipments} = useSelector(state => state.equipments);
     const list = equipments[category];
 
@@ -27,7 +27,7 @@ const EquipmentList = () => {
     }, []);
 
     function onClickStart(equipment) {
-        console.log(equipment);
+        startWorkWithEquipment(accountChatID, accountData, equipment).then(res => console.log(res));
     }
 
     return (
