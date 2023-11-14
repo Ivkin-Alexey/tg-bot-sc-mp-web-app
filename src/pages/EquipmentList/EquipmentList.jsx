@@ -30,6 +30,10 @@ const EquipmentList = () => {
         startWorkWithEquipment(accountChatID, accountData, equipment).then(res => console.log(res));
     }
 
+    function onClickDownloadFiles(url) {
+        tg.openLink(url)
+    }
+
     return (
             list.map((el, i) => {
                 const {brand, category, filesUrl, id, imgUrl, model, name} = el;
@@ -53,7 +57,7 @@ const EquipmentList = () => {
                         </CardContent>
                         <CardActions>
                             <Button size="small" onClick={() => onClickStart(el)}>Старт</Button>
-                            <Button size="small">Скачать файлы</Button>
+                            <Button size="small" onClick={() => onClickDownloadFiles(el.filesUrl)}>Скачать файлы</Button>
                         </CardActions>
                     </Card>
                 )
