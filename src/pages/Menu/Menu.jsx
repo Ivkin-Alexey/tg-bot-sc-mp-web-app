@@ -56,12 +56,11 @@ export default function Menu() {
     }
 
     return (
-        <List sx={{width: '100%', maxWidth: 350, bgcolor: 'background.paper'}}
+        <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
               component="nav"
               aria-labelledby="nested-list-subheader"
               subheader={
-                  <ListSubheader component="div" id="nested-list-subheader"
-                                 sx={{lineHeight: "20px", position: "initial"}}>
+                  <ListSubheader component="div" id="nested-list-subheader">
                       Меню:
                   </ListSubheader>
               }>
