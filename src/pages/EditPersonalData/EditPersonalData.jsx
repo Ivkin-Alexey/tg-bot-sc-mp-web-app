@@ -18,7 +18,7 @@ const EditPersonalData = () => {
     let userData = users.users.find(el => el?.chatID === +chatID);
     if (!userData) userData = users.admins.find(el => el?.chatID === +chatID);
 
-    const role = userData.type;
+    const role = userData.role;
     let textInputs;
     if(role === "user") textInputs = forms.editStudentPersonalData;
     else textInputs = forms.editAdminPersonalData;

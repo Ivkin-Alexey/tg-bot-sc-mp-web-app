@@ -16,8 +16,8 @@ export default function Menu() {
     const state = useSelector(state => state.users);
 
     const {newUsers, users, admins, accountData} = state;
-    const type = accountData.type;
-    const isAdmin = type === admin || type === superAdmin;
+    const role = accountData.role;
+    const isAdmin = role === admin || role === superAdmin;
 
     useEffect(() => {
         tg.MainButton.isVisible = false;

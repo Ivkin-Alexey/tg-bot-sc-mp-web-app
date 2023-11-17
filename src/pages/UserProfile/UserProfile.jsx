@@ -30,7 +30,7 @@ export default function UserProfile() {
     const navigate = useNavigate();
     const displayedData = useSelector(state => state.users.users.find(el => el.chatID === +chatID));
     const {accountData, accountChatID} = useSelector(state => state.users);
-    const role = accountData.type;
+    const role = accountData.role;
     const isAdmin = role === constants.userRoles.admin;
     const isSuperAdmin = role === constants.userRoles.superAdmin;
     const {otherInfo, isUserConfirmed, requirements} = displayedData;
@@ -152,7 +152,7 @@ export default function UserProfile() {
     }
 
     return <Profile displayedData={displayedData}
-                    role={accountData.type}
+                    role={accountData.role}
                     requirementsBlock={renderRequirementsBlock()}
                     registrationBlock={renderRegistrationStatusInfo()}
                     buttonsBlock={renderButtonsBlock()}

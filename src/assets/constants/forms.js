@@ -1,8 +1,8 @@
 import localisations from "../constants/localisations";
-import {validateRules} from "../constants/validateRules";
+import {validateRules} from "./validateRules";
 import {researchesSelectOptions} from "../db/db";
 
-const {cyrillicTextOnly, phone, spaceBetweenWordsOnly, maxLength30, minLength2, maxLength100} = validateRules;
+const {cyrillicTextOnly, phone, spaceBetweenWordsOnly, maxLength30, minLength2} = validateRules;
 
 const {
     studentsEducationYearList,

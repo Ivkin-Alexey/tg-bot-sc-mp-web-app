@@ -16,9 +16,9 @@ export default function AdminProfile() {
     const {chatID} = useParams();
     const navigate = useNavigate();
     const displayedData = useSelector(state => state.users.admins.find(el => el.chatID === +chatID));
-    const displayedDataRole = displayedData.type;
+    const displayedDataRole = displayedData.role;
     const {accountData, accountChatID} = useSelector(state => state.users);
-    const role = accountData.type;
+    const role = accountData.role;
     const isUser = role === constants.userRoles.user;
     const isSuperAdmin = role === constants.userRoles.superAdmin;
     const isOwnAccount = +chatID === accountData.chatID;
@@ -32,7 +32,7 @@ export default function AdminProfile() {
 
     function renderRoleBlock() {
         return <Typography sx={{fontSize: 14, mb: 1.5}}>
-            {displayedData.type ? "Роль: " + roleTitle[displayedData.type] : <b>Роль не указана</b>}
+            {displayedData.role ? "Роль: " + roleTitle[displayedData.role] : <b>Роль не указана</b>}
         </Typography>
     }
 
@@ -70,7 +70,7 @@ export default function AdminProfile() {
 
     return <Profile
         displayedData={displayedData}
-        role={accountData.type}
+        role={accountData.role}
         buttonsBlock={renderButtonsBlock()}
         adminRoleBlock={renderRoleBlock()}
         redirectionPath={redirectionPath}
