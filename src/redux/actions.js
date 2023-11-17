@@ -3,7 +3,9 @@ import {
     SET_ADMIN_LIST,
     SET_ACCOUNT_DATA,
     SET_USERS_DATA_IS_UPDATED,
-    SET_RESEARCHES, SET_EQUIPMENTS,
+    SET_EQUIPMENTS_DATA_IS_UPDATED,
+    SET_RESEARCHES,
+    SET_EQUIPMENTS,
     SET_EQUIPMENTS_CATEGORIES
 } from "./types";
 import constants from "../assets/constants/constants";
@@ -24,11 +26,9 @@ export function fetchUsersAction(accountChatID) {
 
 export function fetchEquipmentsAction() {
     return async dispatch => {
+        dispatch({type: SET_EQUIPMENTS_DATA_IS_UPDATED, payload: false});
         try {
-            getEquipments().then(equipmentList => {
-                dispatch({type: SET_EQUIPMENTS, payload: equipmentList})
-                dispatch({type: SET_EQUIPMENTS_CATEGORIES, payload: Object.keys(equipmentList)})
-            });
+            getEquipments().then(equipmentList => setEquipments(dispatch, equipmentList));
         } catch (e) {
             console.log(e);
         }
@@ -79,11 +79,17 @@ export function setUsers(dispatch, data, accountChatID) {
     let userData = {};
     data.map(el => {
         if (el.chatID === accountChatID) userData = el;
-        if (el.type === admin || el.type === superAdmin) admins.push(el);
+        if (el.role === admin || el.role === superAdmin) admins.push(el);
         else users.push(el);
     });
     dispatch({type: SET_USER_LIST, payload: users});
     dispatch({type: SET_ACCOUNT_DATA, payload: userData});
     dispatch({type: SET_ADMIN_LIST, payload: admins});
     dispatch({type: SET_USERS_DATA_IS_UPDATED, payload: true});
+}
+
+export function setEquipments(dispatch, data) {
+    dispatch({type: SET_EQUIPMENTS, payload: data})
+    dispatch({type: SET_EQUIPMENTS_CATEGORIES, payload: Object.keys(data)})
+    dispatch({type: SET_EQUIPMENTS_DATA_IS_UPDATED, payload: true});
 }
