@@ -5,7 +5,7 @@ import './EquipmentList.css';
 import {useTelegram} from "../../hooks/useTelegram";
 import {useEffect} from "react";
 import {useSelector} from "react-redux";
-import {startWorkWithEquipment} from "../../methods/requestsToServer";
+import {endWorkWithEquipment, startWorkWithEquipment} from "../../methods/requestsToServer";
 
 const EquipmentList = () => {
 
@@ -30,38 +30,45 @@ const EquipmentList = () => {
         startWorkWithEquipment(accountChatID, accountData, equipment).then(res => console.log(res));
     }
 
+    function onClickEnd(equipment) {
+        endWorkWithEquipment(accountChatID, accountData, equipment).then(res => console.log(res));
+    }
+
     function onClickDownloadFiles(url) {
         tg.openLink(url)
     }
 
     return (
-            list.map((el, i) => {
-                const {brand, category, filesUrl, id, imgUrl, model, name} = el;
-
-                return (
-                    <Card key={i}>
-                        <CardMedia
-                            component="img"
-                            alt={name}
-                            height="140"
-                            image={imgUrl}
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
-                                {name + " " + model}
-                            </Typography>
-                            {/*<Typography variant="body2" color="text.secondary">*/}
-                            {/*    Lizards are a widespread group of squamate reptiles, with over 6,000*/}
-                            {/*    species, ranging across all continents except Antarctica*/}
-                            {/*</Typography>*/}
-                        </CardContent>
-                        <CardActions>
+        list.map((el, i) => {
+            const {brand, category, filesUrl, id, imgUrl, model, name, isUsing} = el;
+            const started = isUsing.includes(accountChatID);
+            return (
+                <Card key={i}>
+                    <CardMedia
+                        component="img"
+                        alt={name}
+                        height="140"
+                        image={imgUrl}
+                    />
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                            {name + " " + model}
+                        </Typography>
+                        {/*<Typography variant="body2" color="text.secondary">*/}
+                        {/*    Lizards are a widespread group of squamate reptiles, with over 6,000*/}
+                        {/*    species, ranging across all continents except Antarctica*/}
+                        {/*</Typography>*/}
+                    </CardContent>
+                    <CardActions>
+                        {started ?
+                            <Button size="small" onClick={() => onClickEnd(el)}>Завершить</Button> :
                             <Button size="small" onClick={() => onClickStart(el)}>Старт</Button>
-                            <Button size="small" onClick={() => onClickDownloadFiles(el.filesUrl)}>Скачать файлы</Button>
-                        </CardActions>
-                    </Card>
-                )
-            })
+                        }
+                        <Button size="small" onClick={() => onClickDownloadFiles(el.filesUrl)}>Скачать файлы</Button>
+                    </CardActions>
+                </Card>
+            )
+        })
     )
 };
 
