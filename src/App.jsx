@@ -29,7 +29,7 @@ import NestedList from "./components/NestedList/NestedList";
 
 function App() {
 
-    const {tg, accountChatID = constants.defaultUserChatID} = useTelegram();
+    const {tg, accountChatID} = useTelegram();
     const dispatch = useDispatch();
 
     useEffect(() => {
