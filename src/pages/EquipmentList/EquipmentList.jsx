@@ -39,11 +39,11 @@ const EquipmentList = () => {
     }
 
     return (
-        list.map((el, i) => {
-            const {brand, category, filesUrl, id, imgUrl, model, name, isUsing} = el;
+        list.map(el => {
+            const {filesUrl, id, imgUrl, model, name, isUsing} = el;
             const started = isUsing.includes(accountChatID);
             return (
-                <Card key={i}>
+                <Card key={id}>
                     <CardMedia
                         component="img"
                         alt={name}
@@ -54,17 +54,13 @@ const EquipmentList = () => {
                         <Typography gutterBottom variant="h5" component="div">
                             {name + " " + model}
                         </Typography>
-                        {/*<Typography variant="body2" color="text.secondary">*/}
-                        {/*    Lizards are a widespread group of squamate reptiles, with over 6,000*/}
-                        {/*    species, ranging across all continents except Antarctica*/}
-                        {/*</Typography>*/}
                     </CardContent>
                     <CardActions>
                         {started ?
                             <Button size="small" onClick={() => onClickEnd(el)}>Завершить</Button> :
                             <Button size="small" onClick={() => onClickStart(el)}>Старт</Button>
                         }
-                        <Button size="small" onClick={() => onClickDownloadFiles(el.filesUrl)}>Скачать файлы</Button>
+                        <Button size="small" onClick={() => onClickDownloadFiles(filesUrl)}>Скачать файлы</Button>
                     </CardActions>
                 </Card>
             )
