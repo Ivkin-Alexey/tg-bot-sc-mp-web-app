@@ -11,13 +11,14 @@ import constants from "../../assets/constants/constants";
 
 export default function Menu() {
 
-    const {admin, superAdmin} = constants.userRoles;
+    const {admin, superAdmin, user} = constants.userRoles;
     const {tg, onClose, accountChatID = constants.defaultUserChatID} = useTelegram();
     const state = useSelector(state => state.users);
 
     const {newUsers, users, admins, accountData} = state;
     const role = accountData.role;
     const isAdmin = role === admin || role === superAdmin;
+    const isUser = role === user;
 
     useEffect(() => {
         tg.MainButton.isVisible = false;
@@ -46,13 +47,7 @@ export default function Menu() {
     }
 
     const renderStepperPage = () => {
-        return (
-            <>
-                <ListItemLink to={`/${accountChatID}`} primary="Мой профиль"/>
-                <ListItemLink to="/stepper" primary="Допуск в лабораторию"/>
-                <Divider/>
-            </>
-        )
+        return <ListItemLink to="/stepper" primary="Допуск в лабораторию"/>
     }
 
     return (
@@ -64,7 +59,8 @@ export default function Menu() {
                       Меню:
                   </ListSubheader>
               }>
-            {renderStepperPage()}
+            <ListItemLink to={`/${accountChatID}`} primary="Мой профиль"/>
+            {isUser && renderStepperPage()}
             {isAdmin && renderAdminPages()}
         </List>
     );
