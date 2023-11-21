@@ -20,6 +20,12 @@ const NewUserPage = () => {
     const {accountData} = useSelector(state => state.users);
     const {chatID, otherInfo} = accountData;
 
+    const [activeStep, setActiveStep] = React.useState(0);
+
+    useEffect(() => {
+        if(otherInfo.isUserDataSent) setActiveStep(1);
+    }, [])
+
     useEffect(() => {
         tg.MainButton.isVisible = false;
         tg.onEvent('backButtonClicked', redirect)
@@ -55,12 +61,6 @@ const NewUserPage = () => {
             callBack: () => tg.openLink(safetyTestUrl),
         },
     ];
-
-    const [activeStep, setActiveStep] = React.useState(0);
-
-    useEffect(() => {
-        if(otherInfo.isUserDataSent) setActiveStep(1);
-    }, [])
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);

@@ -29,7 +29,7 @@ import NestedList from "./components/NestedList/NestedList";
 
 function App() {
 
-    const {tg, accountChatID} = useTelegram();
+    const {tg, accountChatID = constants.defaultUserChatID} = useTelegram();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -41,7 +41,7 @@ function App() {
         tg.BackButton.isVisible = true;
     }, []);
 
-    const role = useSelector(state => state.users.accountData?.type);
+    const role = useSelector(state => state.users.accountData?.role);
     const isUsersDataUpdated = useSelector(state => state.users.usersDataIsUpdated);
     const {admin, superAdmin} = constants.userRoles;
     const isAdmin = (role === admin || role === superAdmin);

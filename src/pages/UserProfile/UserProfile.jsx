@@ -47,9 +47,9 @@ export default function UserProfile() {
         return (<Container sx={{padding: 2, width: "auto"}}>
             {role === "user" ?
                 <List>
-                    {requirements.map(el => {
+                    {requirements.map((el, i) => {
                         return (
-                            <ListItem>
+                            <ListItem key={i}>
                                 <ListItemIcon>
                                     {el.done ? <CheckCircleOutlineIcon/> : <DoDisturbOnIcon/>}
                                 </ListItemIcon>
