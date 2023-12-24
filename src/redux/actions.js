@@ -9,7 +9,14 @@ import {
     SET_EQUIPMENTS_CATEGORIES
 } from "./types";
 import constants from "../assets/constants/constants";
-import {deletePerson, getUsers, updatePersonData, getResearches, getEquipments} from "../methods/requestsToServer";
+import {
+    deletePerson,
+    getUsers,
+    updatePersonData,
+    getResearches,
+    getEquipments,
+    startWorkWithEquipment, endWorkWithEquipment
+} from "../methods/requestsToServer";
 
 const {admin, superAdmin} = constants.userRoles;
 
@@ -29,6 +36,21 @@ export function fetchEquipmentsAction() {
         dispatch({type: SET_EQUIPMENTS_DATA_IS_UPDATED, payload: false});
         try {
             getEquipments().then(equipmentList => setEquipments(dispatch, equipmentList));
+        } catch (e) {
+            console.log(e);
+        }
+    }
+}
+
+export function updateEquipmentWorkingStatusAction(accountChatID, accountData, equipment, type) {
+    return async dispatch => {
+        dispatch({type: SET_EQUIPMENTS_DATA_IS_UPDATED, payload: false});
+        try {
+            if (type === "start") {
+                startWorkWithEquipment(accountChatID, accountData, equipment).then(equipmentList => setEquipments(dispatch, equipmentList));
+            } else if (type === "end") {
+                endWorkWithEquipment(accountChatID, accountData, equipment).then(equipmentList => setEquipments(dispatch, equipmentList));
+            }
         } catch (e) {
             console.log(e);
         }

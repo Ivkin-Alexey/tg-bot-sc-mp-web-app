@@ -4,8 +4,9 @@ import {useNavigate, useParams} from "react-router-dom";
 import './EquipmentList.css';
 import {useTelegram} from "../../hooks/useTelegram";
 import {useEffect} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {endWorkWithEquipment, startWorkWithEquipment} from "../../methods/requestsToServer";
+import {updateEquipmentWorkingStatusAction} from "../../redux/actions";
 
 const EquipmentList = () => {
 
@@ -15,6 +16,7 @@ const EquipmentList = () => {
     const list = equipments[category];
 
     let navigate = useNavigate();
+    const dispatch = useDispatch();
     const {tg} = useTelegram();
 
     const redirect = () => navigate('/equipment');
@@ -27,11 +29,13 @@ const EquipmentList = () => {
     }, []);
 
     function onClickStart(equipment) {
-        startWorkWithEquipment(accountChatID, accountData, equipment).then(res => console.log(res));
+        const type = "start";
+        dispatch(updateEquipmentWorkingStatusAction(accountChatID, accountData, equipment, type));
     }
 
     function onClickEnd(equipment) {
-        endWorkWithEquipment(accountChatID, accountData, equipment).then(res => console.log(res));
+        const type = "end";
+        dispatch(updateEquipmentWorkingStatusAction(accountChatID, accountData, equipment, type));
     }
 
     function onClickDownloadFiles(url) {
