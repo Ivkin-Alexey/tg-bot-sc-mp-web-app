@@ -9,6 +9,7 @@ export async function updatePersonData(chatID, formData, queryId) {
         chatID
     };
     return await fetch(`https://${serverDomain}:${port}/updatePersonData`, {
+        mode: 'no-cors',
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -19,6 +20,7 @@ export async function updatePersonData(chatID, formData, queryId) {
 
 export async function deletePerson(chatID) {
     return await fetch(`https://${serverDomain}:${port}/deletePerson`, {
+        mode: 'no-cors',
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -31,6 +33,7 @@ export async function deletePerson(chatID) {
 
 export async function startWorkWithEquipment(chatID, accountData, equipment) {
     return await fetch(`https://${serverDomain}:${port}/equipmentStart`, {
+        mode: 'no-cors',
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -43,6 +46,7 @@ export async function startWorkWithEquipment(chatID, accountData, equipment) {
 
 export async function endWorkWithEquipment(chatID, accountData, equipment) {
     return await fetch(`https://${serverDomain}:${port}/equipmentEnd`, {
+        mode: 'no-cors',
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -55,6 +59,7 @@ export async function endWorkWithEquipment(chatID, accountData, equipment) {
 
 export async function getUsers() {
     return await fetch(`https://${serverDomain}:${port}/persons`, {
+        mode: 'no-cors',
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -64,6 +69,7 @@ export async function getUsers() {
 
 export async function getEquipments() {
     return await fetch(`https://${serverDomain}:${port}/equipmentList`, {
+        mode: 'no-cors',
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -73,6 +79,7 @@ export async function getEquipments() {
 
 export async function getResearches() {
     return await fetch(`https://${serverDomain}:${port}/researches`, {
+        mode: 'no-cors',
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
