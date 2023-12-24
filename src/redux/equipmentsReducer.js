@@ -3,7 +3,7 @@ import {SET_EQUIPMENTS, SET_EQUIPMENTS_CATEGORIES, SET_EQUIPMENTS_DATA_IS_UPDATE
 const initialState = {
     equipments: [],
     categories: [],
-    usersDataIsUpdated: false,
+    equipmentsDataIsUpdated: false,
 }
 
 export const equipmentsReducer = (state = initialState, action) => {
@@ -13,7 +13,7 @@ export const equipmentsReducer = (state = initialState, action) => {
         case SET_EQUIPMENTS_CATEGORIES:
             return {...state, categories: action.payload}
         case SET_EQUIPMENTS_DATA_IS_UPDATED:
-            return {...state, usersDataIsUpdated: action.payload}
+            return {...state, equipmentsDataIsUpdated: action.payload}
         default:
             return state
     }

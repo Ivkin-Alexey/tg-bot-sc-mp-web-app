@@ -13,7 +13,6 @@ export default function EquipmentCategoryList() {
     let navigate = useNavigate();
     const {tg} = useTelegram();
     const {categories, equipments} = useSelector(state => state.equipments);
-    console.log(equipments);
 
     const redirect = () => navigate('/');
 

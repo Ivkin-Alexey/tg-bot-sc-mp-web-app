@@ -7,12 +7,13 @@ import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {endWorkWithEquipment, startWorkWithEquipment} from "../../methods/requestsToServer";
 import {updateEquipmentWorkingStatusAction} from "../../redux/actions";
+import CircularProgress from "../../components/CircularProgress/CircularProgress";
 
 const EquipmentList = () => {
 
     const {category} = useParams();
     const {accountChatID, accountData} = useSelector(state => state.users);
-    const {equipments} = useSelector(state => state.equipments);
+    const {equipments, equipmentsDataIsUpdated} = useSelector(state => state.equipments);
     const list = equipments[category];
 
     let navigate = useNavigate();
@@ -43,6 +44,7 @@ const EquipmentList = () => {
     }
 
     return (
+        equipmentsDataIsUpdated ?
         list.map(el => {
             const {filesUrl, id, imgUrl, model, name, isUsing} = el;
             const started = isUsing.includes(accountChatID);
@@ -68,7 +70,7 @@ const EquipmentList = () => {
                     </CardActions>
                 </Card>
             )
-        })
+        }) : <CircularProgress/>
     )
 };
 
