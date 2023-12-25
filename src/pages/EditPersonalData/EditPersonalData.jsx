@@ -14,7 +14,7 @@ const EditPersonalData = () => {
     const redirectionPath = pathname.replace("/editProfile", "");
     const {positionList}  = localisations.components.form;
 
-    let users = useSelector(state => state.users);
+    let {users, accountData} = useSelector(state => state.users);
     let userData = users.users.find(el => el?.chatID === +chatID);
     if (!userData) userData = users.admins.find(el => el?.chatID === +chatID);
 
@@ -27,7 +27,7 @@ const EditPersonalData = () => {
     const {tg} = useTelegram();
 
     const {tgMainButtonText, confirmMessage, confirmMessageForSuperAdmins} = localisations.pages.editPersonalData;
-    const message = role === "superAdmin" ? confirmMessageForSuperAdmins : confirmMessage;
+    const message = accountData.role === "superAdmin" ? confirmMessageForSuperAdmins : confirmMessage;
 
     const filteringRules = {
         observedInputName: "position",
