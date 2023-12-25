@@ -14,9 +14,9 @@ const EditPersonalData = () => {
     const redirectionPath = pathname.replace("/editProfile", "");
     const {positionList}  = localisations.components.form;
 
-    let {users, accountData} = useSelector(state => state.users);
-    let userData = users.users.find(el => el?.chatID === +chatID);
-    if (!userData) userData = users.admins.find(el => el?.chatID === +chatID);
+    let {users, accountData, admins} = useSelector(state => state.users);
+    let userData = users.find(el => el?.chatID === +chatID);
+    if (!userData) userData = admins.find(el => el?.chatID === +chatID);
 
     const role = userData.role;
     let textInputs;
