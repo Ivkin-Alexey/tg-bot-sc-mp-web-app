@@ -26,7 +26,8 @@ const EditPersonalData = () => {
     const navigate = useNavigate();
     const {tg} = useTelegram();
 
-    const {tgMainButtonText, confirmMessage} = localisations.pages.editPersonalData;
+    const {tgMainButtonText, confirmMessage, confirmMessageForSuperAdmins} = localisations.pages.editPersonalData;
+    const message = role === "superAdmin" ? confirmMessageForSuperAdmins : confirmMessage;
 
     const filteringRules = {
         observedInputName: "position",
@@ -49,7 +50,7 @@ const EditPersonalData = () => {
                  defaultValues={userData}
                  tgMainButtonText={tgMainButtonText}
                  chatID={chatID}
-                 confirmMessage={confirmMessage}
+                 confirmMessage={message}
                  filteringRules={filteringRules}
     />;
 };

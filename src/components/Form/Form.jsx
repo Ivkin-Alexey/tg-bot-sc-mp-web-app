@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {updatePersonDataAction} from "../../redux/actions";
 import validateInputValue from "../../methods/validators";
+import {useNavigate} from "react-router-dom";
 
 const Form = (props) => {
 
@@ -19,7 +20,7 @@ const Form = (props) => {
     } = props;
 
     const dispatch = useDispatch();
-    const {accountChatID} = useSelector(state => state.users);
+    const {accountChatID, accountData} = useSelector(state => state.users);
     const [textInputs, setTextInputs] = useState(defaultTextInputs);
 
     const defaultFormData = textInputs.reduce((acc, cur) => {
@@ -40,15 +41,21 @@ const Form = (props) => {
     const [formData, setFormData] = useState(defaultFormData);
     const observedValue = formData[filteringRules?.observedInputName];
     const {tg, queryId} = useTelegram();
+    const navigate = useNavigate();
 
     const onSendData = useCallback(() => {
         const formDataEntries = Object.entries(formData).map(el => [el[0], el[1].value]);
         const data = Object.fromEntries(formDataEntries);
         dispatch(updatePersonDataAction(chatID, accountChatID, data, queryId))
             .then(() => {
-                tg.showPopup({message: confirmMessage, buttons: [{type: "ok", text: "Ок"}]}, () => tg.close())
+                tg.showPopup({message: confirmMessage, buttons: [{type: "ok", text: "Ок"}]}, popupCallback)
             });
     }, [formData]);
+
+    function popupCallback() {
+        if(accountData.role === "superAdmin") navigate(-1);
+        else tg.close()
+    }
 
     useEffect(() => {
         tg.onEvent('mainButtonClicked', onSendData)
