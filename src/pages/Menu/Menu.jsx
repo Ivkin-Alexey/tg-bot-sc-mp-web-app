@@ -34,7 +34,7 @@ export default function Menu() {
                 <Divider/>
                 <ListItemLink to="/newUserList" primary={`Новые заявки (${newUsers?.length})`}/>
                 <ListItemLink to="/userList" primary={`Обучающиеся (${users?.length})`}>
-                    <Chip label={newUsers?.length} color="error" size="small" sx={{marginRight: "10px"}}/>
+                    {newUsers?.length > 0 && <Chip label={newUsers?.length} color="error" size="small" sx={{marginRight: "10px"}}/>}
                 </ListItemLink>
                 <ListItemLink to="/adminList" primary={`Администраторы (${admins?.length})`}/>
                 <ListItemLink to="/equipment" primary="Оборудование"/>
