@@ -2,7 +2,7 @@ import './App.css';
 import {useCallback, useEffect} from "react";
 import {Route, Routes} from "react-router-dom";
 import Header from "./components/Header/Header";
-import EquipmentList from "./pages/EquipmentList/EquipmentList";
+import Equipments from "./pages/Equipments/Equipments";
 import EditPersonalData from "./pages/EditPersonalData/EditPersonalData";
 import Menu from "./pages/Menu/Menu";
 import ApplicationList from "./pages/ApplicationList/ApplicationList";
@@ -13,7 +13,6 @@ import UserProfile from "./pages/UserProfile/UserProfile";
 import {useTelegram} from "./hooks/useTelegram";
 import Statistic from "./components/Statistic/Statistic";
 import ActiveEmployees from "./pages/ActiveEmployees/ActiveEmploees";
-import ActiveEquipment from "./pages/ActiveEquipment/ActiveEquipment";
 import NewUserPage from "./pages/Stepper/NewUserPage";
 import UserList from "./pages/UserList/UserList";
 import AdminProfile from "./pages/AdminProfile/AdminProfile";
@@ -26,6 +25,7 @@ import CircularProgress from "./components/CircularProgress/CircularProgress";
 import * as React from "react";
 import NewUserList from "./pages/NewUserList/NewUserList";
 import NestedList from "./components/NestedList/NestedList";
+import OperatingEquipments from "./pages/OperatingEquipments/OperatingEquipments";
 
 function App() {
 
@@ -54,11 +54,11 @@ function App() {
                 <Routes>
                     <Route index element={<Menu/>}/>
                     <Route path={'equipment'} element={<EquipmentCategoryList/>}/>
+                    <Route path={'operatingEquipment'} element={<OperatingEquipments/>}/>
                     <Route path={'reagents'} element={<Reagents/>}/>
-                    <Route path={'equipment/:category'} element={<EquipmentList/>}/>
+                    <Route path={'equipment/:category'} element={<Equipments/>}/>
                     <Route path={'applications'} element={<ApplicationList/>}/>
                     <Route path={'applications/:application'} element={<Application/>}/>
-                    <Route path={'statistic/activeEquipment'} element={<ActiveEquipment/>}/>
                     <Route path={'statistic/activeEmployees'} element={<ActiveEmployees/>}/>
                     <Route path={'newUserList'} element={<NewUserList/>}/>
                     <Route path={'newUserList/:chatID'} element={<UserProfile/>}/>

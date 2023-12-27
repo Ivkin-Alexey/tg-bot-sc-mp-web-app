@@ -14,6 +14,7 @@ export default function Menu() {
     const {admin, superAdmin, user} = constants.userRoles;
     const {tg, onClose, accountChatID = constants.defaultUserChatID} = useTelegram();
     const state = useSelector(state => state.users);
+    const {operatingEquipment} = useSelector(state => state.equipments);
 
     const {newUsers, users, admins, accountData} = state;
     const role = accountData.role;
@@ -37,7 +38,6 @@ export default function Menu() {
                     {newUsers?.length > 0 && <Chip label={newUsers?.length} color="error" size="small" sx={{marginRight: "10px"}}/>}
                 </ListItemLink>
                 <ListItemLink to="/adminList" primary={`Администраторы (${admins?.length})`}/>
-                <ListItemLink to="/equipment" primary="Оборудование"/>
                 <ListItemLink to="/applications" primary="Заявки на исследование"/>
                 <ListItemLink to="/reagents" primary="Заявки на реактивы"/>
                 {/*<ListItemLink to="/statistic/activeEmployees" primary="Активные работники"/>*/}
@@ -61,6 +61,8 @@ export default function Menu() {
               }>
             <ListItemLink to={`/${accountChatID}`} primary="Мой профиль"/>
             {isUser && renderStepperPage()}
+            <ListItemLink to="/equipment" primary="Оборудование"/>
+            <ListItemLink to="/operatingEquipment" primary={`Оборудование в работе (${operatingEquipment.length})`}/>
             {isAdmin && renderAdminPages()}
         </List>
     );

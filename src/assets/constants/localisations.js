@@ -111,6 +111,9 @@ const localisations = {
             ],
             researches: researches
         },
+        equipmentList: {
+            listIsEmpty: "Список пуст"
+        }
     }
 };
 export default localisations;

@@ -112,6 +112,5 @@ export function setUsers(dispatch, data, accountChatID) {
 
 export function setEquipments(dispatch, data) {
     dispatch({type: SET_EQUIPMENTS, payload: data})
-    dispatch({type: SET_EQUIPMENTS_CATEGORIES, payload: Object.keys(data)})
     dispatch({type: SET_EQUIPMENTS_DATA_IS_UPDATED, payload: true});
 }

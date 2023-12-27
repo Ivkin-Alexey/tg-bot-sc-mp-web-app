@@ -1,26 +1,23 @@
 import React from 'react';
 import {Button, Card, CardActions, CardContent, CardMedia, Typography} from "@mui/material";
-import {useNavigate, useParams} from "react-router-dom";
-import './EquipmentList.css';
+import {useNavigate} from "react-router-dom";
 import {useTelegram} from "../../hooks/useTelegram";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {endWorkWithEquipment, startWorkWithEquipment} from "../../methods/requestsToServer";
 import {updateEquipmentWorkingStatusAction} from "../../redux/actions";
 import CircularProgress from "../../components/CircularProgress/CircularProgress";
+import localisations from "../../assets/constants/localisations";
 
-const EquipmentList = () => {
+const EquipmentList = (props) => {
 
-    const {category} = useParams();
+    const {list} = props;
     const {accountChatID, accountData} = useSelector(state => state.users);
-    const {equipments, equipmentsDataIsUpdated} = useSelector(state => state.equipments);
-    const list = equipments[category];
-
+    const {equipmentsDataIsUpdated} = useSelector(state => state.equipments);
     let navigate = useNavigate();
     const dispatch = useDispatch();
     const {tg} = useTelegram();
 
-    const redirect = () => navigate('/equipment');
+    const redirect = () => navigate(-1);
 
     useEffect(() => {
         tg.onEvent('backButtonClicked', redirect)
@@ -43,9 +40,8 @@ const EquipmentList = () => {
         tg.openLink(url)
     }
 
-    return (
-        equipmentsDataIsUpdated ?
-        list.map(el => {
+    function renderEquipmentList() {
+        return list.length > 0 ? list.map(el => {
             const {filesUrl, id, imgUrl, model, name, isUsing} = el;
             const started = isUsing.includes(accountChatID);
             return (
@@ -70,8 +66,10 @@ const EquipmentList = () => {
                     </CardActions>
                 </Card>
             )
-        }) : <CircularProgress/>
-    )
+        }) : localisations.components.equipmentList.listIsEmpty
+    }
+
+    return equipmentsDataIsUpdated ? renderEquipmentList() : <CircularProgress/>
 };
 
 export default EquipmentList;
