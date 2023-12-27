@@ -46,10 +46,6 @@ export default function Menu() {
         )
     }
 
-    const renderStepperPage = () => {
-        return <ListItemLink to="/stepper" primary="Допуск в лабораторию"/>
-    }
-
     return (
         <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
               component="nav"
@@ -60,9 +56,9 @@ export default function Menu() {
                   </ListSubheader>
               }>
             <ListItemLink to={`/${accountChatID}`} primary="Мой профиль"/>
-            {isUser && renderStepperPage()}
+            {isUser && <ListItemLink to="/stepper" primary="Допуск в лабораторию"/>}
             <ListItemLink to="/equipment" primary="Оборудование"/>
-            <ListItemLink to="/operatingEquipment" primary={`Оборудование в работе (${operatingEquipment.length})`}/>
+            <ListItemLink to="/operatingEquipment" primary={`Оборудование в работе (${operatingEquipment?.length})`}/>
             {isAdmin && renderAdminPages()}
         </List>
     );
