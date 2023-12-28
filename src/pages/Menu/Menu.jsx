@@ -40,8 +40,6 @@ export default function Menu() {
                 <ListItemLink to="/adminList" primary={`Администраторы (${admins?.length})`}/>
                 <ListItemLink to="/applications" primary="Заявки на исследование"/>
                 <ListItemLink to="/reagents" primary="Заявки на реактивы"/>
-                {/*<ListItemLink to="/statistic/activeEmployees" primary="Активные работники"/>*/}
-                {/*<ListItemLink to="/statistic/activeEmployees" primary="Активные работники"/>*/}
             </>
         )
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Card, CardActions, CardContent, CardMedia, Typography} from "@mui/material";
+import {Button, Card, CardActions, CardContent, CardMedia, Chip, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useTelegram} from "../../hooks/useTelegram";
 import {useEffect} from "react";
@@ -7,11 +7,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateEquipmentWorkingStatusAction} from "../../redux/actions";
 import CircularProgress from "../../components/CircularProgress/CircularProgress";
 import localisations from "../../assets/constants/localisations";
+import {createUserName} from "../../methods/helpers";
 
 const EquipmentList = (props) => {
 
     const {list} = props;
-    const {accountChatID, accountData} = useSelector(state => state.users);
+    const {accountChatID, accountData, users, admins} = useSelector(state => state.users);
     const {equipmentsDataIsUpdated} = useSelector(state => state.equipments);
     let navigate = useNavigate();
     const dispatch = useDispatch();
@@ -40,12 +41,31 @@ const EquipmentList = (props) => {
         tg.openLink(url)
     }
 
+
     function renderEquipmentList() {
         return list.length > 0 ? list.map(el => {
+
             const {filesUrl, id, imgUrl, model, name, isUsing} = el;
-            const started = isUsing.includes(accountChatID);
+            let started, startedByAnotherPerson, workingPerson, personName;
+
+            const workingPersonChatID = isUsing[0];
+            if (accountChatID === workingPersonChatID) started = true;
+            if (!started && isUsing.length > 0) startedByAnotherPerson = true;
+            if (startedByAnotherPerson) {
+                workingPerson = users.find(el => el.chatID === workingPersonChatID);
+                if(!workingPerson) workingPerson = admins.find(el => el.chatID === workingPersonChatID);
+                personName = createUserName(workingPerson);
+            }
+
+            function renderWorkingPersonButtons() {
+                return started ?
+                    <Button size="small" onClick={() => onClickEnd(el)}>Завершить</Button> :
+                    <Button size="small" onClick={() => onClickStart(el)}>Старт</Button>
+            }
+
             return (
                 <Card key={id}>
+                    {startedByAnotherPerson && <Chip label={`Использует ${personName}`} color="primary" cx={{marginTop: "20px"}}/>}
                     <CardMedia
                         component="img"
                         alt={name}
@@ -58,10 +78,7 @@ const EquipmentList = (props) => {
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        {started ?
-                            <Button size="small" onClick={() => onClickEnd(el)}>Завершить</Button> :
-                            <Button size="small" onClick={() => onClickStart(el)}>Старт</Button>
-                        }
+                        {!startedByAnotherPerson && renderWorkingPersonButtons()}
                         <Button size="small" onClick={() => onClickDownloadFiles(filesUrl)}>Скачать файлы</Button>
                     </CardActions>
                 </Card>
