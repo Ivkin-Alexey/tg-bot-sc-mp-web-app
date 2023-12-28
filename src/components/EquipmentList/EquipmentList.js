@@ -41,7 +41,6 @@ const EquipmentList = (props) => {
         tg.openLink(url)
     }
 
-
     function renderEquipmentList() {
         return list.length > 0 ? list.map(el => {
 
@@ -65,15 +64,15 @@ const EquipmentList = (props) => {
 
             return (
                 <Card key={id}>
-                    {startedByAnotherPerson && <Chip label={`Использует ${personName}`} color="primary" cx={{marginTop: "20px"}}/>}
+                    {startedByAnotherPerson && <Chip label={`Использует ${personName}`} color="primary" sx={{marginTop: "15px"}}/>}
                     <CardMedia
                         component="img"
                         alt={name}
                         height="140"
                         image={imgUrl}
                     />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
+                    <CardContent sx={{paddingTop: 0, paddingBottom: 0}}>
+                        <Typography gutterBottom variant="h5" component="div" sx={{fontSize: "1rem"}}>
                             {name + " " + model}
                         </Typography>
                     </CardContent>
