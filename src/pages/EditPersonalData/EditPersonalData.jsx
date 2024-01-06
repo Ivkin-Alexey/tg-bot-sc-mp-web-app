@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import forms from '../../assets/constants/forms';
-import localisations from '../../assets/constants/localisations'
+import localisations from '../../assets/constants/localisations/localisations'
 import Form from "../../components/Form/Form";
 import {useNavigate, useParams} from "react-router-dom";
 import {useTelegram} from "../../hooks/useTelegram";
@@ -12,16 +12,17 @@ const EditPersonalData = () => {
     const {chatID} = useParams();
     const {pathname} = useLocation();
     const redirectionPath = pathname.replace("/editProfile", "");
-    const {positionList}  = localisations.components.form;
+    const {categoryList} = localisations.components.form;
 
     let {users, accountData, admins} = useSelector(state => state.users);
     let userData = users.find(el => el?.chatID === +chatID);
+
     if (!userData) userData = admins.find(el => el?.chatID === +chatID);
 
     const role = userData.role;
-    let textInputs;
-    if(role === "user") textInputs = forms.editStudentPersonalData;
-    else textInputs = forms.editAdminPersonalData;
+    let inputList;
+    if (role === "user") inputList = forms.editStudentPersonalData;
+    else inputList = forms.editAdminPersonalData;
 
     const navigate = useNavigate();
     const {tg} = useTelegram();
@@ -30,11 +31,11 @@ const EditPersonalData = () => {
     const message = accountData.role === "superAdmin" ? confirmMessageForSuperAdmins : confirmMessage;
 
     const filteringRules = {
-        observedInputName: "position",
-        rules: [
-            {selectedOption: positionList[0].value, hiddenInputName: "postGraduateEducationYear"},
-            {selectedOption: positionList[1].value, hiddenInputName: "studentsEducationYear"},
-        ]
+        "category": {
+            [categoryList[0]]: ["postGraduateEducationYear", "position"],
+            [categoryList[1]]: ["studentsEducationYear", "position"],
+            [categoryList[2]]: ["studentsEducationYear", "postGraduateEducationYear"]
+        },
     }
 
     const redirect = () => navigate(redirectionPath);
@@ -46,7 +47,7 @@ const EditPersonalData = () => {
         }
     }, []);
 
-    return <Form defaultTextInputs={textInputs}
+    return <Form defaultTextInputs={inputList}
                  defaultValues={userData}
                  tgMainButtonText={tgMainButtonText}
                  chatID={chatID}

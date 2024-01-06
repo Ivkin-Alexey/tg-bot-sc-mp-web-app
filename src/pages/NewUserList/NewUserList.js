@@ -1,6 +1,6 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-import localisations from "../../assets/constants/localisations";
+import localisations from "../../assets/constants/localisations/localisations";
 import ListPage from "../ListPage/ListPage";
 
 const NewUserList = () => {

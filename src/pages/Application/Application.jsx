@@ -1,5 +1,5 @@
 import React from 'react';
-import localisations from "../../assets/constants/localisations";
+import localisations from "../../assets/constants/localisations/localisations";
 import forms from "../../assets/constants/forms";
 import Form from "../../components/Form/Form";
 import {useNavigate, useParams} from "react-router-dom";

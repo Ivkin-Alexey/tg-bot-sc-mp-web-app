@@ -1,4 +1,4 @@
-export const errorMessages = {
+const validateErrorMessages = {
     emptyError: "Введите значение",
     cyrillicError: "Допустима только кириллица",
     spaceBetweenWordsOnlyError: "Пробелы допустимы только между словами",
@@ -8,11 +8,4 @@ export const errorMessages = {
     minLengthError: "Длина значения меньше требуемого",
 }
 
-export const validateRules = {
-    cyrillicTextOnly: "cyrillicTextOnly",
-    spaceBetweenWordsOnly: "spaceBetweenWordsOnly",
-    phone: "phone",
-    maxLength100: "maxLength100",
-    maxLength30: "maxLength30",
-    minLength2: "minLength2",
-}
+export default validateErrorMessages;

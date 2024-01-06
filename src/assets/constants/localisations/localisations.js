@@ -1,4 +1,4 @@
-import researches from "./constants";
+import researches from "../constants";
 
 const localisations = {
     pages: {
@@ -47,69 +47,9 @@ const localisations = {
     },
     components: {
         form: {
-            positionList: [
-                {
-                    value: 'Студент',
-                    label: 'Студент',
-                },
-                {
-                    value: 'Аспирант',
-                    label: 'Аспирант',
-                },
-            ],
-            studentsEducationYearList: [
-                {
-                    value: '1 курс магистратуры',
-                    label: '1 курс магистратуры',
-                },
-                {
-                    value: '2 курс магистратуры',
-                    label: '2 курс магистратуры',
-                },
-                {
-                    value: '1 курс',
-                    label: '1 курс',
-                },
-                {
-                    value: '2 курс',
-                    label: '2 курс',
-                },
-                {
-                    value: '3 курс',
-                    label: '3 курс',
-                },
-                {
-                    value: '4 курс',
-                    label: '4 курс',
-                },
-                {
-                    value: '5 курс',
-                    label: '5 курс',
-                },
-                {
-                    value: '6 курс',
-                    label: '6 курс',
-                },
-            ],
-            postGraduatesEducationYearList: [
-                {
-                    value: '1 курс',
-                    label: '1 курс',
-                },
-                {
-                    value: '2 курс',
-                    label: '2 курс',
-                },
-                {
-                    value: '3 курс',
-                    label: '3 курс',
-                },
-                {
-                    value: '4 курс',
-                    label: '4 курс',
-                },
-            ],
-            researches: researches
+            categoryList: ["Студент", "Аспирант", "Сотрудник"],
+            studentsEducationYearList: ["1 курс магистратуры", "2 курс магистратуры", "1 курс", "2 курс", "3 курс", "4 курс", "5 курс", "6 курс"],
+            postGraduatesEducationYearList: ["1 курс", "2 курс", "3 курс", "4 курс"],
         },
         equipmentList: {
             listIsEmpty: "Список пуст"

@@ -4,7 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import {Button, Divider, Stack,} from "@mui/material";
 import {useCallback, useEffect, useState} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
-import localisations from '../../assets/constants/localisations';
+import localisations from '../../assets/constants/localisations/localisations';
 import forms from "../../assets/constants/forms";
 import ReagentsFormItem from "../../components/ReagentsFormItem/ReagentsFormItem";
 import {useNavigate} from "react-router-dom";

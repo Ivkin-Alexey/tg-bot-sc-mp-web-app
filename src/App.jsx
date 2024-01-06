@@ -12,7 +12,6 @@ import Application from "./pages/Application/Application";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import {useTelegram} from "./hooks/useTelegram";
 import Statistic from "./components/Statistic/Statistic";
-import ActiveEmployees from "./pages/ActiveEmployees/ActiveEmploees";
 import NewUserPage from "./pages/Stepper/NewUserPage";
 import UserList from "./pages/UserList/UserList";
 import AdminProfile from "./pages/AdminProfile/AdminProfile";
@@ -59,7 +58,6 @@ function App() {
                     <Route path={'equipment/:category'} element={<Equipments/>}/>
                     <Route path={'applications'} element={<ApplicationList/>}/>
                     <Route path={'applications/:application'} element={<Application/>}/>
-                    <Route path={'statistic/activeEmployees'} element={<ActiveEmployees/>}/>
                     <Route path={'newUserList'} element={<NewUserList/>}/>
                     <Route path={'newUserList/:chatID'} element={<UserProfile/>}/>
                     <Route path={'newUserList/:chatID/editProfile'} element={<EditPersonalData/>}/>

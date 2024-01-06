@@ -6,7 +6,7 @@ import {IconButton} from "@mui/material";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import constants from "../../assets/constants/constants";
-import localisations from "../../assets/constants/localisations";
+import localisations from "../../assets/constants/localisations/localisations";
 import Typography from "@mui/material/Typography";
 import {useTelegram} from "../../hooks/useTelegram";
 import {deletePersonAction} from "../../redux/actions";

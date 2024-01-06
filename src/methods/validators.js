@@ -1,16 +1,7 @@
-import {validateRules, errorMessages} from "../assets/constants/validateRules";
+import validateErrorMessages from "../assets/constants/localisations/validateErrors";
 
 const cyrillicRegExp = /^[а-яёА-ЯЁ]*$/;
 const phoneRegExp = /^\+?[1-9]\d{10}$/;
-
-const {
-    cyrillicTextOnly,
-    maxLength30,
-    maxLength100,
-    minLength2,
-    phone,
-    spaceBetweenWordsOnly
-} = validateRules;
 
 const {
     emptyError,
@@ -20,32 +11,27 @@ const {
     minLengthError,
     phoneError,
     spaceError
-} = errorMessages;
+} = validateErrorMessages;
+
+
+
 
 export default function validateInputValue(value, rules, required) {
 
     let result = {isValid: true, errorText: ""};
 
+    const validateRules = {
+        cyrillicTextOnly: () => checkIsCyrillicOnly(),
+        spaceBetweenWordsOnly: () => checkIsSpaceBetweenWords(),
+        phone: () => checkIsPhone(),
+        maxLength30: (rule) => checkIsMaxLengthCorrect(rule),
+        maxLength100: (rule) => checkIsMaxLengthCorrect(rule),
+        minLength2: (rule) => checkIsMinLengthCorrect(rule),
+    }
+
     rules?.forEach(rule => {
         if(!result.isValid) return result;
-        switch (rule) {
-            case cyrillicTextOnly:
-                checkIsCyrillicOnly();
-                break;
-            case spaceBetweenWordsOnly:
-                checkIsSpaceBetweenWords();
-                break;
-            case phone:
-                checkIsPhone();
-                break;
-            case maxLength30:
-            case maxLength100:
-                checkIsMaxLengthCorrect(rule);
-                break;
-            case minLength2:
-                checkIsMinLengthCorrect(rule);
-                break;
-        }
+        validateRules[rule](rule);
     })
 
     executeDefaultCheck();
@@ -101,7 +87,7 @@ export default function validateInputValue(value, rules, required) {
             result.isValid = false;
             result.errorText = emptyError;
         }
-        if (!rules?.includes(spaceBetweenWordsOnly) && value.indexOf(" ") >= 0) {
+        if (!rules?.includes("spaceBetweenWordsOnly") && value.indexOf(" ") >= 0) {
             result.isValid = false;
             result.errorText = spaceError;
         }

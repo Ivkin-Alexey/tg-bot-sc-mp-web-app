@@ -19,7 +19,7 @@ import Button from "@mui/material/Button";
 import DoneOutlineRoundedIcon from "@mui/icons-material/DoneOutlineRounded";
 import DeleteIcon from "@mui/icons-material/Delete";
 import constants from "../../assets/constants/constants";
-import localisations from "../../assets/constants/localisations";
+import localisations from "../../assets/constants/localisations/localisations";
 import {useTelegram} from "../../hooks/useTelegram";
 import {confirmPersonAction, deletePersonAction, updatePersonDataAction} from "../../redux/actions";
 import ListItemText from "@mui/material/ListItemText";

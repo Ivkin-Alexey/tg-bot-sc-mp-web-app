@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {useTelegram} from "../../hooks/useTelegram";
 import {MenuItem, Stack, TextField} from "@mui/material";
 import ListSubheader from "@mui/material/ListSubheader";
@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {updatePersonDataAction} from "../../redux/actions";
 import validateInputValue from "../../methods/validators";
+import inputs from "../../assets/constants/inputs/inputs";
 import {useNavigate} from "react-router-dom";
 
 const Form = (props) => {
@@ -22,14 +23,15 @@ const Form = (props) => {
     const dispatch = useDispatch();
     const {accountChatID, accountData} = useSelector(state => state.users);
     const [textInputs, setTextInputs] = useState(defaultTextInputs);
-
     const defaultFormData = textInputs.reduce((acc, cur) => {
-        const {name, required} = cur.inputAttributes;
-        const {initValue, validateRules = null} = cur.other;
-        const value = defaultValues[name] || initValue;
+
+        const inputItem = inputs[cur];
+
+        const {required, initValue, validateRules} = inputItem;
+        const value = defaultValues[cur] || initValue;
         return {
             ...acc,
-            [name]: {
+            [cur]: {
                 value,
                 required,
                 valid: validateInputValue(value, validateRules, required),
@@ -39,7 +41,6 @@ const Form = (props) => {
     }, {});
 
     const [formData, setFormData] = useState(defaultFormData);
-    const observedValue = formData[filteringRules?.observedInputName];
     const {tg, queryId} = useTelegram();
     const navigate = useNavigate();
 
@@ -77,6 +78,7 @@ const Form = (props) => {
         } else {
             tg.MainButton.show();
         }
+        filterInputs();
     }, [formData]);
 
 
@@ -96,23 +98,22 @@ const Form = (props) => {
         })
     }
 
-    function filterInputs(input) {
-        const rule = filteringRules?.rules?.find(el => el.selectedOption === observedValue.value);
-        return input.inputAttributes.name !== rule?.hiddenInputName;
+    function filterInputs() {
+        let hiddenInputs = [];
+        for (let rule in filteringRules) {
+            hiddenInputs = [...hiddenInputs, ...filteringRules[rule][formData[rule].value]];
+        }
+        setTextInputs(() => defaultTextInputs.filter(el => !hiddenInputs.includes(el)));
     }
 
     function validateFormData() {
         return Object.values(formData).find(el => el.valid.isValid === false);
     }
 
-    useEffect(() => {
-        if (filteringRules) setTextInputs(defaultTextInputs.filter(filterInputs));
-    }, [observedValue])
-
     function renderSelectOptions(options) {
         return options.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-                {option.label}
+            <MenuItem key={option} value={option}>
+                {option}
             </MenuItem>
         ))
     }
@@ -131,17 +132,17 @@ const Form = (props) => {
                 Заполните поля:
             </ListSubheader>
             {textInputs.map((el, i) => {
-                const {name} = el.inputAttributes;
-                const {value, valid} = formData[name];
-                const options = el.other?.selectOptions;
+                const {value, valid} = formData[el];
+                const options = inputs[el].selectOptions;
                 return <TextField
                     error={!valid.isValid}
+                    name={el}
                     helperText={valid.errorText}
                     key={i}
                     onChange={onChangeData}
                     fullWidth
                     value={value}
-                    {...el.inputAttributes}
+                    {...inputs[el]}
                 >{options && renderSelectOptions(options)}
                 </TextField>
             })}

@@ -8,7 +8,7 @@ import {Chip, Collapse, ListItem, ListItemButton, ListItemIcon} from "@mui/mater
 import ListItemText from "@mui/material/ListItemText";
 import {useSelector} from "react-redux";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
-import localisations from "../../assets/constants/localisations";
+import localisations from "../../assets/constants/localisations/localisations";
 import {createUserName} from "../../methods/helpers";
 
 const NestedList = () => {

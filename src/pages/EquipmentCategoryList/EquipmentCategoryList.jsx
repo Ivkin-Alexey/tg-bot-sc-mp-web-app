@@ -3,7 +3,7 @@ import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import {useNavigate} from "react-router-dom";
 import ListItemLink from "../../components/ListItemLink/ListItemLink";
-import localisations from '../../assets/constants/localisations'
+import localisations from '../../assets/constants/localisations/localisations'
 import {useTelegram} from "../../hooks/useTelegram";
 import {useEffect} from "react";
 import {useSelector} from "react-redux";

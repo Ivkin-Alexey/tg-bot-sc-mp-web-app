@@ -6,7 +6,7 @@ import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {updateEquipmentWorkingStatusAction} from "../../redux/actions";
 import CircularProgress from "../../components/CircularProgress/CircularProgress";
-import localisations from "../../assets/constants/localisations";
+import localisations from "../../assets/constants/localisations/localisations";
 import {createUserName} from "../../methods/helpers";
 
 const EquipmentList = (props) => {
