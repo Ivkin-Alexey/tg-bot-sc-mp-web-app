@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useTelegram} from "../../hooks/useTelegram";
 import {MenuItem, Stack, TextField} from "@mui/material";
 import ListSubheader from "@mui/material/ListSubheader";
@@ -8,6 +8,7 @@ import {updatePersonDataAction} from "../../redux/actions";
 import validateInputValue from "../../methods/validators";
 import inputs from "../../assets/constants/inputs/inputs";
 import {useNavigate} from "react-router-dom";
+import localisations from "../../assets/constants/localisations/localisations";
 
 const Form = (props) => {
 
@@ -118,6 +119,26 @@ const Form = (props) => {
         ))
     }
 
+    function renderTextFields() {
+        return textInputs.map((el, i) => {
+            const {value, valid} = formData[el];
+            const {selectOptions, id, label, select} = inputs[el];
+            return <TextField
+                error={!valid.isValid}
+                name={el}
+                helperText={valid.errorText}
+                key={i}
+                onChange={onChangeData}
+                fullWidth
+                value={value}
+                id={id}
+                label={label}
+                select={select}
+            >{selectOptions && renderSelectOptions(selectOptions)}
+            </TextField>
+        })
+    }
+
     return (
         <Stack
             direction="column"
@@ -129,23 +150,9 @@ const Form = (props) => {
             autoComplete="off"
         >
             <ListSubheader component="div">
-                Заполните поля:
+                {localisations.components.form.header}
             </ListSubheader>
-            {textInputs.map((el, i) => {
-                const {value, valid} = formData[el];
-                const options = inputs[el].selectOptions;
-                return <TextField
-                    error={!valid.isValid}
-                    name={el}
-                    helperText={valid.errorText}
-                    key={i}
-                    onChange={onChangeData}
-                    fullWidth
-                    value={value}
-                    {...inputs[el]}
-                >{options && renderSelectOptions(options)}
-                </TextField>
-            })}
+            {renderTextFields()}
             {/*<Button onClick={onSendData}>Отправить</Button>*/}
         </Stack>
     );

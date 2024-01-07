@@ -19,10 +19,7 @@ const EditPersonalData = () => {
 
     if (!userData) userData = admins.find(el => el?.chatID === +chatID);
 
-    const role = userData.role;
-    let inputList;
-    if (role === "user") inputList = forms.editStudentPersonalData;
-    else inputList = forms.editAdminPersonalData;
+    let inputList = forms.editPersonalData;
 
     const navigate = useNavigate();
     const {tg} = useTelegram();
