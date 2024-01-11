@@ -23,8 +23,7 @@ const Form = (props) => {
 
     const dispatch = useDispatch();
     const {accountChatID, accountData} = useSelector(state => state.users);
-    const [textInputs, setTextInputs] = useState(defaultTextInputs);
-    const defaultFormData = textInputs.reduce((acc, cur) => {
+    const defaultFormData = defaultTextInputs.reduce((acc, cur) => {
 
         const inputItem = inputs[cur];
 
@@ -42,6 +41,7 @@ const Form = (props) => {
     }, {});
 
     const [formData, setFormData] = useState(defaultFormData);
+    const [textInputs, setTextInputs] = useState(filterInputs());
     const {tg, queryId} = useTelegram();
     const navigate = useNavigate();
 
@@ -79,7 +79,7 @@ const Form = (props) => {
         } else {
             tg.MainButton.show();
         }
-        filterInputs();
+        setTextInputs(() => filterInputs());
     }, [formData]);
 
 
@@ -104,7 +104,7 @@ const Form = (props) => {
         for (let rule in filteringRules) {
             hiddenInputs = [...hiddenInputs, ...filteringRules[rule][formData[rule].value]];
         }
-        setTextInputs(() => defaultTextInputs.filter(el => !hiddenInputs.includes(el)));
+        return defaultTextInputs.filter(el => !hiddenInputs.includes(el));
     }
 
     function validateFormData() {
