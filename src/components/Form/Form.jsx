@@ -32,10 +32,9 @@ const Form = (props) => {
         return {
             ...acc,
             [cur]: {
-                value,
                 required,
-                valid: validateInputValue(value, validateRules, required),
-                validateRules
+                validateRules,
+                ...validateInputValue(value, validateRules, required),
             }
         }
     }, {});
@@ -92,8 +91,7 @@ const Form = (props) => {
                 ...state,
                 [name]: {
                     ...state[name],
-                    value,
-                    valid: validateInputValue(value, validateRules, required)
+                    ...validateInputValue(value, validateRules, required)
                 }
             };
         })
@@ -108,7 +106,7 @@ const Form = (props) => {
     }
 
     function validateFormData() {
-        return Object.values(formData).find(el => el.valid.isValid === false);
+        return Object.values(formData).find(el => el.isValid === false);
     }
 
     function renderSelectOptions(options) {
@@ -121,12 +119,12 @@ const Form = (props) => {
 
     function renderTextFields() {
         return textInputs.map((el, i) => {
-            const {value, valid} = formData[el];
+            const {value, isValid, errorText} = formData[el];
             const {selectOptions, id, label, select} = inputs[el];
             return <TextField
-                error={!valid.isValid}
+                error={!isValid}
                 name={el}
-                helperText={valid.errorText}
+                helperText={errorText}
                 key={i}
                 onChange={onChangeData}
                 fullWidth

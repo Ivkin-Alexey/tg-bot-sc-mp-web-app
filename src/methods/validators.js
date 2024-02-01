@@ -1,7 +1,9 @@
 import validateErrorMessages from "../assets/constants/localisations/validateErrors";
-
 const cyrillicRegExp = /^[а-яёА-ЯЁ]*$/;
-const phoneRegExp = /^\+?[1-9]\d{10}$/;
+// const phoneRegExp = /^\+?[1-9]\d{10}$/;
+const phoneRegExp = /\D+/g;
+const maxPhoneLength = 12;
+const minPhoneLength = 11;
 
 const {
     emptyError,
@@ -13,12 +15,9 @@ const {
     spaceError
 } = validateErrorMessages;
 
-
-
-
 export default function validateInputValue(value, rules, required) {
 
-    let result = {isValid: true, errorText: ""};
+    let result = {value: value, isValid: true, errorText: ""};
 
     const validateRules = {
         cyrillicTextOnly: () => checkIsCyrillicOnly(),
@@ -52,20 +51,24 @@ export default function validateInputValue(value, rules, required) {
             result.isValid = false;
             result.errorText = spaceBetweenWordsOnlyError;
         }
+        result.value = value.replace(/\s{2,}/g, ' ');
     }
 
     function checkIsPhone() {
+        result.value = value.replace(/\D+/g, "");
         if (phoneRegExp.test(value)) result.isValid = true;
-        else {
+        if (value.length > maxPhoneLength) {
             result.isValid = false;
-            result.errorText = phoneError;
+            result.errorText = maxLengthError;
+        }
+        if (value.length < minPhoneLength) {
+            result.isValid = false;
+            result.errorText = minLengthError;
         }
     }
 
     function checkIsMaxLengthCorrect(rule) {
-        let length;
-        if(rule === "maxLength100") length = 100;
-        if(rule === "maxLength30") length = 30;
+        let length = rule.replace(/\D+/g, "");
         if (value.length > length) {
             result.isValid = false;
             result.errorText = maxLengthError;
@@ -73,8 +76,7 @@ export default function validateInputValue(value, rules, required) {
     }
 
     function checkIsMinLengthCorrect(rule) {
-        let length;
-        if(rule === "minLength2") length = 2;
+        let length = rule.replace(/\D+/g, "");
         if (value.length < length) {
             if(value === "" && !required) return
             result.isValid = false;
@@ -88,8 +90,7 @@ export default function validateInputValue(value, rules, required) {
             result.errorText = emptyError;
         }
         if (!rules?.includes("spaceBetweenWordsOnly") && value.indexOf(" ") >= 0) {
-            result.isValid = false;
-            result.errorText = spaceError;
+            result.value = value.replace(" ", "");
         }
     }
 }
