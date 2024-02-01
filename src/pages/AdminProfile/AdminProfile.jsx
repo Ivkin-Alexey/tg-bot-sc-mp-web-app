@@ -15,7 +15,12 @@ export default function AdminProfile() {
     const {tg} = useTelegram();
     const {chatID} = useParams();
     const navigate = useNavigate();
-    const displayedData = useSelector(state => state.users.admins.find(el => el.chatID === +chatID));
+    let displayedData = useSelector(state => {
+        const {admins, employees} = state.users;
+        const admin = admins.find(el => el.chatID === +chatID);
+        const employ = employees.find(el => el.chatID === +chatID);
+        return admin || employ;
+    });
     const displayedDataRole = displayedData.role;
     const {accountData, accountChatID} = useSelector(state => state.users);
     const role = accountData.role;

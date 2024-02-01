@@ -6,7 +6,7 @@ import {
     SET_EQUIPMENTS_DATA_IS_UPDATED,
     SET_RESEARCHES,
     SET_EQUIPMENTS,
-    SET_EQUIPMENTS_CATEGORIES
+    SET_EQUIPMENTS_CATEGORIES, SET_EMPLOYEES_LIST
 } from "./types";
 import constants from "../assets/constants/constants";
 import {
@@ -18,7 +18,7 @@ import {
     startWorkWithEquipment, endWorkWithEquipment
 } from "../methods/requestsToServer";
 
-const {admin, superAdmin} = constants.userRoles;
+const {admin, superAdmin, user} = constants.userRoles;
 
 export function fetchUsersAction(accountChatID) {
     return async dispatch => {
@@ -97,16 +97,19 @@ export function fetchResearchesAction() {
 
 export function setUsers(dispatch, data, accountChatID) {
     let admins = [];
+    let employees = [];
     let users = [];
     let userData = {};
     data.map(el => {
         if (el.chatID === accountChatID) userData = el;
         if (el.role === admin || el.role === superAdmin) admins.push(el);
+        if (el.role === user && el.category === "Сотрудник") employees.push(el);
         else users.push(el);
     });
     dispatch({type: SET_USER_LIST, payload: users});
     dispatch({type: SET_ACCOUNT_DATA, payload: userData});
     dispatch({type: SET_ADMIN_LIST, payload: admins});
+    dispatch({type: SET_EMPLOYEES_LIST, payload: employees});
     dispatch({type: SET_USERS_DATA_IS_UPDATED, payload: true});
 }
 

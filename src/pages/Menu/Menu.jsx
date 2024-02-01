@@ -16,10 +16,12 @@ export default function Menu() {
     const state = useSelector(state => state.users);
     const {operatingEquipment} = useSelector(state => state.equipments);
 
-    const {newUsers, users, admins, accountData} = state;
+    const {newUsers, users, admins, accountData, employees, newEmployees} = state;
     const role = accountData.role;
     const isAdmin = role === admin || role === superAdmin;
     const isUser = role === user;
+
+    console.log(users);
 
     useEffect(() => {
         tg.MainButton.isVisible = false;
@@ -36,6 +38,9 @@ export default function Menu() {
                 <ListItemLink to="/newUserList" primary={`Новые заявки (${newUsers?.length})`}/>
                 <ListItemLink to="/userList" primary={`Обучающиеся (${users?.length})`}>
                     {newUsers?.length > 0 && <Chip label={newUsers?.length} color="error" size="small" sx={{marginRight: "10px"}}/>}
+                </ListItemLink>
+                <ListItemLink to="/employList" primary={`Сотрудники (${employees?.length})`}>
+                    {newEmployees?.length > 0 && <Chip label={newEmployees?.length} color="error" size="small" sx={{marginRight: "10px"}}/>}
                 </ListItemLink>
                 <ListItemLink to="/adminList" primary={`Администраторы (${admins?.length})`}/>
                 <ListItemLink to="/applications" primary="Заявки на исследование"/>

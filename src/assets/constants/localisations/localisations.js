@@ -32,6 +32,10 @@ const localisations = {
             subHeader: "Обучающиеся:",
             listIsEmpty: "Пользователи ещё не зарегестрированы"
         },
+        employeesList: {
+            subHeader: "Сотрудники:",
+            listIsEmpty: "Пользователи ещё не зарегестрированы"
+        },
         newUserList: {
             subHeader: "Новые обучающиеся:",
             listIsEmpty: "Нет новых заявок"

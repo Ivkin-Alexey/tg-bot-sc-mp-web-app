@@ -1,7 +1,6 @@
 import './App.css';
-import {useCallback, useEffect} from "react";
+import {useEffect} from "react";
 import {Route, Routes} from "react-router-dom";
-import Header from "./components/Header/Header";
 import Equipments from "./pages/Equipments/Equipments";
 import EditPersonalData from "./pages/EditPersonalData/EditPersonalData";
 import Menu from "./pages/Menu/Menu";
@@ -11,9 +10,7 @@ import Reagents from "./pages/Reagents/Reagents.jsx";
 import Application from "./pages/Application/Application";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import {useTelegram} from "./hooks/useTelegram";
-import Statistic from "./components/Statistic/Statistic";
 import NewUserPage from "./pages/Stepper/NewUserPage";
-import UserList from "./pages/UserList/UserList";
 import AdminProfile from "./pages/AdminProfile/AdminProfile";
 import constants from "./assets/constants/constants";
 import {useDispatch, useSelector} from "react-redux";
@@ -25,6 +22,7 @@ import * as React from "react";
 import NewUserList from "./pages/NewUserList/NewUserList";
 import NestedList from "./components/NestedList/NestedList";
 import OperatingEquipments from "./pages/OperatingEquipments/OperatingEquipments";
+import EmployList from "./pages/EmployList/EmployList";
 
 function App() {
 
@@ -64,6 +62,9 @@ function App() {
                     <Route path={'userList'} element={<NestedList/>}/>
                     <Route path={'userList/:chatID'} element={<UserProfile/>}/>
                     <Route path={'userList/:chatID/editProfile'} element={<EditPersonalData/>}/>
+                    <Route path={'employList'} element={<EmployList/>}/>
+                    <Route path={'employList/:chatID'} element={<AdminProfile/>}/>
+                    <Route path={'employList/:chatID/editProfile'} element={<EditPersonalData/>}/>
                     <Route path={'/:chatID'} element={isAdmin ? <AdminProfile/> : <UserProfile/>}/>
                     <Route path={'/:chatID/editProfile'} element={<EditPersonalData/>}/>
                     <Route path={'adminList'} element={<AdminList/>}/>
