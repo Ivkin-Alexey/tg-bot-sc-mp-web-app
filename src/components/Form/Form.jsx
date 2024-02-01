@@ -120,9 +120,10 @@ const Form = (props) => {
     function renderTextFields() {
         return textInputs.map((el, i) => {
             const {value, isValid, errorText} = formData[el];
-            const {selectOptions, id, label, select} = inputs[el];
+            const {selectOptions, id, label, select, required} = inputs[el];
             return <TextField
                 error={!isValid}
+                required={required}
                 name={el}
                 helperText={errorText}
                 key={i}
