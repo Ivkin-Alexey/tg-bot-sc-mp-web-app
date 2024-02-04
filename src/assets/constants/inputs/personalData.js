@@ -13,7 +13,7 @@ const personalData = {
         id: 'outlined-required',
         required: true,
         initValue: "",
-        validateRules: ["cyrillicTextOnly", "minLength2", "maxLength30"]
+        validateRules: ["cyrillicTextOnly", {"minLength": 2}, {"maxLength": 30}]
     },
     lastName: {
         label: 'Фамилия',
@@ -77,7 +77,7 @@ const personalData = {
         id: 'outlined-helperText',
         required: true,
         initValue: "+7",
-        validateRules: ["phone"]
+        validateRules: ["phone", {"maxLength": 12}, {"minLength": 12}]
     },
 
 }
