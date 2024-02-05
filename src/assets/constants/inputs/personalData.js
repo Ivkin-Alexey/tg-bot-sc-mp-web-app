@@ -77,7 +77,7 @@ const personalData = {
         id: 'outlined-helperText',
         required: true,
         initValue: "+7",
-        validateRules: ["phone", {"maxLength": 12}, {"minLength": 12}]
+        validateRules: [{"maxLength": 12}, {"minLength": 12}, "phone"]
     },
 
 }

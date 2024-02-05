@@ -1,6 +1,7 @@
 import validateErrorMessages from "../assets/constants/localisations/validateErrors";
 import {capitalize} from "./helpers";
-const cyrillicRegExp = /[^а-яёА-ЯЁ ]/gi;
+const cyrillicWithSpaceRegExp = /[^а-яёА-ЯЁ ]/gi;
+const cyrillicRegExp = /[^а-яёА-ЯЁ]/gi;
 
 const phoneRegExp = /\D+/g;
 const requiredPhoneCharacter = "+";
@@ -24,10 +25,9 @@ export default function validateInputValue(value, rules, required) {
         minLength: (rule) => checkIsMinLengthCorrect(rule),
     }
 
-
+    executePreCheck();
 
     rules?.forEach(rule => {
-        if(!result.isValid) return result;
         if (typeof rule === "string") validateRules[rule]();
         else {
             const [[key, value]] = Object.entries(rule)
@@ -39,12 +39,20 @@ export default function validateInputValue(value, rules, required) {
 
     return result;
 
+    function executePreCheck() {
+        value = value.trimStart();
+        if (value === "" && required === true) {
+            result.isValid = false;
+            result.errorText = emptyError;
+        }
+    }
+
     function executeDefaultCheck() {
         if (value === "" && required === true) {
             result.isValid = false;
             result.errorText = emptyError;
         }
-        if (!rules?.includes("spaceBetweenWordsOnly") && value.indexOf(" ") >= 0) {
+        if (!rules?.includes("spaceBetweenWordsOnly")) {
             value = value.replace(" ", "");
         }
         value = capitalize(value.toLowerCase());
@@ -52,11 +60,11 @@ export default function validateInputValue(value, rules, required) {
     }
 
     function checkIsCyrillicOnly() {
-        value = value.replace(cyrillicRegExp, "");
+        if (rules?.includes("spaceBetweenWordsOnly")) value = value.replace(cyrillicWithSpaceRegExp, "");
+        else value = value.replace(cyrillicRegExp, "");
     }
 
     function checkIsSpaceBetweenWords() {
-        value = value.trimStart();
         value = value.replace(onlySingleWhiteSpacesRegExp, ' ');
         const end = value[value.length - 1];
         if (end === " ") {
