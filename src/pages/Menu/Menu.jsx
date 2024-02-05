@@ -21,8 +21,6 @@ export default function Menu() {
     const isAdmin = role === admin || role === superAdmin;
     const isUser = role === user;
 
-    console.log(users);
-
     useEffect(() => {
         tg.MainButton.isVisible = false;
         tg.onEvent('backButtonClicked', onClose);

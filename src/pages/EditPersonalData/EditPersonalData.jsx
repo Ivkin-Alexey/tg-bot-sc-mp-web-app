@@ -14,10 +14,10 @@ const EditPersonalData = () => {
     const redirectionPath = pathname.replace("/editProfile", "");
     const {categoryList} = localisations.components.form;
 
-    let {users, accountData, admins} = useSelector(state => state.users);
+    let {users, accountData, admins, employees} = useSelector(state => state.users);
     let userData = users.find(el => el?.chatID === +chatID);
-
     if (!userData) userData = admins.find(el => el?.chatID === +chatID);
+    if (!userData) userData = employees.find(el => el?.chatID === +chatID);
 
     let inputList = forms.editPersonalData;
 
