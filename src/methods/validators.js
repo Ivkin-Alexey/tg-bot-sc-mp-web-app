@@ -53,9 +53,8 @@ export default function validateInputValue(value, rules, required) {
             result.errorText = emptyError;
         }
         if (!rules?.includes("spaceBetweenWordsOnly")) {
-            value = value.replace(" ", "");
+            value = capitalize(value.toLowerCase());
         }
-        value = capitalize(value.toLowerCase());
         result.value = value;
     }
 
