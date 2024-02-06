@@ -9,7 +9,8 @@ import constants from "../../assets/constants/constants";
 import localisations from "../../assets/constants/localisations/localisations";
 import Typography from "@mui/material/Typography";
 import {useTelegram} from "../../hooks/useTelegram";
-import {deletePersonAction} from "../../redux/actions";
+import {confirmPersonAction, deletePersonAction} from "../../redux/actions";
+import DoneOutlineRoundedIcon from "@mui/icons-material/DoneOutlineRounded";
 
 export default function AdminProfile() {
     const {tg} = useTelegram();
@@ -34,6 +35,10 @@ export default function AdminProfile() {
     const redirect = () => navigate(redirectionPath);
     let path = `/${chatID}/editProfile`;
     if (pathname.includes("adminList")) path = `/adminList/${chatID}/editProfile`;
+    const {applicationConfirmAlert} = localisations.pages.userProfile;
+
+    const {otherInfo, isUserConfirmed} = displayedData;
+    const {isUserDataSent} = otherInfo;
 
     function renderRoleBlock() {
         return <Typography sx={{fontSize: 14, mb: 1.5}}>
@@ -43,6 +48,14 @@ export default function AdminProfile() {
 
     function onDeletePerson() {
         tg.showConfirm(applicationDeleteAlert, popupCallBack)
+    }
+
+    function onConfirmPerson() {
+        if (!isUserDataSent) {
+            tg.showAlert(applicationConfirmAlert);
+        } else {
+            dispatch(confirmPersonAction(chatID, accountChatID));
+        }
     }
 
     function popupCallBack(pressedButtonIsOk) {
@@ -56,6 +69,14 @@ export default function AdminProfile() {
         return (
             isUser ? null :
                 <>
+                    {isSuperAdmin && !isUserConfirmed &&
+                        <IconButton
+                            aria-label="done"
+                            sx={{marginRight: "8px"}}
+                            onClick={onConfirmPerson}
+                        >
+                            <DoneOutlineRoundedIcon color="success"/>
+                        </IconButton>}
                     {(isOwnAccount || (isSuperAdmin && displayedDataRole !== constants.userRoles.superAdmin)) &&
                         <Button component={Link} to={path} variant="outlined" color="primary" size="small"
                                 disableElevation>

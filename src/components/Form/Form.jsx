@@ -29,6 +29,7 @@ const Form = (props) => {
 
         const {required, initValue, validateRules} = inputItem;
         const value = defaultValues[cur] || initValue;
+
         return {
             ...acc,
             [cur]: {
@@ -79,6 +80,7 @@ const Form = (props) => {
             tg.MainButton.show();
         }
         setTextInputs(() => filterInputs());
+        setFormData(() => formData)
     }, [formData]);
 
 
