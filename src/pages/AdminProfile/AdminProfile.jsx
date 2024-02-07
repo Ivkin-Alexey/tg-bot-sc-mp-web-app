@@ -42,7 +42,7 @@ export default function AdminProfile() {
 
     function renderRoleBlock() {
         return <Typography sx={{fontSize: 14, mb: 1.5}}>
-            {displayedData.role ? "Роль: " + roleTitle[displayedData.role] : <b>Роль не указана</b>}
+            {displayedData.role ? "Роль: " + (roleTitle[displayedData.role]).toLowerCase() : <b>Роль не указана</b>}
         </Typography>
     }
 

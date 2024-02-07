@@ -28,7 +28,13 @@ export default function UserProfile() {
     const {chatID} = useParams();
     const {tg} = useTelegram();
     const navigate = useNavigate();
-    const displayedData = useSelector(state => state.users.users.find(el => el.chatID === +chatID));
+    let displayedData = useSelector(state => {
+        const {users, admins, employees} = state.users;
+        const user = users.find(el => el.chatID === +chatID);
+        const admin = admins.find(el => el.chatID === +chatID);
+        const employ = employees.find(el => el.chatID === +chatID);
+        return user || admin || employ;
+    });
     const {accountData, accountChatID} = useSelector(state => state.users);
     const role = accountData.role;
     const isAdmin = role === constants.userRoles.admin;
@@ -44,35 +50,27 @@ export default function UserProfile() {
     let path = pathname + "/editProfile";
 
     function renderRequirementsBlock() {
-        return (<Container sx={{padding: 2, width: "auto"}}>
-            {role === "user" ?
-                <List>
-                    {requirements.map((el, i) => {
-                        return (
-                            <ListItem key={i}>
-                                <ListItemIcon>
-                                    {el.done ? <CheckCircleOutlineIcon/> : <DoDisturbOnIcon/>}
-                                </ListItemIcon>
-                                <ListItemText
-                                    primary={el.name}
-                                />
-                            </ListItem>
-                        )
-                    })}
-                </List> :
-                <FormGroup>
+        return (
+            <Container sx={{padding: 2, width: "auto"}}>
+                {<FormGroup>
                     {requirements.map((el, i) => {
                         return (
                             <FormControlLabel
                                 key={i}
-                                control={<Checkbox checked={el.done} id={`${i}`} disabled={!isAdmin && !isSuperAdmin}/>}
+                                control={
+                                <Checkbox
+                                    checked={el.done}
+                                    id={`${i}`}
+                                    disabled={!isAdmin && !isSuperAdmin}
+                                />
+                            }
                                 label={el.name}
                                 onChange={onToggleCheckBox}
                             />)
                     })}
                 </FormGroup>
-            }
-        </Container>)
+                }
+            </Container>)
     }
 
     function onToggleCheckBox(e) {

@@ -7,6 +7,7 @@ const constants = {
     // defaultUserChatID: 883563855,
     defaultUserChatID: 392584400,
     userRoles: {admin: "admin", superAdmin: "superAdmin", user: "user"},
+    userCategories: {student: "student", employee: "employee"}
 }
 
 export default constants;
