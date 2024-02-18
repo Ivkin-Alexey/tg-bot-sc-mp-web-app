@@ -14,7 +14,7 @@ const Reagents = () => {
 
     const navigate = useNavigate();
 
-    const defaultInputsList = forms.reagentsFormItem;
+    const defaultInputsList = forms.reagentApplication;
     const {reagents} = localisations.pages;
 
     const defaultTextInputsValues = defaultInputsList.reduce((acc, cur) => ({

@@ -2,9 +2,10 @@ import researches from "../constants";
 
 const localisations = {
     pages: {
-        reagents: {
+        reagentApplication: {
             units: ['г', 'кг', 'мл', 'л'],
             tgMainButtonText: 'Отправить заявку',
+            confirmMessage: "Ваша заявка отправлена. Ожидайте её подтверждения",
             maxNumberOfReagents: 5
         },
         editPersonalData: {

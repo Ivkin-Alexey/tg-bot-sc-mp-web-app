@@ -18,7 +18,8 @@ const Form = (props) => {
         defaultValues,
         chatID,
         confirmMessage,
-        filteringRules = null
+        filteringRules,
+        sendData = defaultOnSendData
     } = props;
 
     const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const Form = (props) => {
         const inputItem = inputs[cur];
 
         const {required, initValue, validateRules} = inputItem;
-        const value = defaultValues[cur] || initValue;
+        const value = defaultValues ? defaultValues[cur] : initValue;
 
         return {
             ...acc,
@@ -48,11 +49,14 @@ const Form = (props) => {
     const onSendData = useCallback(() => {
         const formDataEntries = Object.entries(formData).map(el => [el[0], el[1].value]);
         const data = Object.fromEntries(formDataEntries);
-        dispatch(updatePersonDataAction(chatID, accountChatID, data, queryId))
-            .then(() => {
-                tg.showPopup({message: confirmMessage, buttons: [{type: "ok", text: "Ок"}]}, popupCallback)
-            });
+        sendData(data);
     }, [formData]);
+
+    function defaultOnSendData(data) {
+        dispatch(updatePersonDataAction(chatID, accountChatID, data, queryId)).then(() => {
+            tg.showPopup({message: confirmMessage, buttons: [{type: "ok", text: "Ок"}]}, popupCallback)
+        });
+    }
 
     function popupCallback() {
         if(accountData.role === "superAdmin") navigate(-1);
@@ -76,6 +80,7 @@ const Form = (props) => {
     useEffect(() => {
         if (validateFormData()) {
             tg.MainButton.hide();
+
         } else {
             tg.MainButton.show();
         }
@@ -154,7 +159,9 @@ const Form = (props) => {
                 {localisations.components.form.header}
             </ListSubheader>
             {renderTextFields()}
-            {/*<Button onClick={onSendData}>Отправить</Button>*/}
+            <Button onClick={() => {
+                if(!validateFormData()) onSendData()
+            }}>Отправить</Button>
         </Stack>
     );
 };

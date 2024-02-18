@@ -6,7 +6,7 @@ import {
     SET_EQUIPMENTS_DATA_IS_UPDATED,
     SET_RESEARCHES,
     SET_EQUIPMENTS,
-    SET_EQUIPMENTS_CATEGORIES, SET_EMPLOYEES_LIST
+    SET_EMPLOYEES_LIST, SET_REAGENTS_DATA_IS_UPDATED, SET_REAGENTS_APPLICATIONS
 } from "./types";
 import constants from "../assets/constants/constants";
 import {
@@ -15,7 +15,7 @@ import {
     updatePersonData,
     getResearches,
     getEquipments,
-    startWorkWithEquipment, endWorkWithEquipment
+    startWorkWithEquipment, endWorkWithEquipment, updateReagentApplication, deleteReagentApplication
 } from "../methods/requestsToServer";
 
 const {admin, superAdmin, user} = constants.userRoles;
@@ -73,6 +73,37 @@ export function updatePersonDataAction(chatID, accountChatID, formData, queryId)
         dispatch({type: SET_USERS_DATA_IS_UPDATED, payload: false});
         try {
             updatePersonData(chatID, formData, queryId).then(data => setUsers(dispatch, data, accountChatID));
+        } catch (e) {
+            console.log(e);
+        }
+    }
+}
+
+export function updateReagentApplicationsAction(accountChatID, data) {
+    return async dispatch => {
+        dispatch({type: SET_REAGENTS_DATA_IS_UPDATED, payload: false});
+        try {
+            updateReagentApplication(accountChatID, data)
+                .then(data => {
+                    console.log(data);
+                    dispatch({type: SET_REAGENTS_APPLICATIONS, payload: data})
+                dispatch({type: SET_REAGENTS_DATA_IS_UPDATED, payload: true})
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+}
+
+export function deleteReagentApplicationAction(accountChatID, applicationID) {
+    return async dispatch => {
+        dispatch({type: SET_REAGENTS_DATA_IS_UPDATED, payload: false});
+        try {
+            deleteReagentApplication(accountChatID, applicationID)
+                .then(data => {
+                    dispatch({type: SET_REAGENTS_APPLICATIONS, payload: data})
+                    dispatch({type: SET_REAGENTS_DATA_IS_UPDATED, payload: true})
+                });
         } catch (e) {
             console.log(e);
         }

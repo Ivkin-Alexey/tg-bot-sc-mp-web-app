@@ -23,11 +23,13 @@ import NewUserList from "./pages/NewUserList/NewUserList";
 import NestedList from "./components/NestedList/NestedList";
 import OperatingEquipments from "./pages/OperatingEquipments/OperatingEquipments";
 import EmployList from "./pages/EmployList/EmployList";
+import ReagentApplication from "./pages/ReagentApplication/ReagentApplication";
 
 function App() {
 
     const {tg, accountChatID = constants.defaultUserChatID} = useTelegram();
     const dispatch = useDispatch();
+
 
     useEffect(() => {
         tg.expand();
@@ -52,7 +54,7 @@ function App() {
                     <Route index element={<Menu/>}/>
                     <Route path={'equipment'} element={<EquipmentCategoryList/>}/>
                     <Route path={'operatingEquipment'} element={<OperatingEquipments/>}/>
-                    <Route path={'reagents'} element={<Reagents/>}/>
+                    <Route path={'reagents'} element={<ReagentApplication/>}/>
                     <Route path={'equipment/:category'} element={<Equipments/>}/>
                     <Route path={'applications'} element={<ApplicationList/>}/>
                     <Route path={'applications/:application'} element={<Application/>}/>

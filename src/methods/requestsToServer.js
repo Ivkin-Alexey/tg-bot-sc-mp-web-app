@@ -80,3 +80,36 @@ export async function getResearches() {
     }).then(res => res.json())
 }
 
+export async function updateReagentApplication(userData, applicationData) {
+    return await fetch(`https://${serverDomain}:${port}/updateReagentApplications`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            userData, applicationData
+        })
+    }).then(res => res.json())
+}
+
+export async function getReagentApplications(chatID) {
+    return await fetch(`https://${serverDomain}:${port}/reagentApplications`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(res => res.json())
+}
+
+export async function deleteReagentApplication(chatID, applicationID) {
+    return await fetch(`https://${serverDomain}:${port}/deleteReagentApplication`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            chatID, applicationID
+        })
+    }).then(res => res.json())
+}
+

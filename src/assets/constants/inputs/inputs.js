@@ -1,6 +1,6 @@
 import personalData from "./personalData";
-import researchApplications from "./researchApplications";
+import reagents from "./reagents";
 
-const inputs = Object.assign({}, personalData)
+const inputs = Object.assign({}, personalData, reagents)
 
 export default inputs;
