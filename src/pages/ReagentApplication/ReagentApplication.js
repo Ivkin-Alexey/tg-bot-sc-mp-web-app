@@ -14,7 +14,7 @@ const ReagentApplication = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {tg} = useTelegram();
-    const {tgMainButtonText} = localisations.pages.reagentApplication;
+    const {tgMainButtonText, confirmMessage} = localisations.pages.reagentApplication;
 
     const redirect = () => navigate(-1);
 
@@ -27,9 +27,9 @@ const ReagentApplication = () => {
 
     function sendData(data) {
         dispatch(updateReagentApplicationsAction(accountData, data))
-            // .then(() => {
-            //     tg.showPopup({message: confirmMessage, buttons: [{type: "ok", text: "Ок"}]}, () => navigate(-1))
-            // });
+            .then(() => {
+                tg.showPopup({message: confirmMessage, buttons: [{type: "ok", text: "Ок"}]}, () => navigate(-1))
+            });
     }
 
     return <Form defaultTextInputs={inputList}
