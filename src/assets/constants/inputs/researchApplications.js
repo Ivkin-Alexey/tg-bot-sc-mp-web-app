@@ -111,24 +111,4 @@
 //         },
 //         other: {initValue: '',}
 //     }
-// ],
-// reagentsFormItem: [
-//     {
-//         inputAttributes: {
-//             name: 'reagentName',
-//             label: 'Название вещества',
-//             id: 'outlined-required',
-//             required: true
-//         },
-//         other: {initValue: "",}
-//     },
-//     {
-//         inputAttributes: {
-//             name: 'reagentAmount',
-//             label: 'Количество',
-//             id: 'outlined-required',
-//             required: true
-//         },
-//         other: {initValue: "",}
-//     },
-// ],
+// ],,

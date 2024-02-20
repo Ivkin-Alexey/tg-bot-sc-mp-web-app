@@ -12,9 +12,9 @@ export default function EquipmentCategoryList() {
 
     let navigate = useNavigate();
     const {tg} = useTelegram();
-    const {categories, equipments} = useSelector(state => state.equipments);
+    const {categories} = useSelector(state => state.equipments);
 
-    const redirect = () => navigate('/');
+    const redirect = () => navigate(-1);
 
     useEffect(() => {
         tg.onEvent('backButtonClicked', redirect)
