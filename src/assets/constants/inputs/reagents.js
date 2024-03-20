@@ -4,14 +4,14 @@ const reagents = {
             id: 'outlined-required',
             initValue: "",
             required: true,
-            validateRules: ["spaceBetweenWordsOnly", {"minLength": 2}, {"maxLength": 30}]
+            validateRules: ["cyrillicTextOnly", "spaceBetweenWordsOnly", {"minLength": 2}, {"maxLength": 30}]
         },
         reagentAmount: {
             label: 'Количество',
             id: 'outlined-required',
             initValue: "",
             required: true,
-            validateRules: ["spaceBetweenWordsOnly", {"minLength": 3}, {"maxLength": 30}]
+            validateRules: ["cyrillicTextOnly", "spaceBetweenWordsOnly", {"minLength": 3}, {"maxLength": 30}]
     },
 };
 
