@@ -9,6 +9,8 @@ import {useEffect} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
 import {Chip, Container} from "@mui/material";
 import {researchesSelectOptions} from "../../assets/db/db"
+import { createFullUserName } from '../../methods/helpers';
+import localisations from '../../assets/constants/localisations/localisations';
 
 export default function Profile(props) {
 
@@ -47,6 +49,8 @@ export default function Profile(props) {
         }
     }, []);
 
+
+
     return (
         <Container sx={{minWidth: 275, width: "auto"}}>
             <Card variant="outlined" sx={{margin: 0, border: "none"}}>
@@ -62,7 +66,7 @@ export default function Profile(props) {
                     </Typography>
                     {adminRoleBlock}
                     <Typography variant="h5" component="div" sx={{mb: 1.5}}>
-                        {lastName + ' ' + firstName + ' ' + patronymic}
+                        {createFullUserName(displayedData) ||  <Typography sx={{color: "red"}}>{localisations.components.profile.emptyFullName}</Typography>}
                     </Typography>
                     <Typography sx={{mb: 1.5}}>
                         Телефон: {phone ? phone : <b>Не указан</b>}

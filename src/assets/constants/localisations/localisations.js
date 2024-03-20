@@ -59,6 +59,9 @@ const localisations = {
         },
         equipmentList: {
             listIsEmpty: "Список пуст"
+        },
+        profile: {
+            emptyFullName: "ФИО не указано",
         }
     }
 };

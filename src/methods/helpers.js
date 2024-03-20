@@ -12,6 +12,11 @@ export function createUserName(user) {
     return name;
 }
 
+export function createFullUserName(userData) {
+    const {firstName, lastName, patronymic} = userData;
+    return ((lastName ?? "") + ' ' + (firstName ?? "") + ' ' + (patronymic ?? "")).trim();
+}
+ 
 export function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
