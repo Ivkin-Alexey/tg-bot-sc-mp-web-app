@@ -11,12 +11,8 @@ export const equipmentsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_EQUIPMENTS:
             const list = action.payload;
+            console.log(list);
             let operatingList = [];
-            for(let category in list) {
-                list[category].forEach(el => {
-                    if(el.isUsing.length > 0) operatingList.push(el);
-                })
-            }
             return {...state, equipments: list, categories: Object.keys(list), operatingEquipment: operatingList}
         case SET_EQUIPMENTS_DATA_IS_UPDATED:
             return {...state, equipmentsDataIsUpdated: action.payload}

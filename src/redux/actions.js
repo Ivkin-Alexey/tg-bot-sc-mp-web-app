@@ -23,12 +23,13 @@ const {admin, superAdmin, user} = constants.userRoles;
 export function fetchUsersAction(accountChatID) {
     return async dispatch => {
         dispatch({type: SET_USERS_DATA_IS_UPDATED, payload: false});
-        try {
-            getUsers().then(data => setUsers(dispatch, data, accountChatID));
-        } catch (e) {
-            console.log(e);
-        }
-    }
+            await getUsers()
+            .then(data => setUsers(dispatch, data, accountChatID))
+            .catch((e) => {
+                setUsers(dispatch, [], accountChatID);
+                console.log(e);
+            });
+    } 
 }
 
 export function fetchEquipmentsAction() {
@@ -47,7 +48,10 @@ export function updateEquipmentWorkingStatusAction(accountChatID, accountData, e
         dispatch({type: SET_EQUIPMENTS_DATA_IS_UPDATED, payload: false});
         try {
             if (type === "start") {
-                startWorkWithEquipment(accountChatID, accountData, equipment).then(equipmentList => setEquipments(dispatch, equipmentList));
+                startWorkWithEquipment(accountChatID, accountData, equipment).then(equipmentList => {
+                    console.log(equipmentList)
+                    setEquipments(dispatch, equipmentList)
+                });
             } else if (type === "end") {
                 endWorkWithEquipment(accountChatID, accountData, equipment).then(equipmentList => setEquipments(dispatch, equipmentList));
             }

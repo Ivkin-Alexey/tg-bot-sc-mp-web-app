@@ -35,7 +35,7 @@ function App() {
         tg.expand();
         dispatch({type: SET_ACCOUNT_CHAT_ID, payload: accountChatID});
         dispatch(fetchUsersAction(accountChatID));
-        dispatch(fetchResearchesAction());
+        // dispatch(fetchResearchesAction());
         dispatch(fetchEquipmentsAction());
         tg.BackButton.isVisible = true;
     }, []);

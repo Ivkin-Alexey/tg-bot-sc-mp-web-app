@@ -62,6 +62,9 @@ const localisations = {
         },
         profile: {
             emptyFullName: "ФИО не указано",
+        },
+        nestedList: {
+            emptyFullName: "ФИО не указано",
         }
     }
 };

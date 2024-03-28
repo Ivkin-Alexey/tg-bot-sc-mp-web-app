@@ -30,6 +30,7 @@ export default function Profile(props) {
     const navigate = useNavigate();
     const {tg} = useTelegram();
     const redirect = () => navigate(-1);
+    const fullName = createFullUserName(displayedData);
 
     const {
         firstName,
@@ -49,6 +50,16 @@ export default function Profile(props) {
         }
     }, []);
 
+    function renderUserNameFragment() {
+        return(fullName ? 
+            <Typography variant="h5" sx={{mb: 1.5}}>
+                {fullName}
+            </Typography> 
+            : <Typography variant="h5" sx={{mb: 1.5, color: "red"}}>
+                {localisations.components.profile.emptyFullName}
+            </Typography>
+            )
+    }
 
 
     return (
@@ -65,9 +76,7 @@ export default function Profile(props) {
                         {position ? position : <b>Должность не указана</b>}
                     </Typography>
                     {adminRoleBlock}
-                    <Typography variant="h5" component="div" sx={{mb: 1.5}}>
-                        {createFullUserName(displayedData) ||  <Typography sx={{color: "red"}}>{localisations.components.profile.emptyFullName}</Typography>}
-                    </Typography>
+                    {renderUserNameFragment()}
                     <Typography sx={{mb: 1.5}}>
                         Телефон: {phone ? phone : <b>Не указан</b>}
                     </Typography>

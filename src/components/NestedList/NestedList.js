@@ -44,7 +44,7 @@ const NestedList = () => {
                     const isNew = el.isUserConfirmed === false;
                     return <ListItemLink
                         to={listItemPath + el.chatID}
-                        primary={createUserName(el)}
+                        primary={createUserName(el) || localisations.components.nestedList.emptyFullName}
                         key={el.chatID}
                         onClick={() => navigate(listItemPath + el.chatID)}
                     >{isNew && <Chip label="Новый" color="error" size="small" sx={{marginRight: "10px"}}/>}
