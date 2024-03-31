@@ -13,6 +13,16 @@ export interface IReagentsListItem {
     reagentAmount: string,
 }
 
+export interface IEquipmentListItem {
+    id: string,
+    category: string,
+    name: string,
+    brand: string,
+    model: string,
+    imgUrl: string,
+    filesUrl: string,
+}
+
 type TTextInputID = 'outlined-required' | 'outlined-helperText' | 'outlined-search';
 
 
