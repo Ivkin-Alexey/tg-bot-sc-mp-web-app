@@ -47,7 +47,6 @@ const EquipmentList = (props) => {
             const {filesUrl, id, imgUrl, model, name, isUsing} = el;
             let started, startedByAnotherPerson, workingPerson, personName;
 
-            const workingPersonChatID = isUsing[0];
             if (accountChatID === workingPersonChatID) started = true;
             if (!started && isUsing.length > 0) startedByAnotherPerson = true;
             if (startedByAnotherPerson) {
