@@ -3,15 +3,15 @@ import {useSelector} from 'react-redux';
 import localisations from "../../assets/constants/localisations/localisations";
 import ListPage from "../ListPage/ListPage";
 
-const NewUserList = () => {
-    const {newUsers} = useSelector(state => state.users);
-    const {subHeader, listIsEmpty} = localisations.pages.newUserList;
+const NewPersonList = () => {
+    const {newPersons} = useSelector(state => state.persons);
+    const {subHeader, listIsEmpty} = localisations.pages.newPersonList;
     return <ListPage
         subHeader={subHeader}
-        personList={newUsers}
-        listItemPath={"/newUserList/"}
+        personList={newPersons}
+        listItemPath={"/newPersonList/"}
         listIsEmptyMsg={listIsEmpty}
     />;
 };
 
-export default NewUserList;
+export default NewPersonList;

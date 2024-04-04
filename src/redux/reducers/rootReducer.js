@@ -1,11 +1,11 @@
 import {combineReducers} from "redux";
-import {usersReducer} from "./usersReducer";
+import {personsReducer} from "./personsReducer";
 import {researchesReducer} from "./researchesReducer";
 import {equipmentsReducer} from "./equipmentsReducer";
 import {reagentsReducer} from "./reagentsReducer";
 
 const rootReducer = combineReducers({
-    users: usersReducer,
+    persons: personsReducer,
     researches: researchesReducer,
     equipments: equipmentsReducer,
     reagents: reagentsReducer

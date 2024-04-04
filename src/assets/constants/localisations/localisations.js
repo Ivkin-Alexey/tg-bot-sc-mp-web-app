@@ -23,13 +23,13 @@ const localisations = {
         },
         adminProfile: {
             applicationDeleteAlert: "Вы действительно хотите удалить этого администратора?",
-            roleTitle: {user: "Обучающийся", admin: "Администратор", superAdmin: "Супер администратор",}
+            roleTitle: {person: "Обучающийся", admin: "Администратор", superAdmin: "Супер администратор",}
         },
-        userProfile: {
+        personProfile: {
             applicationDeleteMessage: "Вы действительно хотите удалить эту заявку?",
             applicationConfirmAlert: "У пользователя не заполнены обязательные поля"
         },
-        userList: {
+        personList: {
             subHeader: "Обучающиеся:",
             listIsEmpty: "Пользователи ещё не зарегестрированы"
         },
@@ -37,7 +37,7 @@ const localisations = {
             subHeader: "Сотрудники:",
             listIsEmpty: "Пользователи ещё не зарегестрированы"
         },
-        newUserList: {
+        newPersonList: {
             subHeader: "Новые обучающиеся:",
             listIsEmpty: "Нет новых заявок"
         },

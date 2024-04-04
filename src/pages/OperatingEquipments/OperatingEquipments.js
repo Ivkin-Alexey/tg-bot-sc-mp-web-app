@@ -1,5 +1,5 @@
 import React from 'react';
-import EquipmentList from "../../components/EquipmentList/EquipmentList";
+import EquipmentList from "../../components/EquipmentList/EquipmentList.tsx";
 import {useSelector} from "react-redux";
 
 const OperatingEquipments = () => {

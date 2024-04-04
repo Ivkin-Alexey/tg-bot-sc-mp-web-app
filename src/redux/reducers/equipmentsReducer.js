@@ -1,4 +1,4 @@
-import {SET_EQUIPMENTS, SET_EQUIPMENTS_DATA_IS_UPDATED, SET_OPERATING_EQUIPMENTS} from "./types";
+import {SET_EQUIPMENTS, SET_EQUIPMENTS_DATA_IS_UPDATED, SET_OPERATING_EQUIPMENTS} from "../types.ts";
 
 const initialState = {
     equipments: [],

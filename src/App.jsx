@@ -10,16 +10,16 @@ import Reagents from "./pages/Reagents/Reagents.jsx";
 import Application from "./pages/Application/Application";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import {useTelegram} from "./hooks/useTelegram";
-import NewUserPage from "./pages/Stepper/NewUserPage";
+import NewLaboratoryWorkerPage from "./pages/Stepper/NewLaboratoryWorkerPage";
 import AdminProfile from "./pages/AdminProfile/AdminProfile";
 import constants from "./assets/constants/constants";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchEquipmentsAction, fetchResearchesAction, fetchUsersAction, getOperatingEquipmentsAction} from "./redux/actions";
+import {fetchEquipmentsAction, fetchResearchesAction, fetchPersonsAction, getOperatingEquipmentsAction} from "./redux/actions";
 import AdminList from "./pages/AdminList/AdminList";
-import {SET_ACCOUNT_CHAT_ID} from "./redux/types";
+import {SET_ACCOUNT_CHAT_ID} from "./redux/types.ts";
 import CircularProgress from "./components/CircularProgress/CircularProgress";
 import * as React from "react";
-import NewUserList from "./pages/NewUserList/NewUserList";
+import NewPersonList from "./pages/NewPersonList/NewPersonList";
 import NestedList from "./components/NestedList/NestedList";
 import OperatingEquipments from "./pages/OperatingEquipments/OperatingEquipments";
 import EmployList from "./pages/EmployList/EmployList";
@@ -27,27 +27,34 @@ import ReagentApplication from "./pages/ReagentApplication/ReagentApplication";
 
 function App() {
 
-    const {tg, accountChatID = constants.defaultUserChatID} = useTelegram();
+    const {tg, accountChatID = constants.defaultPersonChatID} = useTelegram();
     const dispatch = useDispatch();
+
+    
 
 
     useEffect(() => {
         tg.expand();
         dispatch({type: SET_ACCOUNT_CHAT_ID, payload: accountChatID});
-        dispatch(fetchUsersAction(accountChatID));
+        dispatch(fetchPersonsAction(accountChatID));
         dispatch(fetchResearchesAction());
         dispatch(fetchEquipmentsAction());
         dispatch(getOperatingEquipmentsAction());
         tg.BackButton.isVisible = true;
     }, []);
 
-    const role = useSelector(state => state.users.accountData?.role);
-    const isUsersDataUpdated = useSelector(state => state.users.usersDataIsUpdated);
-    const {admin, superAdmin} = constants.userRoles;
+    const role = useSelector(state => state.persons.accountData?.role);
+    const state = useSelector(state => state);
+    const isPersonsDataUpdated = useSelector(state => state.persons.personsDataIsUpdated);
+    const {admin, superAdmin} = constants.personRoles;
     const isAdmin = (role === admin || role === superAdmin);
 
+    useEffect(() => {
+        if(isPersonsDataUpdated) console.log(state);
+    }, [isPersonsDataUpdated]);
+
     return (
-        isUsersDataUpdated ?
+        isPersonsDataUpdated ?
         <>
             {/*<Header/>*/}
             <main className="main">
@@ -59,12 +66,12 @@ function App() {
                     <Route path={'equipment/:category'} element={<Equipments/>}/>
                     <Route path={'applications'} element={<ApplicationList/>}/>
                     <Route path={'applications/:application'} element={<Application/>}/>
-                    <Route path={'newUserList'} element={<NewUserList/>}/>
-                    <Route path={'newUserList/:chatID'} element={<UserProfile/>}/>
-                    <Route path={'newUserList/:chatID/editProfile'} element={<EditPersonalData/>}/>
-                    <Route path={'userList'} element={<NestedList/>}/>
-                    <Route path={'userList/:chatID'} element={<UserProfile/>}/>
-                    <Route path={'userList/:chatID/editProfile'} element={<EditPersonalData/>}/>
+                    <Route path={'newPersonList'} element={<NewPersonList/>}/>
+                    <Route path={'newPersonList/:chatID'} element={<UserProfile/>}/>
+                    <Route path={'newPersonList/:chatID/editProfile'} element={<EditPersonalData/>}/>
+                    <Route path={'personList'} element={<NestedList/>}/>
+                    <Route path={'personList/:chatID'} element={<UserProfile/>}/>
+                    <Route path={'personList/:chatID/editProfile'} element={<EditPersonalData/>}/>
                     <Route path={'employList'} element={<EmployList/>}/>
                     <Route path={'employList/:chatID'} element={<AdminProfile/>}/>
                     <Route path={'employList/:chatID/editProfile'} element={<EditPersonalData/>}/>
@@ -73,7 +80,7 @@ function App() {
                     <Route path={'adminList'} element={<AdminList/>}/>
                     <Route path={'adminList/:chatID'} element={<AdminProfile/>}/>
                     <Route path={'adminList/:chatID/editProfile'} element={<EditPersonalData/>}/>
-                    <Route path={'stepper'} element={<NewUserPage/>}/>
+                    <Route path={'stepper'} element={<NewLaboratoryWorkerPage/>}/>
                 </Routes>
             </main>
         </> : <CircularProgress/>

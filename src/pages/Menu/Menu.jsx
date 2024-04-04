@@ -11,15 +11,15 @@ import constants from "../../assets/constants/constants";
 
 export default function Menu() {
 
-    const {admin, superAdmin, user} = constants.userRoles;
-    const {tg, onClose, accountChatID = constants.defaultUserChatID} = useTelegram();
-    const state = useSelector(state => state.users);
+    const {admin, superAdmin, person} = constants.personRoles;
+    const {tg, onClose, accountChatID = constants.defaultPersonChatID} = useTelegram();
+    const state = useSelector(state => state.persons);
     const {operatingEquipment} = useSelector(state => state.equipments);
 
-    const {newUsers, users, admins, accountData, employees, newEmployees} = state;
+    const {newPersons, persons, admins, accountData, employees, newEmployees} = state;
     const role = accountData.role;
     const isAdmin = role === admin || role === superAdmin;
-    const isUser = role === user;
+    const isPerson = role === person;
 
     useEffect(() => {
         tg.MainButton.isVisible = false;
@@ -33,9 +33,9 @@ export default function Menu() {
         return (
             <>
                 <Divider/>
-                <ListItemLink to="/newUserList" primary={`Новые заявки (${newUsers?.length})`}/>
-                <ListItemLink to="/userList" primary={`Обучающиеся (${users?.length})`}>
-                    {newUsers?.length > 0 && <Chip label={newUsers?.length} color="error" size="small" sx={{marginRight: "10px"}}/>}
+                <ListItemLink to="/newPersonList" primary={`Новые заявки (${newPersons?.length})`}/>
+                <ListItemLink to="/personList" primary={`Обучающиеся (${persons?.length})`}>
+                    {newPersons?.length > 0 && <Chip label={newPersons?.length} color="error" size="small" sx={{marginRight: "10px"}}/>}
                 </ListItemLink>
                 <ListItemLink to="/employList" primary={`Сотрудники (${employees?.length})`}>
                     {newEmployees?.length > 0 && <Chip label={newEmployees?.length} color="error" size="small" sx={{marginRight: "10px"}}/>}
@@ -57,7 +57,7 @@ export default function Menu() {
                   </ListSubheader>
               }>
             <ListItemLink to={`/${accountChatID}`} primary="Мой профиль"/>
-            {isUser && <ListItemLink to="/stepper" primary="Допуск в лабораторию"/>}
+            {isPerson && <ListItemLink to="/stepper" primary="Допуск в лабораторию"/>}
             <ListItemLink to="/equipment" primary="Оборудование"/>
             <ListItemLink to="/operatingEquipment" primary={`Оборудование в работе (${operatingEquipment?.length})`}/>
             {isAdmin && renderAdminPages()}

@@ -53,7 +53,7 @@ export async function endWorkWithEquipment(chatID, accountData, equipment) {
     }).then(res => res.json())
 }
 
-export async function getUsers() {
+export async function getPersons() {
     return await fetch(`https://${serverDomain}:${port}/persons`, {
         method: 'GET',
         headers: {
@@ -89,14 +89,14 @@ export async function getResearches() {
     }).then(res => res.json())
 }
 
-export async function updateReagentApplication(userData, applicationData) {
+export async function updateReagentApplication(personData, applicationData) {
     return await fetch(`https://${serverDomain}:${port}/updateReagentApplications`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            userData, applicationData
+            personData, applicationData
         })
     }).then(res => res.json())
 }

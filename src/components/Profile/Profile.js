@@ -9,7 +9,7 @@ import {useEffect} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
 import {Chip, Container} from "@mui/material";
 import {researchesSelectOptions} from "../../assets/db/db"
-import { createFullUserName } from '../../methods/helpers';
+import { createFullPersonName } from '../../methods/helpers';
 import localisations from '../../assets/constants/localisations/localisations';
 
 export default function Profile(props) {
@@ -26,11 +26,11 @@ export default function Profile(props) {
     let {chatID} = useParams();
     const {pathname} = useLocation();
     let path = `/${chatID}/editProfile`;
-    if (pathname.includes("userList")) path = `/userList/${chatID}/editProfile`
+    if (pathname.includes("personList")) path = `/personList/${chatID}/editProfile`
     const navigate = useNavigate();
     const {tg} = useTelegram();
     const redirect = () => navigate(-1);
-    const fullName = createFullUserName(displayedData);
+    const fullName = createFullPersonName(displayedData);
 
     const {
         firstName,
@@ -39,7 +39,7 @@ export default function Profile(props) {
         phone,
         position,
         research,
-        isUserConfirmed,
+        isPersonConfirmed,
     } = displayedData;
 
     useEffect(() => {
@@ -50,7 +50,7 @@ export default function Profile(props) {
         }
     }, []);
 
-    function renderUserNameFragment() {
+    function renderPersonNameFragment() {
         return(fullName ? 
             <Typography variant="h5" sx={{mb: 1.5}}>
                 {fullName}
@@ -67,7 +67,7 @@ export default function Profile(props) {
             <Card variant="outlined" sx={{margin: 0, border: "none"}}>
                 <CardContent sx={{paddingLeft: 3, paddingRight: 3}}>
                     <Box sx={{display: "flex", justifyContent: "flex-end", marginBottom: "15px"}}>
-                        {isUserConfirmed ?
+                        {isPersonConfirmed ?
                             <Chip label="Подтверждён" size="small" color="success" variant="outlined"/> :
                             <Chip label="Не подтверждён" size="small" color="error" variant="outlined"/>
                         }
@@ -76,7 +76,7 @@ export default function Profile(props) {
                         {position ? position : <b>Должность не указана</b>}
                     </Typography>
                     {adminRoleBlock}
-                    {renderUserNameFragment()}
+                    {renderPersonNameFragment()}
                     <Typography sx={{mb: 1.5}}>
                         Телефон: {phone ? phone : <b>Не указан</b>}
                     </Typography>

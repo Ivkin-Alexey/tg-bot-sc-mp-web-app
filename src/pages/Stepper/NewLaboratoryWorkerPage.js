@@ -11,19 +11,19 @@ import {useSelector} from "react-redux";
 import constants from "../../assets/constants/constants";
 const {safetyInstructionUrl, safetyTestUrl} = constants;
 
-const NewUserPage = () => {
+const NewLaboratoryWorkerPage = () => {
 
     const {tg} = useTelegram();
 
     const navigate = useNavigate();
     const redirect = () => navigate('/');
-    const {accountData} = useSelector(state => state.users);
+    const {accountData} = useSelector(state => state.persons);
     const {chatID, otherInfo} = accountData;
 
     const [activeStep, setActiveStep] = React.useState(0);
 
     useEffect(() => {
-        if(otherInfo.isUserDataSent) setActiveStep(1);
+        if(otherInfo.isPersonDataSent) setActiveStep(1);
     }, [])
 
     useEffect(() => {
@@ -111,4 +111,4 @@ const NewUserPage = () => {
     );
 };
 
-export default NewUserPage;
+export default NewLaboratoryWorkerPage;

@@ -9,17 +9,17 @@ import ListItemText from "@mui/material/ListItemText";
 import {useSelector} from "react-redux";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
 import localisations from "../../assets/constants/localisations/localisations";
-import {createUserName} from "../../methods/helpers";
+import {createPersonName} from "../../methods/helpers";
 
 const NestedList = () => {
 
     const {subHeader, listIsEmpty} = localisations.pages.nestedList;
     const {researches} = useSelector(state => state.researches);
-    const {users} = useSelector(state => state.users);
+    const {persons} = useSelector(state => state.persons);
     const navigate = useNavigate();
     const redirect = () => navigate(-1);
     const {tg} = useTelegram();
-    const listItemPath = "/userList/";
+    const listItemPath = "/personList/";
 
     useEffect(() => {
         tg.MainButton.isVisible = false;
@@ -41,10 +41,11 @@ const NestedList = () => {
         return (
             <List component="div" disablePadding>
                 {subItems.map(el => {
-                    const isNew = el.isUserConfirmed === false;
+                    const isNew = el.isPersonConfirmed === false;
+                    console.log(el)
                     return <ListItemLink
                         to={listItemPath + el.chatID}
-                        primary={createUserName(el) || localisations.components.nestedList.emptyFullName}
+                        primary={createPersonName(el) || localisations.components.nestedList.emptyFullName}
                         key={el.chatID}
                         onClick={() => navigate(listItemPath + el.chatID)}
                     >{isNew && <Chip label="Новый" color="error" size="small" sx={{marginRight: "10px"}}/>}
@@ -68,13 +69,13 @@ const NestedList = () => {
             {researches ? researches.map((el, i) => {
                 const value = el.value;
                 const isOpen = openLists[value];
-                const subItems = users.filter(user => user.research === value);
-                const newUsersNumber = subItems.filter(user => user.isUserConfirmed === false).length;
+                const subItems = persons.filter(person => person.research === value);
+                const newPersonsNumber = subItems.filter(person => person.isPersonConfirmed === false).length;
                 return (
                     <div key={i}>
                         <ListItem onClick={() => handleClick(value)}>
                             <ListItemText primary={value + ` (${subItems.length})`}/>
-                            {newUsersNumber > 0 ? <Chip label={newUsersNumber} color="error" size="small" sx={{marginRight: "10px"}}/> : null}
+                            {newPersonsNumber > 0 ? <Chip label={newPersonsNumber} color="error" size="small" sx={{marginRight: "10px"}}/> : null}
                             {subItems.length > 0 ? (isOpen ? <ExpandLess/> : <ExpandMore/>) : null}
                         </ListItem>
                         <Collapse in={isOpen} timeout="auto" unmountOnExit>

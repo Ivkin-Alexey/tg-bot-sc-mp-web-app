@@ -1,4 +1,4 @@
-import {SET_RESEARCHES} from "./types";
+import {SET_RESEARCHES} from "../types.ts";
 
 const initialState = {
     researches: [],

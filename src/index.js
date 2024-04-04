@@ -4,7 +4,7 @@ import App from './App';
 import {BrowserRouter} from "react-router-dom";
 import {CssBaseline} from "@mui/material";
 import {Provider} from "react-redux";
-import rootReducer from './redux/rootReducer';
+import rootReducer from './redux/reducers/rootReducer';
 import thunk from "redux-thunk"
 import {applyMiddleware, compose, legacy_createStore as createStore} from "redux";
 import { persistStore, persistReducer } from 'redux-persist';

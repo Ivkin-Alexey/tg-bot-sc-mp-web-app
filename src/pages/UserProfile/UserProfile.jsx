@@ -24,26 +24,26 @@ import {useTelegram} from "../../hooks/useTelegram";
 import {confirmPersonAction, deletePersonAction, updatePersonDataAction} from "../../redux/actions";
 import ListItemText from "@mui/material/ListItemText";
 
-export default function UserProfile() {
+export default function PersonProfile() {
     const {chatID} = useParams();
     const {tg} = useTelegram();
     const navigate = useNavigate();
     let displayedData = useSelector(state => {
-        const {users, admins, employees} = state.users;
-        const user = users.find(el => el.chatID === +chatID);
+        const {persons, admins, employees} = state.persons;
+        const person = persons.find(el => el.chatID === +chatID);
         const admin = admins.find(el => el.chatID === +chatID);
         const employ = employees.find(el => el.chatID === +chatID);
-        return user || admin || employ;
+        return person || admin || employ;
     });
-    const {accountData, accountChatID} = useSelector(state => state.users);
+    const {accountData, accountChatID} = useSelector(state => state.persons);
     const role = accountData.role;
-    const isAdmin = role === constants.userRoles.admin;
-    const isSuperAdmin = role === constants.userRoles.superAdmin;
-    const {otherInfo, isUserConfirmed, requirements} = displayedData;
-    const {registrationDate, isUserDataSent} = otherInfo;
-    const {applicationDeleteMessage, applicationConfirmAlert} = localisations.pages.userProfile;
+    const isAdmin = role === constants.personRoles.admin;
+    const isSuperAdmin = role === constants.personRoles.superAdmin;
+    const {otherInfo, isPersonConfirmed, requirements} = displayedData;
+    const {registrationDate, isPersonDataSent} = otherInfo;
+    const {applicationDeleteMessage, applicationConfirmAlert} = localisations.pages.personProfile;
     const {pathname} = useLocation();
-    const redirectionPath = "/userList";
+    const redirectionPath = "/personList";
     const redirect = () => navigate(-1);
     const dispatch = useDispatch();
 
@@ -86,12 +86,12 @@ export default function UserProfile() {
     function renderRegistrationStatusInfo() {
         return (
             <>
-                {isUserDataSent ?
+                {isPersonDataSent ?
                     <>
                         <Typography sx={{mb: 1.5}}>
                             {"Дата регистрации: " + registrationDate}
                         </Typography>
-                        {isUserConfirmed ?
+                        {isPersonConfirmed ?
                             null :
                             <Typography sx={{mb: 1.5}}>
                                 <b>Ожидается подтверждение заявки</b>
@@ -108,7 +108,7 @@ export default function UserProfile() {
         return (
             isAdmin ? null :
                 <>
-                    {isSuperAdmin && !isUserConfirmed &&
+                    {isSuperAdmin && !isPersonConfirmed &&
                         <IconButton
                             aria-label="done"
                             sx={{marginRight: "8px"}}
@@ -142,7 +142,7 @@ export default function UserProfile() {
     }
 
     function onConfirmPerson() {
-        if (!isUserDataSent) {
+        if (!isPersonDataSent) {
             tg.showAlert(applicationConfirmAlert);
         } else {
             dispatch(confirmPersonAction(chatID, accountChatID));

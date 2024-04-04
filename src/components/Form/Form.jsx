@@ -23,7 +23,7 @@ const Form = (props) => {
     } = props;
 
     const dispatch = useDispatch();
-    const {accountChatID, accountData} = useSelector(state => state.users);
+    const {accountChatID, accountData} = useSelector(state => state.persons);
     const defaultFormData = defaultTextInputs.reduce((acc, cur) => {
 
         const inputItem = inputs[cur];

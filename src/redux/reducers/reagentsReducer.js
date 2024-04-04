@@ -1,4 +1,4 @@
-import {SET_REAGENTS_APPLICATIONS, SET_REAGENTS_DATA_IS_UPDATED} from "./types";
+import {SET_REAGENTS_APPLICATIONS, SET_REAGENTS_DATA_IS_UPDATED} from "../types.ts";
 
 const initialState = {
     activeReagentApplications: [],

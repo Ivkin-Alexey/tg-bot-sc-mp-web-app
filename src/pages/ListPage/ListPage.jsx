@@ -4,7 +4,7 @@ import {useTelegram} from "../../hooks/useTelegram";
 import List from "@mui/material/List";
 import ListSubheader from "@mui/material/ListSubheader";
 import ListItemLink from "../../components/ListItemLink/ListItemLink";
-import {createUserName} from "../../methods/helpers";
+import {createPersonName} from "../../methods/helpers";
 import {Chip} from "@mui/material";
 
 const ListPage = (props) => {
@@ -34,8 +34,8 @@ const ListPage = (props) => {
             }
         >
             {personList.length > 0 ? personList.map((el, i) => {
-                const name = createUserName(el);
-                const isNew = el.isUserConfirmed === false;
+                const name = createPersonName(el);
+                const isNew = el.isPersonConfirmed === false;
                 if(!name) return;
                 return (
                     <ListItemLink

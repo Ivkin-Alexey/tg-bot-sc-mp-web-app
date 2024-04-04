@@ -14,10 +14,10 @@ const EditPersonalData = () => {
     const redirectionPath = pathname.replace("/editProfile", "");
     const {categoryList} = localisations.components.form;
 
-    let {users, accountData, admins, employees} = useSelector(state => state.users);
-    let userData = users.find(el => el?.chatID === +chatID);
-    if (!userData) userData = admins.find(el => el?.chatID === +chatID);
-    if (!userData) userData = employees.find(el => el?.chatID === +chatID);
+    let {persons, accountData, admins, employees} = useSelector(state => state.persons);
+    let personData = persons.find(el => el?.chatID === +chatID);
+    if (!personData) personData = admins.find(el => el?.chatID === +chatID);
+    if (!personData) personData = employees.find(el => el?.chatID === +chatID);
 
     let inputList = forms.editPersonalData;
 
@@ -45,7 +45,7 @@ const EditPersonalData = () => {
     }, []);
 
     return <Form defaultTextInputs={inputList}
-                 defaultValues={userData}
+                 defaultValues={personData}
                  tgMainButtonText={tgMainButtonText}
                  chatID={chatID}
                  confirmMessage={message}
