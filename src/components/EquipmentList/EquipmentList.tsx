@@ -1,19 +1,25 @@
-import React from 'react';
+
 import {Button, Card, CardActions, CardContent, CardMedia, Chip, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useTelegram} from "../../hooks/useTelegram";
 import {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector, TypedUseSelectorHook} from "react-redux";
 import {updateEquipmentWorkingStatusAction} from "../../redux/actions";
 import CircularProgress from "../../components/CircularProgress/CircularProgress";
 import localisations from "../../assets/constants/localisations/localisations";
 import {createUserName} from "../../methods/helpers";
+import {IEquipmentListItem} from "../../types/interfaces";
+import {IState} from "../../redux/types";
 
-const EquipmentList = (props) => {
+interface IEquipmentListProps {
+    list: IEquipmentListItem[]
+}
+
+const EquipmentList = (props: IEquipmentListProps) => {
 
     const {list} = props;
-    const {accountChatID, accountData, users, admins} = useSelector(state => state.users);
-    const {equipmentsDataIsUpdated, operatingEquipments} = useSelector(state => state.equipments);
+    const {accountChatID, accountData, users, admins} = useSelector<IState>(state => state.users);
+    const {equipmentsDataIsUpdated, operatingEquipment} = useSelector<IState>(state => state.equipments);
     let navigate = useNavigate();
     const dispatch = useDispatch();
     const {tg} = useTelegram();
@@ -44,10 +50,8 @@ const EquipmentList = (props) => {
     function renderEquipmentList() {
         return list.length > 0 ? list.map(el => {
 
-            const {filesUrl, id, imgUrl, model, name, isUsing} = el;
+            const {filesUrl, id, imgUrl, model, name} = el;
             let started, startedByAnotherPerson, workingPerson, personName;
-
-            console.log(operatingEquipments);
 
             if (accountChatID === workingPersonChatID) started = true;
             if (!started && isUsing.length > 0) startedByAnotherPerson = true;

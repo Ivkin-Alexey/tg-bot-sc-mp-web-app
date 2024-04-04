@@ -71,6 +71,15 @@ export async function getEquipments() {
     }).then(res => res.json())
 }
 
+export async function fetchWorkingEquipments() {
+    return await fetch(`https://${serverDomain}:${port}/workingEquipmentList`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(res => res.json())
+}
+
 export async function getResearches() {
     return await fetch(`https://${serverDomain}:${port}/researches`, {
         method: 'GET',
