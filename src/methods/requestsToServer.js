@@ -92,6 +92,15 @@ export async function updateReagentApplication(userData, applicationData) {
     }).then(res => res.json())
 }
 
+export async function fetchOperatingEquipments() {
+    return await fetch(`https://${serverDomain}:${port}/workingEquipmentList`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(res => res.json())
+}
+
 export async function getReagentApplications(chatID) {
     return await fetch(`https://${serverDomain}:${port}/reagentApplications`, {
         method: 'GET',
@@ -112,4 +121,3 @@ export async function deleteReagentApplication(chatID, applicationID) {
         })
     }).then(res => res.json())
 }
-

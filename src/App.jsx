@@ -14,7 +14,7 @@ import NewUserPage from "./pages/Stepper/NewUserPage";
 import AdminProfile from "./pages/AdminProfile/AdminProfile";
 import constants from "./assets/constants/constants";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchEquipmentsAction, fetchResearchesAction, fetchUsersAction} from "./redux/actions";
+import {fetchEquipmentsAction, fetchResearchesAction, fetchUsersAction, getOperatingEquipmentsAction} from "./redux/actions";
 import AdminList from "./pages/AdminList/AdminList";
 import {SET_ACCOUNT_CHAT_ID} from "./redux/types";
 import CircularProgress from "./components/CircularProgress/CircularProgress";
@@ -35,8 +35,9 @@ function App() {
         tg.expand();
         dispatch({type: SET_ACCOUNT_CHAT_ID, payload: accountChatID});
         dispatch(fetchUsersAction(accountChatID));
-        // dispatch(fetchResearchesAction());
+        dispatch(fetchResearchesAction());
         dispatch(fetchEquipmentsAction());
+        dispatch(getOperatingEquipmentsAction());
         tg.BackButton.isVisible = true;
     }, []);
 

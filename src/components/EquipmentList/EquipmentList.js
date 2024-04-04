@@ -13,7 +13,7 @@ const EquipmentList = (props) => {
 
     const {list} = props;
     const {accountChatID, accountData, users, admins} = useSelector(state => state.users);
-    const {equipmentsDataIsUpdated} = useSelector(state => state.equipments);
+    const {equipmentsDataIsUpdated, operatingEquipments} = useSelector(state => state.equipments);
     let navigate = useNavigate();
     const dispatch = useDispatch();
     const {tg} = useTelegram();
@@ -47,7 +47,8 @@ const EquipmentList = (props) => {
             const {filesUrl, id, imgUrl, model, name, isUsing} = el;
             let started, startedByAnotherPerson, workingPerson, personName;
 
-            const workingPersonChatID = isUsing[0];
+            console.log(operatingEquipments);
+
             if (accountChatID === workingPersonChatID) started = true;
             if (!started && isUsing.length > 0) startedByAnotherPerson = true;
             if (startedByAnotherPerson) {

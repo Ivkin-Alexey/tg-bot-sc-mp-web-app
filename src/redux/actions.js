@@ -6,7 +6,10 @@ import {
     SET_EQUIPMENTS_DATA_IS_UPDATED,
     SET_RESEARCHES,
     SET_EQUIPMENTS,
-    SET_EMPLOYEES_LIST, SET_REAGENTS_DATA_IS_UPDATED, SET_REAGENTS_APPLICATIONS
+    SET_EMPLOYEES_LIST, 
+    SET_REAGENTS_DATA_IS_UPDATED, 
+    SET_REAGENTS_APPLICATIONS,
+    SET_OPERATING_EQUIPMENTS
 } from "./types";
 import constants from "../assets/constants/constants";
 import {
@@ -15,7 +18,7 @@ import {
     updatePersonData,
     getResearches,
     getEquipments,
-    startWorkWithEquipment, endWorkWithEquipment, updateReagentApplication, deleteReagentApplication
+    startWorkWithEquipment, endWorkWithEquipment, updateReagentApplication, deleteReagentApplication, fetchOperatingEquipments
 } from "../methods/requestsToServer";
 
 const {admin, superAdmin, user} = constants.userRoles;
@@ -99,6 +102,21 @@ export function updateReagentApplicationsAction(accountChatID, data) {
     }
 }
 
+export function getOperatingEquipmentsAction(accountChatID) {
+    return async dispatch => {
+        dispatch({type: SET_EQUIPMENTS_DATA_IS_UPDATED, payload: false});
+        try {
+            await fetchOperatingEquipments()
+                .then(data => {
+                dispatch({type: SET_OPERATING_EQUIPMENTS, payload: data})
+                dispatch({type: SET_EQUIPMENTS_DATA_IS_UPDATED, payload: true})
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+}
+
 export function deleteReagentApplicationAction(accountChatID, applicationID) {
     return async dispatch => {
         dispatch({type: SET_REAGENTS_DATA_IS_UPDATED, payload: false});
@@ -135,7 +153,7 @@ export function setUsers(dispatch, data, accountChatID) {
     let employees = [];
     let users = [];
     let userData = {};
-    data.map(el => {
+    data.forEach(el => {
         if (el.chatID === accountChatID) userData = el;
         if (el.role === admin || el.role === superAdmin) admins.push(el);
         if (el.role === user && el.category === "Сотрудник") employees.push(el);
