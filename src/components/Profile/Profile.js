@@ -40,7 +40,7 @@ export default function Profile(props) {
         position,
         research,
         isPersonConfirmed,
-    } = displayedData;
+    } = displayedData || {};
 
     useEffect(() => {
         tg.MainButton.isVisible = false;

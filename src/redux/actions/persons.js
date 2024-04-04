@@ -1,5 +1,5 @@
 import {deletePerson, getPersons, updatePersonData} from "../../methods/requestsToServer";
-import {SET_ACCOUNT_DATA, SET_STUDENT_LIST, SET_PERSONS_DATA_IS_UPDATED, SET_ASPIRANT_LIST, SET_EMPLOYEE_LIST} from "../types.ts";
+import {SET_ACCOUNT_DATA, SET_ADMIN_LIST, SET_PERSON_LIST, SET_STUDENT_LIST, SET_PERSONS_DATA_IS_UPDATED, SET_ASPIRANT_LIST, SET_EMPLOYEE_LIST} from "../types.ts";
 import constants from "../../assets/constants/constants";
 
 export function fetchPersonsAction(accountChatID) {
@@ -42,6 +42,7 @@ export function confirmPersonAction(chatID, accountChatID) {
 }
 
 export function setPersonList(dispatch, data, accountChatID) {
+    let admins = [];
     let students = [];
     let aspirants = [];
     let employees = [];
@@ -54,7 +55,10 @@ export function setPersonList(dispatch, data, accountChatID) {
         if (el.category === "aspirant") aspirants.push(el);
         else wrongPersonData.push(el);
     });
+    console.log(data)
     dispatch({type: SET_ACCOUNT_DATA, payload: personData});
+    dispatch({type: SET_PERSON_LIST, payload: data});
+    dispatch({type: SET_ADMIN_LIST, payload: admins});
     dispatch({type: SET_STUDENT_LIST, payload: students});
     dispatch({type: SET_ASPIRANT_LIST, payload: aspirants});
     dispatch({type: SET_EMPLOYEE_LIST, payload: employees});

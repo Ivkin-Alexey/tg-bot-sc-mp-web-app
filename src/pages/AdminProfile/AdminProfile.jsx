@@ -17,12 +17,10 @@ export default function AdminProfile() {
     const {chatID} = useParams();
     const navigate = useNavigate();
     let displayedData = useSelector(state => {
-        const {admins, employees} = state.persons;
-        const admin = admins.find(el => el.chatID === +chatID);
-        const employ = employees.find(el => el.chatID === +chatID);
-        return admin || employ;
+        const {persons} = state.persons;
+        return persons.find(el => el.chatID === +chatID);
     });
-    const displayedDataRole = displayedData.role;
+    const displayedDataRole = displayedData?.role;
     const {accountData, accountChatID} = useSelector(state => state.persons);
     const role = accountData.role;
     const isPerson = role === constants.personRoles.person;
@@ -37,12 +35,9 @@ export default function AdminProfile() {
     if (pathname.includes("adminList")) path = `/adminList/${chatID}/editProfile`;
     const {applicationConfirmAlert} = localisations.pages.personProfile;
 
-    const {otherInfo, isPersonConfirmed} = displayedData;
-    const {isPersonDataSent} = otherInfo;
-
     function renderRoleBlock() {
         return <Typography sx={{fontSize: 14, mb: 1.5}}>
-            {displayedData.role ? "Роль: " + (roleTitle[displayedData.role]).toLowerCase() : <b>Роль не указана</b>}
+            {displayedData?.role ? "Роль: " + (roleTitle[displayedData.role]).toLowerCase() : <b>Роль не указана</b>}
         </Typography>
     }
 
@@ -51,7 +46,7 @@ export default function AdminProfile() {
     }
 
     function onConfirmPerson() {
-        if (!isPersonDataSent) {
+        if (!displayedData?.otherInfo?.isPersonDataSent) {
             tg.showAlert(applicationConfirmAlert);
         } else {
             dispatch(confirmPersonAction(chatID, accountChatID));
@@ -69,7 +64,7 @@ export default function AdminProfile() {
         return (
             isPerson ? null :
                 <>
-                    {isSuperAdmin && !isPersonConfirmed &&
+                    {isSuperAdmin && !displayedData?.isPersonConfirmed &&
                         <IconButton
                             aria-label="done"
                             sx={{marginRight: "8px"}}

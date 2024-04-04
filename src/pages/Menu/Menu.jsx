@@ -16,10 +16,12 @@ export default function Menu() {
     const state = useSelector(state => state.persons);
     const {operatingEquipment} = useSelector(state => state.equipments);
 
-    const {newPersons, persons, admins, accountData, employees, newEmployees} = state;
-    const role = accountData.role;
+    const {newPersons, persons, admins, accountData, employees, newEmployees, students, aspirants} = state;
+    const role = accountData?.role;
     const isAdmin = role === admin || role === superAdmin;
     const isPerson = role === person;
+
+    const studentsNumber = students.length + students.length;
 
     useEffect(() => {
         tg.MainButton.isVisible = false;
@@ -34,8 +36,8 @@ export default function Menu() {
             <>
                 <Divider/>
                 <ListItemLink to="/newPersonList" primary={`Новые заявки (${newPersons?.length})`}/>
-                <ListItemLink to="/personList" primary={`Обучающиеся (${persons?.length})`}>
-                    {newPersons?.length > 0 && <Chip label={newPersons?.length} color="error" size="small" sx={{marginRight: "10px"}}/>}
+                <ListItemLink to="/personList" primary={`Обучающиеся (${studentsNumber})`}>
+                    {studentsNumber > 0 && <Chip label={studentsNumber} color="error" size="small" sx={{marginRight: "10px"}}/>}
                 </ListItemLink>
                 <ListItemLink to="/employList" primary={`Сотрудники (${employees?.length})`}>
                     {newEmployees?.length > 0 && <Chip label={newEmployees?.length} color="error" size="small" sx={{marginRight: "10px"}}/>}
@@ -45,7 +47,7 @@ export default function Menu() {
                 <ListItemLink to="/reagents" primary="Заявки на реактивы"/>
             </>
         )
-    }
+    };
 
     return (
         <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}

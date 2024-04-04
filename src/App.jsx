@@ -44,14 +44,9 @@ function App() {
     }, []);
 
     const role = useSelector(state => state.persons.accountData?.role);
-    const state = useSelector(state => state);
     const isPersonsDataUpdated = useSelector(state => state.persons.personsDataIsUpdated);
     const {admin, superAdmin} = constants.personRoles;
     const isAdmin = (role === admin || role === superAdmin);
-
-    useEffect(() => {
-        if(isPersonsDataUpdated) console.log(state);
-    }, [isPersonsDataUpdated]);
 
     return (
         isPersonsDataUpdated ?

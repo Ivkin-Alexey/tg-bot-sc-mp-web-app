@@ -13,7 +13,7 @@ export function createPersonName(person) {
 }
 
 export function createFullPersonName(personData) {
-    const {firstName, lastName, patronymic} = personData;
+    const {firstName, lastName, patronymic} = personData || {};
     return ((lastName ?? "") + ' ' + (firstName ?? "") + ' ' + (patronymic ?? "")).trim();
 }
  
