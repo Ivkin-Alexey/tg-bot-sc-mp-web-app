@@ -18,12 +18,14 @@ const EquipmentList = (props: IEquipmentListProps) => {
 
     const {list} = props;
     const {accountChatID, accountData, persons, admins} = useTypedSelector(state => state.persons);
-    const {equipmentsDataIsUpdated, operatingEquipment} = useTypedSelector(state => state.equipments);
+    const {equipmentsDataIsUpdated, operatingEquipments} = useTypedSelector(state => state.equipments);
     let navigate = useNavigate();
     const dispatch = useTypedDispatch();
     const {tg} = useTelegram();
 
     const redirect = () => navigate(-1);
+
+    console.log(operatingEquipments)
 
     useEffect(() => {
         tg.onEvent('backButtonClicked', redirect)

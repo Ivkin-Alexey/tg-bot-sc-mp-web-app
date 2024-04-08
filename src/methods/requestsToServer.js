@@ -107,7 +107,7 @@ export async function fetchOperatingEquipments() {
         headers: {
             'Content-Type': 'application/json',
         },
-    }).then(res => res.json())
+    }).then(res => res.json()).then(data => consol.log(data))
 }
 
 export async function getReagentApplications(chatID) {

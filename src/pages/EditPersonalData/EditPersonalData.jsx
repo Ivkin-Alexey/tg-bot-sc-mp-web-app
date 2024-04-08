@@ -6,6 +6,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useTelegram} from "../../hooks/useTelegram";
 import {useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
+import { categoryFilteringRules } from '../../assets/constants/inputs/filteringRules';
 
 const EditPersonalData = () => {
 
@@ -27,14 +28,6 @@ const EditPersonalData = () => {
     const {tgMainButtonText, confirmMessage, confirmMessageForSuperAdmins} = localisations.pages.editPersonalData;
     const message = accountData.role === "superAdmin" ? confirmMessageForSuperAdmins : confirmMessage;
 
-    const filteringRules = {
-        "category": {
-            [categoryList[0]]: ["postGraduateEducationYear", "position"],
-            [categoryList[1]]: ["studentsEducationYear", "position"],
-            [categoryList[2]]: ["studentsEducationYear", "postGraduateEducationYear"]
-        },
-    }
-
     const redirect = () => navigate(redirectionPath);
 
     useEffect(() => {
@@ -49,7 +42,7 @@ const EditPersonalData = () => {
                  tgMainButtonText={tgMainButtonText}
                  chatID={chatID}
                  confirmMessage={message}
-                 filteringRules={filteringRules}
+                 filteringRules={categoryFilteringRules}
     />;
 };
 

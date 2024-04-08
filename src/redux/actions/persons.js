@@ -55,7 +55,6 @@ export function setPersonList(dispatch, data, accountChatID) {
         if (el.category === "aspirant") aspirants.push(el);
         else wrongPersonData.push(el);
     });
-    console.log(data)
     dispatch({type: SET_ACCOUNT_DATA, payload: personData});
     dispatch({type: SET_PERSON_LIST, payload: data});
     dispatch({type: SET_ADMIN_LIST, payload: admins});

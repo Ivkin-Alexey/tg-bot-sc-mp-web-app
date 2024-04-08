@@ -23,7 +23,7 @@ const localisations = {
         },
         adminProfile: {
             applicationDeleteAlert: "Вы действительно хотите удалить этого администратора?",
-            roleTitle: {person: "Обучающийся", admin: "Администратор", superAdmin: "Супер администратор",}
+            roleTitle: {user: "Пользователь", admin: "Администратор", superAdmin: "Супер администратор",}
         },
         personProfile: {
             applicationDeleteMessage: "Вы действительно хотите удалить эту заявку?",

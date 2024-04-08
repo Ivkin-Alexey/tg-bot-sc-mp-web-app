@@ -30,7 +30,6 @@ export default function Profile(props) {
     const navigate = useNavigate();
     const {tg} = useTelegram();
     const redirect = () => navigate(-1);
-    const fullName = createFullPersonName(displayedData);
 
     const {
         firstName,
@@ -41,6 +40,8 @@ export default function Profile(props) {
         research,
         isPersonConfirmed,
     } = displayedData || {};
+
+    const fullName = createFullPersonName(displayedData);
 
     useEffect(() => {
         tg.MainButton.isVisible = false;
@@ -73,7 +74,7 @@ export default function Profile(props) {
                         }
                     </Box>
                     <Typography sx={{fontSize: 14, mb: 1.5}}>
-                        {position ? position : <b>Должность не указана</b>}
+                        Должность: {position ? position.toLowerCase() : <b>должность не указана</b>}
                     </Typography>
                     {adminRoleBlock}
                     {renderPersonNameFragment()}

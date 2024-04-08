@@ -17,9 +17,10 @@ export default function AdminProfile() {
     const {chatID} = useParams();
     const navigate = useNavigate();
     let displayedData = useSelector(state => {
-        const {persons} = state.persons;
-        return persons.find(el => el.chatID === +chatID);
+        const {persons} = state?.persons;   
+        return persons.find(el => el.chatID === +chatID)
     });
+    console.log(displayedData);
     const displayedDataRole = displayedData?.role;
     const {accountData, accountChatID} = useSelector(state => state.persons);
     const role = accountData.role;
@@ -37,7 +38,7 @@ export default function AdminProfile() {
 
     function renderRoleBlock() {
         return <Typography sx={{fontSize: 14, mb: 1.5}}>
-            {displayedData?.role ? "Роль: " + (roleTitle[displayedData.role]).toLowerCase() : <b>Роль не указана</b>}
+            {displayedData?.role ? "Роль: " + (roleTitle[displayedData.role])?.toLowerCase() : <b>Роль не указана</b>}
         </Typography>
     }
 
@@ -59,6 +60,8 @@ export default function AdminProfile() {
             dispatch(deletePersonAction(chatID, accountChatID));
         }
     }
+
+    console.log(window)
 
     function renderButtonsBlock() {
         return (
