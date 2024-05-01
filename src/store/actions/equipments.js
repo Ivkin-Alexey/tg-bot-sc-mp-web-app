@@ -1,4 +1,4 @@
-import {SET_EQUIPMENTS, SET_EQUIPMENTS_DATA_IS_UPDATED} from "../types";
+import {SET_EQUIPMENTS, SET_EQUIPMENTS_DATA_IS_UPDATED} from "../types.ts";
 import {endWorkWithEquipment, getEquipments, startWorkWithEquipment} from "../../methods/requestsToServer";
 
 export function fetchEquipmentsAction() {

@@ -1,4 +1,4 @@
-import {SET_RESEARCHES, SET_USERS_DATA_IS_UPDATED} from "../types";
+import {SET_RESEARCHES, SET_USERS_DATA_IS_UPDATED} from "../types.ts";
 import {getResearches} from "../../methods/requestsToServer";
 
 export function fetchResearchesAction() {

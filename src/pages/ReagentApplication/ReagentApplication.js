@@ -5,7 +5,7 @@ import Form from "../../components/Form/Form";
 import {useNavigate} from "react-router-dom";
 import {useTelegram} from "../../hooks/useTelegram";
 import {useDispatch, useSelector} from "react-redux";
-import {updateReagentApplicationsAction} from "../../redux/actions";
+import {updateReagentApplicationsAction} from "../../store/actions";
 
 const ReagentApplication = () => {
 

@@ -9,7 +9,7 @@ import constants from "../../assets/constants/constants";
 import localisations from "../../assets/constants/localisations/localisations";
 import Typography from "@mui/material/Typography";
 import {useTelegram} from "../../hooks/useTelegram";
-import {confirmPersonAction, deletePersonAction} from "../../redux/actions";
+import {confirmPersonAction, deletePersonAction} from "../../store/actions";
 import DoneOutlineRoundedIcon from "@mui/icons-material/DoneOutlineRounded";
 
 export default function AdminProfile() {

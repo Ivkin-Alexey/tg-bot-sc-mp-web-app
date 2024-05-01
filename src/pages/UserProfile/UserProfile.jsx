@@ -21,7 +21,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import constants from "../../assets/constants/constants";
 import localisations from "../../assets/constants/localisations/localisations";
 import {useTelegram} from "../../hooks/useTelegram";
-import {confirmPersonAction, deletePersonAction, updatePersonDataAction} from "../../redux/actions";
+import {confirmPersonAction, deletePersonAction, updatePersonDataAction} from "../../store/actions";
 import ListItemText from "@mui/material/ListItemText";
 
 export default function UserProfile() {

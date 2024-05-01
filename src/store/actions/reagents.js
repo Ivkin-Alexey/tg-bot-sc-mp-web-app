@@ -1,5 +1,5 @@
 import {deleteReagentApplication, updateReagentApplication} from "../../methods/requestsToServer";
-import {SET_REAGENTS_APPLICATIONS, SET_REAGENTS_DATA_IS_UPDATED} from "../types";
+import {SET_REAGENTS_APPLICATIONS, SET_REAGENTS_DATA_IS_UPDATED} from "../types.ts";
 
 export function updateReagentApplicationsAction(accountChatID, data) {
     return async dispatch => {

@@ -3,12 +3,12 @@ import {useNavigate} from "react-router-dom";
 import {useTelegram} from "../../hooks/useTelegram";
 import {useEffect} from "react";
 import {useDispatch, useSelector, TypedUseSelectorHook} from "react-redux";
-import {updateEquipmentWorkingStatusAction} from "../../redux/actions";
+import {updateEquipmentWorkingStatusAction} from "../../store/actions";
 import CircularProgress from "../../components/CircularProgress/CircularProgress";
 import localisations from "../../assets/constants/localisations/localisations";
 import {createUserName} from "../../methods/helpers";
 import {IEquipmentListItem} from "../../types/interfaces";
-import {IState} from "../../redux/types";
+import {IState} from "../../store/types";
 
 interface IEquipmentListProps {
     list: IEquipmentListItem[]
@@ -17,7 +17,7 @@ interface IEquipmentListProps {
 const EquipmentList = (props: IEquipmentListProps) => {
 
     const {list} = props;
-    const {accountChatID, accountData, users, admins} = useSelector<IState>(state => state.users);
+    const {accountChatID, accountData, users, admins} = useTypedSelector<IState>(state => state.users);
     const {equipmentsDataIsUpdated, operatingEquipment} = useSelector<IState>(state => state.equipments);
     let navigate = useNavigate();
     const dispatch = useDispatch();

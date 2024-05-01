@@ -1,5 +1,5 @@
 import {deletePerson, getUsers, updatePersonData} from "../../methods/requestsToServer";
-import {SET_ACCOUNT_DATA, SET_ADMIN_LIST, SET_EMPLOYEES_LIST, SET_USER_LIST, SET_USERS_DATA_IS_UPDATED} from "../types";
+import {SET_ACCOUNT_DATA, SET_ADMIN_LIST, SET_EMPLOYEES_LIST, SET_USER_LIST, SET_USERS_DATA_IS_UPDATED} from "../types.ts";
 import constants from "../../assets/constants/constants";
 
 const {admin, superAdmin, user} = constants.userRoles;

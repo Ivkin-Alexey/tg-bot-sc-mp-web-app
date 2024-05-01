@@ -4,7 +4,7 @@ import {MenuItem, Stack, TextField} from "@mui/material";
 import ListSubheader from "@mui/material/ListSubheader";
 import Button from "@mui/material/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {updatePersonDataAction} from "../../redux/actions";
+import {updatePersonDataAction} from "../../store/actions";
 import validateInputValue from "../../methods/validators";
 import inputs from "../../assets/constants/inputs/inputs";
 import {useNavigate} from "react-router-dom";
