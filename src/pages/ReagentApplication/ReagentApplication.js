@@ -9,7 +9,7 @@ import {updateReagentApplicationsAction} from "../../store/actions";
 
 const ReagentApplication = () => {
 
-    let {accountData} = useSelector(state => state.users);
+    let {accountData} = useSelector(state => state.persons);
     let inputList = forms.reagentApplication;
     const navigate = useNavigate();
     const dispatch = useDispatch();

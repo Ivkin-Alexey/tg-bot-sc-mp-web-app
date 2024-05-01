@@ -2,13 +2,12 @@ import {Button, Card, CardActions, CardContent, CardMedia, Chip, Typography} fro
 import {useNavigate} from "react-router-dom";
 import {useTelegram} from "../../hooks/useTelegram";
 import {useEffect} from "react";
-import {useDispatch, useSelector, TypedUseSelectorHook} from "react-redux";
-import {updateEquipmentWorkingStatusAction} from "../../store/actions";
+import {updateEquipmentWorkingStatusAction} from "../../redux/actions";
 import CircularProgress from "../../components/CircularProgress/CircularProgress";
 import localisations from "../../assets/constants/localisations/localisations";
-import {createUserName} from "../../methods/helpers";
+import {createPersonName} from "../../methods/helpers";
 import {IEquipmentListItem} from "../../types/interfaces";
-import {IState} from "../../store/types";
+import { useTypedSelector, useTypedDispatch } from "../../redux/index.ts";
 
 interface IEquipmentListProps {
     list: IEquipmentListItem[]
@@ -17,7 +16,7 @@ interface IEquipmentListProps {
 const EquipmentList = (props: IEquipmentListProps) => {
 
     const {list} = props;
-    const {accountChatID, accountData, users, admins} = useTypedSelector<IState>(state => state.users);
+    const {accountChatID, accountData, users, admins} = useSelector<IState>(state => state.users);
     const {equipmentsDataIsUpdated, operatingEquipment} = useSelector<IState>(state => state.equipments);
     let navigate = useNavigate();
     const dispatch = useDispatch();
@@ -55,9 +54,9 @@ const EquipmentList = (props: IEquipmentListProps) => {
             if (accountChatID === workingPersonChatID) started = true;
             if (!started && isUsing.length > 0) startedByAnotherPerson = true;
             if (startedByAnotherPerson) {
-                workingPerson = users.find(el => el.chatID === workingPersonChatID);
+                workingPerson = persons.find(el => el.chatID === workingPersonChatID);
                 if(!workingPerson) workingPerson = admins.find(el => el.chatID === workingPersonChatID);
-                personName = createUserName(workingPerson);
+                personName = createPersonName(workingPerson);
             }
 
             function renderWorkingPersonButtons() {

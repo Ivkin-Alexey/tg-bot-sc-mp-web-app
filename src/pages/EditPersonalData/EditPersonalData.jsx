@@ -6,6 +6,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useTelegram} from "../../hooks/useTelegram";
 import {useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
+import { categoryFilteringRules } from '../../assets/constants/inputs/filteringRules';
 
 const EditPersonalData = () => {
 
@@ -14,10 +15,10 @@ const EditPersonalData = () => {
     const redirectionPath = pathname.replace("/editProfile", "");
     const {categoryList} = localisations.components.form;
 
-    let {users, accountData, admins, employees} = useSelector(state => state.users);
-    let userData = users.find(el => el?.chatID === +chatID);
-    if (!userData) userData = admins.find(el => el?.chatID === +chatID);
-    if (!userData) userData = employees.find(el => el?.chatID === +chatID);
+    let {persons, accountData, admins, employees} = useSelector(state => state.persons);
+    let personData = persons.find(el => el?.chatID === +chatID);
+    if (!personData) personData = admins.find(el => el?.chatID === +chatID);
+    if (!personData) personData = employees.find(el => el?.chatID === +chatID);
 
     let inputList = forms.editPersonalData;
 
@@ -26,14 +27,6 @@ const EditPersonalData = () => {
 
     const {tgMainButtonText, confirmMessage, confirmMessageForSuperAdmins} = localisations.pages.editPersonalData;
     const message = accountData.role === "superAdmin" ? confirmMessageForSuperAdmins : confirmMessage;
-
-    const filteringRules = {
-        "category": {
-            [categoryList[0]]: ["postGraduateEducationYear", "position"],
-            [categoryList[1]]: ["studentsEducationYear", "position"],
-            [categoryList[2]]: ["studentsEducationYear", "postGraduateEducationYear"]
-        },
-    }
 
     const redirect = () => navigate(redirectionPath);
 
@@ -45,11 +38,11 @@ const EditPersonalData = () => {
     }, []);
 
     return <Form defaultTextInputs={inputList}
-                 defaultValues={userData}
+                 defaultValues={personData}
                  tgMainButtonText={tgMainButtonText}
                  chatID={chatID}
                  confirmMessage={message}
-                 filteringRules={filteringRules}
+                 filteringRules={categoryFilteringRules}
     />;
 };
 

@@ -13,7 +13,7 @@ const {
     minLengthError,
 } = validateErrorMessages;
 
-export default function validateInputValue(value, rules, required) {
+export default function validateInputValue(value = "", rules, required) {
 
     let result = {value, isValid: true, errorText: ""};
 
@@ -40,7 +40,7 @@ export default function validateInputValue(value, rules, required) {
     return result;
 
     function executePreCheck() {
-        value = value.trimStart();
+        value = value?.trimStart();
         if (value === "" && required === true) {
             result.isValid = false;
             result.errorText = emptyError;
@@ -59,7 +59,7 @@ export default function validateInputValue(value, rules, required) {
     }
 
     function checkIsCyrillicOnly() {
-        if (rules?.includes("spaceBetweenWordsOnly")) value = value.replace(cyrillicWithSpaceRegExp, "");
+        if (rules?.includes("spaceBetweenWordsOnly")) value = value?.replace(cyrillicWithSpaceRegExp, "");
         else value = value.replace(cyrillicRegExp, "");
     }
 

@@ -1,5 +1,5 @@
-export function createUserName(user) {
-    const {firstName, lastName, patronymic} = user;
+export function createPersonName(person) {
+    const {firstName, lastName, patronymic} = person;
     let name = "";
     if(lastName) {
         name+=lastName;
@@ -12,8 +12,8 @@ export function createUserName(user) {
     return name;
 }
 
-export function createFullUserName(userData) {
-    const {firstName, lastName, patronymic} = userData;
+export function createFullPersonName(personData) {
+    const {firstName, lastName, patronymic} = personData || {};
     return ((lastName ?? "") + ' ' + (firstName ?? "") + ' ' + (patronymic ?? "")).trim();
 }
  

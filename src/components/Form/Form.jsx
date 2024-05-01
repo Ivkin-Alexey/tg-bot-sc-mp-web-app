@@ -23,7 +23,7 @@ const Form = (props) => {
     } = props;
 
     const dispatch = useDispatch();
-    const {accountChatID, accountData} = useSelector(state => state.users);
+    const {accountChatID, accountData} = useSelector(state => state.persons);
     const defaultFormData = defaultTextInputs.reduce((acc, cur) => {
 
         const inputItem = inputs[cur];
@@ -107,7 +107,10 @@ const Form = (props) => {
     function filterInputs() {
         let hiddenInputs = [];
         for (let rule in filteringRules) {
-            hiddenInputs = [...hiddenInputs, ...filteringRules[rule][formData[rule].value]];
+            const arr = filteringRules[rule];
+            const obj = arr.find(el => el.inputValue === formData[rule].value);
+            if(obj) hiddenInputs = [...hiddenInputs, ...obj.hiddenFormFields];
+            console.log(obj);  
         }
         return defaultTextInputs.filter(el => !hiddenInputs.includes(el));
     }
@@ -120,7 +123,7 @@ const Form = (props) => {
         return options.map((option) => (
             <MenuItem key={option} value={option}>
                 {option}
-            </MenuItem>
+            </MenuItem> 
         ))
     }
 
@@ -128,6 +131,7 @@ const Form = (props) => {
         return textInputs.map((el, i) => {
             const {value, isValid, errorText} = formData[el];
             const {selectOptions, id, label, select, required} = inputs[el];
+            if (selectOptions) console.log(selectOptions)
             return <TextField
                 error={!isValid}
                 required={required}

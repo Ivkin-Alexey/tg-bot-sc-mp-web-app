@@ -17,16 +17,15 @@ export default function AdminProfile() {
     const {chatID} = useParams();
     const navigate = useNavigate();
     let displayedData = useSelector(state => {
-        const {admins, employees} = state.users;
-        const admin = admins.find(el => el.chatID === +chatID);
-        const employ = employees.find(el => el.chatID === +chatID);
-        return admin || employ;
+        const {persons} = state?.persons;   
+        return persons.find(el => el.chatID === +chatID)
     });
-    const displayedDataRole = displayedData.role;
-    const {accountData, accountChatID} = useSelector(state => state.users);
+    console.log(displayedData);
+    const displayedDataRole = displayedData?.role;
+    const {accountData, accountChatID} = useSelector(state => state.persons);
     const role = accountData.role;
-    const isUser = role === constants.userRoles.user;
-    const isSuperAdmin = role === constants.userRoles.superAdmin;
+    const isPerson = role === constants.personRoles.person;
+    const isSuperAdmin = role === constants.personRoles.superAdmin;
     const isOwnAccount = +chatID === accountData.chatID;
     const redirectionPath = "/adminList";
     const {applicationDeleteAlert, roleTitle} = localisations.pages.adminProfile;
@@ -35,14 +34,11 @@ export default function AdminProfile() {
     const redirect = () => navigate(redirectionPath);
     let path = `/${chatID}/editProfile`;
     if (pathname.includes("adminList")) path = `/adminList/${chatID}/editProfile`;
-    const {applicationConfirmAlert} = localisations.pages.userProfile;
-
-    const {otherInfo, isUserConfirmed} = displayedData;
-    const {isUserDataSent} = otherInfo;
+    const {applicationConfirmAlert} = localisations.pages.personProfile;
 
     function renderRoleBlock() {
         return <Typography sx={{fontSize: 14, mb: 1.5}}>
-            {displayedData.role ? "Роль: " + (roleTitle[displayedData.role]).toLowerCase() : <b>Роль не указана</b>}
+            {displayedData?.role ? "Роль: " + (roleTitle[displayedData.role])?.toLowerCase() : <b>Роль не указана</b>}
         </Typography>
     }
 
@@ -51,7 +47,7 @@ export default function AdminProfile() {
     }
 
     function onConfirmPerson() {
-        if (!isUserDataSent) {
+        if (!displayedData?.otherInfo?.isPersonDataSent) {
             tg.showAlert(applicationConfirmAlert);
         } else {
             dispatch(confirmPersonAction(chatID, accountChatID));
@@ -65,11 +61,13 @@ export default function AdminProfile() {
         }
     }
 
+    console.log(window)
+
     function renderButtonsBlock() {
         return (
-            isUser ? null :
+            isPerson ? null :
                 <>
-                    {isSuperAdmin && !isUserConfirmed &&
+                    {isSuperAdmin && !displayedData?.isPersonConfirmed &&
                         <IconButton
                             aria-label="done"
                             sx={{marginRight: "8px"}}
@@ -77,12 +75,12 @@ export default function AdminProfile() {
                         >
                             <DoneOutlineRoundedIcon color="success"/>
                         </IconButton>}
-                    {(isOwnAccount || (isSuperAdmin && displayedDataRole !== constants.userRoles.superAdmin)) &&
+                    {(isOwnAccount || (isSuperAdmin && displayedDataRole !== constants.personRoles.superAdmin)) &&
                         <Button component={Link} to={path} variant="outlined" color="primary" size="small"
                                 disableElevation>
                             Редактировать
                         </Button>}
-                    {isSuperAdmin && displayedDataRole !== constants.userRoles.superAdmin &&
+                    {isSuperAdmin && displayedDataRole !== constants.personRoles.superAdmin &&
                         <IconButton
                             aria-label="delete"
                             sx={{marginLeft: "8px"}}
