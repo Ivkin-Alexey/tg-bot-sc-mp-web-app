@@ -8,6 +8,8 @@ import localisations from "../../assets/constants/localisations/localisations";
 import {createPersonName} from "../../methods/helpers";
 import {IEquipmentListItem} from "../../types/interfaces";
 import { useTypedSelector, useTypedDispatch } from "../../redux/index.ts";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {useActions} from "../../hooks/useActions";
 
 interface IEquipmentListProps {
     list: IEquipmentListItem[]

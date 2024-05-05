@@ -1,3 +1,40 @@
+export type TCategory = "Сотрудник" | "Студент" | "Аспирант"
+export type TRole = "user" | "admin" | "superAdmin"
+
+export interface IPerson {
+    chatID: number,
+    firstName?: string,
+    lastName?: string,
+    patronymic?: string,
+    phone?: string,
+    position?: string,
+    category: TCategory,
+    research: string,
+    isUserConfirmed: boolean,
+    otherInfo: {
+        registrationDate: string,
+        isUserDataSent: boolean,
+    },
+    requirements: [
+        {
+            "name": string,
+            "done": boolean,
+        },
+        {
+            "name": string,
+            "done": boolean,
+        },
+        {
+            "name": string,
+            "done": boolean,
+        }
+    ],
+    role: TRole
+    studentsEducationYear?: string,
+    postGraduateEducationYear?: string,
+}
+
+
 export interface ITextInputAttributes {
     inputAttributes: {
         name: string,
