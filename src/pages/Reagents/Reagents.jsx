@@ -1,6 +1,7 @@
 import React from 'react';
 import './Reagents.css';
 import AddIcon from '@mui/icons-material/Add';
+
 import {Button, Divider, Stack,} from "@mui/material";
 import {useCallback, useEffect, useState} from "react";
 import {useTelegram} from "../../hooks/useTelegram";
@@ -8,6 +9,13 @@ import localisations from '../../assets/constants/localisations/localisations';
 import forms from "../../assets/constants/forms";
 import ReagentsFormItem from "../../components/ReagentsFormItem/ReagentsFormItem";
 import {useNavigate} from "react-router-dom";
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import {Box, Button, Divider, IconButton, Stack, TextField} from "@mui/material";
+import {useCallback, useEffect, useState} from "react";
+import {useTelegram} from "../../hooks/useTelegram";
+import {constants} from '../../assets/constants';
+import ReagentsFormItem from "../../components/ReagentsFormItem/ReagentsFormItem";
+
 import ListSubheader from "@mui/material/ListSubheader";
 
 const Reagents = () => {
@@ -100,6 +108,7 @@ const Reagents = () => {
     }
 
     return (
+
         <>
             <Stack
                 direction="column"
@@ -132,6 +141,7 @@ const Reagents = () => {
                 />
             </Stack>
         </>
+
     );
 };
 
