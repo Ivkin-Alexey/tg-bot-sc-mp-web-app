@@ -1,27 +1,28 @@
 import * as React from 'react';
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
-import ListItemText from '@mui/material/ListItemText';
-import {equipment} from '../../assets/db';
-import {Box, ListItem, ListItemIcon} from "@mui/material";
-import {Link, useNavigate} from "react-router-dom";
-
-function ListItemLink(props) {
-    const {icon, primary, to} = props;
-
-    return (
-        <li>
-            <ListItem button component={Link} to={to}>
-                {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
-                <ListItemText primary={primary}/>
-            </ListItem>
-        </li>
-    );
-}
+import {useNavigate} from "react-router-dom";
+import ListItemLink from "../../components/ListItemLink/ListItemLink";
+import localisations from '../../assets/constants/localisations/localisations'
+import {useTelegram} from "../../hooks/useTelegram";
+import {useEffect} from "react";
+import {useSelector} from "react-redux";
 
 export default function EquipmentCategoryList() {
 
     let navigate = useNavigate();
+    const {tg} = useTelegram();
+    const {categories, operatingEquipments} = useSelector(state => state.equipments);
+
+    const redirect = () => navigate(-1);
+
+    useEffect(() => {
+        tg.onEvent('backButtonClicked', redirect)
+        console.log(operatingEquipments);
+        return () => {
+            tg.offEvent('backButtonClicked', redirect)
+        }
+    }, []);
 
     return (
 
@@ -31,17 +32,17 @@ export default function EquipmentCategoryList() {
             aria-labelledby="nested-list-subheader"
             subheader={
                 <ListSubheader component="div" id="nested-list-subheader">
-                    Выберите категорию оборудования:
+                    {localisations.pages.equipmentCategoryList.header}
                 </ListSubheader>
             }
         >
-            {equipment.map((el, i) => {
+            {categories.map((el, i) => {
                 return (
                     <ListItemLink
-                        to={`/equipment/${el.category.en}`}
-                        primary={el.category.ru}
+                        to={`/equipment/${el}`}
+                        primary={el}
                         key={i}
-                        onClick={() => navigate(`/equipment/${el.category.en}`)}/>
+                        onClick={() => navigate(`/equipment/${el}`)}/>
                 )
             })}
         </List>
