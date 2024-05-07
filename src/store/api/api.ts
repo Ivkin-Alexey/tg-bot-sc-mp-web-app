@@ -4,18 +4,18 @@ import {IPerson} from "../../types/interfaces.tsx";
 
 export const api = createApi({
     reducerPath: "api",
-    tagTypes: ["person"],
+    tagTypes: ["Persons"],
     baseQuery: fetchBaseQuery({
         baseUrl: constants.serverDomain
     }),
-    endpoints: builder => ({
-        fetchPersons: builder.query<IPerson[], void>( {
-            query: (): IPerson[] => "/persons",
-            invalidatesTags: () => [
-                {type: "Person"}
+    endpoints: build => ({
+        fetchPersons: build.query<IPerson[], null>( {
+            query: () => "/persons",
+            providesTags: (result, error, id) => [
+                {type: "Persons", id}
             ]
         }),
-        createPerson: builder.mutation<null, IPerson>({
+        createPerson: build.mutation<null, IPerson>({
             query: person => ({
                 body: person,
                 url: "createPerson",
@@ -24,3 +24,5 @@ export const api = createApi({
         })
     }),
 })
+
+export const {usePersonsQuery} = api
