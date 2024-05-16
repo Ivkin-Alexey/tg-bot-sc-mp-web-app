@@ -1,3 +1,4 @@
+import React from "react";
 import {Button, Card, CardActions, CardContent, CardMedia, Chip, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useTelegram} from "../../hooks/useTelegram";
@@ -7,7 +8,7 @@ import CircularProgress from "../../components/CircularProgress/CircularProgress
 import localisations from "../../assets/constants/localisations/localisations";
 import {createPersonName} from "../../methods/helpers";
 import {IEquipmentListItem} from "../../types/interfaces";
-import { useTypedSelector, useTypedDispatch } from "../../redux/index.ts";
+import {useTypedSelector, useTypedDispatch} from "../../redux/index.ts";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {useActions} from "../../hooks/useActions";
 
@@ -18,10 +19,10 @@ interface IEquipmentListProps {
 const EquipmentList = (props: IEquipmentListProps) => {
 
     const {list} = props;
-    const {accountChatID, accountData, users, admins} = useSelector<IState>(state => state.users);
-    const {equipmentsDataIsUpdated, operatingEquipment} = useSelector<IState>(state => state.equipments);
+    const {accountChatID, accountData, users, admins} = useAppSelector<IState>(state => state.users);
+    const {equipmentsDataIsUpdated, operatingEquipment} = useAppSelector<IState>(state => state.equipments);
     let navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const {tg} = useTelegram();
 
     const redirect = () => navigate(-1);

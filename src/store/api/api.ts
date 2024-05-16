@@ -1,6 +1,6 @@
-import {createApi, EndpointBuilder, fetchBaseQuery} from "@reduxjs/toolkit/query";
+import {createApi, EndpointBuilder, fetchBaseQuery} from "@reduxjs/toolkit/query/react"
 import constants from "../../assets/constants/constants.js"
-import {IPerson} from "../../types/interfaces.tsx";
+import {IPerson} from "../../types/interfaces";
 
 export const api = createApi({
     reducerPath: "api",
@@ -10,13 +10,11 @@ export const api = createApi({
     }),
     endpoints: builder => ({
         fetchPersons: builder.query<IPerson[], void>( {
-            query: (): IPerson[] => "/persons",
-            invalidatesTags: () => [
-                {type: "Person"}
-            ]
+            query: () => "/persons",
+
         }),
         createPerson: builder.mutation<null, IPerson>({
-            query: person => ({
+            query: (person: any) => ({
                 body: person,
                 url: "createPerson",
                 method: "POST"
