@@ -34,6 +34,10 @@ export interface IPerson {
     postGraduateEducationYear?: string,
 }
 
+export interface IUpdatedPersonData {
+    chatID: number,
+    data: Partial<IPerson>
+}
 
 export interface ITextInputAttributes {
     inputAttributes: {

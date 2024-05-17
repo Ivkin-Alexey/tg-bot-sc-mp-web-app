@@ -24,6 +24,7 @@ import NestedList from "./components/NestedList/NestedList";
 import OperatingEquipments from "./pages/OperatingEquipments/OperatingEquipments";
 import EmployList from "./pages/EmployList/EmployList";
 import ReagentApplication from "./pages/ReagentApplication/ReagentApplication";
+import { useFetchPersonsQuery } from './store/api/persons.api';
 
 function App() {
 
@@ -34,13 +35,11 @@ function App() {
     useEffect(() => {
         tg.expand();
         dispatch({type: SET_ACCOUNT_CHAT_ID, payload: accountChatID});
-        dispatch(fetchPersonsAction(accountChatID));
         dispatch(fetchResearchesAction());
         dispatch(fetchEquipmentsAction());
         dispatch(getOperatingEquipmentsAction());
         tg.BackButton.isVisible = true;
     }, []);
-
     const role = useSelector(state => state.persons.accountData?.role);
     const isPersonsDataUpdated = useSelector(state => state.persons.personsDataIsUpdated);
     const {admin, superAdmin} = constants.personRoles;

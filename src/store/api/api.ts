@@ -4,21 +4,8 @@ import {IPerson} from "../../types/interfaces";
 
 export const api = createApi({
     reducerPath: "api",
-    tagTypes: ["person"],
     baseQuery: fetchBaseQuery({
         baseUrl: constants.serverDomain
     }),
-    endpoints: builder => ({
-        fetchPersons: builder.query<IPerson[], void>( {
-            query: () => "/persons",
-
-        }),
-        createPerson: builder.mutation<null, IPerson>({
-            query: (person: any) => ({
-                body: person,
-                url: "createPerson",
-                method: "POST"
-            })
-        })
-    }),
+    endpoints: () => ({})
 })

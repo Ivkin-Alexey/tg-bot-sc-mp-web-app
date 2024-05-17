@@ -4,10 +4,10 @@ import {IPerson, IUpdatedPersonData} from "../../types/interfaces";
 
 export const personsApi = api.injectEndpoints({
     endpoints: builder => ({
-        fetchAllPersons: builder.query<IPerson[], void>( {
+        fetchAllEquipments: builder.query<IPerson[], void>( {
             query: () => "/persons",
         }),
-        fetchPerson: builder.query<IPerson, void>( {
+        fetchWorkingEquipments: builder.query<IPerson, void>( {
             query: (chatID) => "/chatID=" + chatID,
         }),
         fetchAdmins: builder.query<IPerson[], void>( {
