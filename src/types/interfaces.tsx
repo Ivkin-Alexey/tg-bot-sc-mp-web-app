@@ -1,5 +1,17 @@
+import { type } from "os"
+
 export type TCategory = "Сотрудник" | "Студент" | "Аспирант"
 export type TRole = "user" | "admin" | "superAdmin"
+export type TChatID = number
+export type scienceDegree = "докт. техн. наук" | "канд. техн. наук" | "без степени"
+
+export interface IResearch {
+    id: number, 
+    name: string, 
+    advisor: string, 
+    degree: scienceDegree,
+    description: string
+}
 
 export interface IPerson {
     chatID: number,
@@ -34,9 +46,48 @@ export interface IPerson {
     postGraduateEducationYear?: string,
 }
 
+export interface IEquipment {
+    id: string,
+    category: string,
+    name: string,
+    brand: string,
+    model: string,
+    imgUrl: string,
+    filesUrl: string
+}
+
+export interface IEquipmentListByCategories {
+    [key: string]: IEquipment[]
+}
+
 export interface IUpdatedPersonData {
-    chatID: number,
+    chatID: TChatID,
     data: Partial<IPerson>
+}
+
+export interface IReagentData {
+    "id": string,
+    "chatID": TChatID,
+    "fullName": string,
+    "reagentName": string,
+    "reagentAmount": string,
+    "date": string,
+    "status": string
+}
+
+export interface IReagentsListItem {
+    reagentName: string,
+    reagentAmount: string,
+}
+
+export interface IUpdatedReagentData {
+    "id": string,
+    "chatID"?: TChatID,
+    "fullName"?: string,
+    "reagentName"?: string,
+    "reagentAmount"?: string,
+    "date"?: string,
+    "status"?: string
 }
 
 export interface ITextInputAttributes {
@@ -47,11 +98,6 @@ export interface ITextInputAttributes {
         required: boolean
     },
     other: {initValue: string, validateRule: string}
-}
-
-export interface IReagentsListItem {
-    reagentName: string,
-    reagentAmount: string,
 }
 
 export interface IEquipmentListItem {

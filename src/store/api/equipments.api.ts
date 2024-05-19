@@ -1,46 +1,29 @@
 import {api} from "./api"
-import {BaseQueryArg} from "@reduxjs/toolkit/dist/query/baseQueryTypes";
-import {IPerson, IUpdatedPersonData} from "../../types/interfaces";
+import {IEquipmentListByCategories} from "../../types/interfaces";
 
-export const personsApi = api.injectEndpoints({
+export const equipmentsApi = api.injectEndpoints({
     endpoints: builder => ({
-        fetchAllEquipments: builder.query<IPerson[], void>( {
-            query: () => "/persons",
+        fetchAllEquipments: builder.query<IEquipmentListByCategories, void>( {
+            query: () => "/equipments",
         }),
-        fetchWorkingEquipments: builder.query<IPerson, void>( {
-            query: (chatID) => "/chatID=" + chatID,
+        fetchWorkingEquipments: builder.query<IEquipmentListByCategories, void>( {
+            query: () => "/workingEquipments",
         }),
-        fetchAdmins: builder.query<IPerson[], void>( {
-            query: () => "/admins",
-        }),
-        fetchEmployees: builder.query<IPerson[], void>( {
-            query: () => "/employees",
-        }),
-        fetchUsers: builder.query<IPerson[], void>( {
-            query: () => "/users",
-        }),
-        createPerson: builder.mutation<null, IPerson>({
-            query: person => ({
-                    body: person,
-                    url: "/createPerson",
-                    method: "POST"
+        startUsingEquipment: builder.mutation<null, {chatID: string, equipmentID: string}>({
+            query: data => ({
+                    body: data,
+                    url: "/equipmentStart",
+                    method: "PUT"
             })
         }),
-        deletePerson: builder.mutation<null, number>({
-            query: chatID => ({
-                    body: chatID,
-                    url: "/deletePerson",
-                    method: "DELETE"
-            })
-        }),
-        updatePerson: builder.mutation<null, IUpdatedPersonData>({
-            query: updatedData => ({
-                    body: updatedData,
-                    url: "/updatePerson",
+        endUsingEquipment: builder.mutation<null, {chatID: string, equipmentID: string}>({
+            query: data => ({
+                    body: data,
+                    url: "/equipmentEnd",
                     method: "PUT"
             })
         })
     })
 })
 
-export const {useCreatePersonMutation, useFetchAllPersonsQuery} = personsApi
+export const {useFetchAllEquipmentsQuery} = equipmentsApi

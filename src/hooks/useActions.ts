@@ -20,3 +20,5 @@ export const useActions = () => {
         bindActionCreators(rootActions, dispatch)
     }, [dispatch])
 }
+
+const {} = useActions()

@@ -7,5 +7,6 @@ export const api = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: constants.serverDomain
     }),
+    refetchOnFocus: true,
     endpoints: () => ({})
 })
