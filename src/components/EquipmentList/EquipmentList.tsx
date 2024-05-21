@@ -11,6 +11,8 @@ import {IEquipmentListItem} from "../../types/interfaces";
 import {useTypedSelector, useTypedDispatch} from "../../redux/index.ts";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {useActions} from "../../hooks/useActions";
+import {useFetchOperatingEquipmentsQuery, useStartUsingEquipmentMutation, useEndUsingEquipmentMutation} from "../../store/api/equipments.api"
+import { RootState } from "@reduxjs/toolkit/query";
 
 interface IEquipmentListProps {
     list: IEquipmentListItem[]
@@ -19,10 +21,10 @@ interface IEquipmentListProps {
 const EquipmentList = (props: IEquipmentListProps) => {
 
     const {list} = props;
-    const {accountChatID, accountData, users, admins} = useAppSelector<IState>(state => state.users);
-    const {equipmentsDataIsUpdated, operatingEquipment} = useAppSelector<IState>(state => state.equipments);
+    const {accountChatID, accountData, users, admins} = useAppSelector(state => state.persons);
+    const {isLoading, data: operatingEquipments} = useFetchOperatingEquipmentsQuery()
+    const [startEquipment, {isLoading: isUpdated, data}] = useStartUsingEquipmentMutation()
     let navigate = useNavigate();
-    const dispatch = useAppDispatch();
     const {tg} = useTelegram();
 
     const redirect = () => navigate(-1);
@@ -35,7 +37,7 @@ const EquipmentList = (props: IEquipmentListProps) => {
     }, []);
 
     function onClickStart(equipment) {
-        const type = "start";
+        
         dispatch(updateEquipmentWorkingStatusAction(accountChatID, accountData, equipment, type));
     }
 
@@ -65,7 +67,7 @@ const EquipmentList = (props: IEquipmentListProps) => {
             function renderWorkingPersonButtons() {
                 return started ?
                     <Button size="small" onClick={() => onClickEnd(el)}>Завершить</Button> :
-                    <Button size="small" onClick={() => onClickStart(el)}>Старт</Button>
+                    <Button size="small" onClick={() => startEquipment(accountChatID, el.id)}>Старт</Button>
             }
 
             return (
@@ -91,7 +93,7 @@ const EquipmentList = (props: IEquipmentListProps) => {
         }) : localisations.components.equipmentList.listIsEmpty
     }
 
-    return equipmentsDataIsUpdated ? renderEquipmentList() : <CircularProgress/>
+    return isLoading ? <CircularProgress/> : renderEquipmentList
 };
 
 export default EquipmentList;

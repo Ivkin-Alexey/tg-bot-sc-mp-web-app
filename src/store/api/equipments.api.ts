@@ -6,24 +6,24 @@ export const equipmentsApi = api.injectEndpoints({
         fetchAllEquipments: builder.query<IEquipmentListByCategories, void>( {
             query: () => "/equipments",
         }),
-        fetchWorkingEquipments: builder.query<IEquipmentListByCategories, void>( {
-            query: () => "/workingEquipments",
+        fetchOperatingEquipments: builder.query<IEquipmentListByCategories, void>( {
+            query: () => "/operatingEquipments",
         }),
         startUsingEquipment: builder.mutation<null, {chatID: string, equipmentID: string}>({
             query: data => ({
                     body: data,
                     url: "/equipmentStart",
-                    method: "PUT"
+                    method: "POST"
             })
         }),
         endUsingEquipment: builder.mutation<null, {chatID: string, equipmentID: string}>({
             query: data => ({
                     body: data,
                     url: "/equipmentEnd",
-                    method: "PUT"
+                    method: "DELETE"
             })
         })
     })
 })
 
-export const {useFetchAllEquipmentsQuery} = equipmentsApi
+export const {useFetchAllEquipmentsQuery, useFetchOperatingEquipmentsQuery, useStartUsingEquipmentMutation, useEndUsingEquipmentMutation} = equipmentsApi

@@ -29,7 +29,7 @@ import { useFetchPersonsQuery } from './store/api/persons.api';
 function App() {
 
     const {tg, accountChatID = constants.defaultPersonChatID} = useTelegram();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
 
     useEffect(() => {
@@ -40,6 +40,7 @@ function App() {
         dispatch(getOperatingEquipmentsAction());
         tg.BackButton.isVisible = true;
     }, []);
+
     const role = useSelector(state => state.persons.accountData?.role);
     const isPersonsDataUpdated = useSelector(state => state.persons.personsDataIsUpdated);
     const {admin, superAdmin} = constants.personRoles;
