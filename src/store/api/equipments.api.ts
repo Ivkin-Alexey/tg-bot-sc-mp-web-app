@@ -1,5 +1,5 @@
 import {api} from "./api"
-import {IEquipmentListByCategories} from "../../types/interfaces";
+import {IEquipmentListByCategories, IOperatingEquipment} from "../../types/interfaces";
 
 export const equipmentsApi = api.injectEndpoints({
     endpoints: builder => ({
@@ -9,12 +9,22 @@ export const equipmentsApi = api.injectEndpoints({
         fetchOperatingEquipments: builder.query<IEquipmentListByCategories, void>( {
             query: () => "/operatingEquipments",
         }),
-        startUsingEquipment: builder.mutation<null, {chatID: string, equipmentID: string}>({
+        startUsingEquipment: builder.mutation<null, IOperatingEquipment>({
             query: data => ({
                     body: data,
                     url: "/equipmentStart",
                     method: "POST"
-            })
+            }),
+            async onQueryStarted(data, {dispatch, queryFulfilled}) {
+                const patchResult = dispatch(api.util.updateQueryData("fetchAllEquipments", undefined, (draft: IOperatingEquipment[]) => {
+                    draft.push(data)
+                }))
+                try {
+                    await queryFulfilled
+                } catch {
+                    patchResult.undo()
+                }
+            }
         }),
         endUsingEquipment: builder.mutation<null, {chatID: string, equipmentID: string}>({
             query: data => ({

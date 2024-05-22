@@ -1,3 +1,4 @@
+import { CharacterEncoding } from "crypto"
 import { type } from "os"
 
 export type TCategory = "Сотрудник" | "Студент" | "Аспирант"
@@ -54,6 +55,13 @@ export interface IEquipment {
     model: string,
     imgUrl: string,
     filesUrl: string
+}
+
+export interface IOperatingEquipment extends IEquipment {
+    chatID: TChatID,
+    startTime: string,
+    startDate: string,
+    isLongUse: boolean,
 }
 
 export interface IEquipmentListByCategories {
