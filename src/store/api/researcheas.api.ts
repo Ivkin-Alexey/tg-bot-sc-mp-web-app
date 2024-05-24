@@ -1,5 +1,5 @@
 import {api} from "./api"
-import {IResearch} from "../../types/interfaces";
+import {IResearch} from "../../models/interfaces";
 
 export const researchsApi = api.injectEndpoints({
     endpoints: builder => ({

@@ -1,5 +1,5 @@
 import {api} from "./api"
-import {IReagentData, IUpdatedReagentData, TChatID} from "../../types/interfaces";
+import {IReagentData, IUpdatedReagentData, TChatID} from "../../models/interfaces";
 
 export const reagentsApi = api.injectEndpoints({
     endpoints: builder => ({

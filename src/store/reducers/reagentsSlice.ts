@@ -1,4 +1,4 @@
-import {SET_REAGENTS_APPLICATIONS, SET_REAGENTS_DATA_IS_UPDATED} from "../types.ts";
+import {SET_REAGENTS_APPLICATIONS, SET_REAGENTS_DATA_IS_UPDATED} from "../../models/state.js";
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {

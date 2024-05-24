@@ -6,17 +6,13 @@ import EditPersonalData from "./pages/EditPersonalData/EditPersonalData";
 import Menu from "./pages/Menu/Menu";
 import ApplicationList from "./pages/ApplicationList/ApplicationList";
 import EquipmentCategoryList from "./pages/EquipmentCategoryList/EquipmentCategoryList"
-import Reagents from "./pages/Reagents/Reagents.jsx";
 import Application from "./pages/Application/Application";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import {useTelegram} from "./hooks/useTelegram";
 import NewLaboratoryWorkerPage from "./pages/Stepper/NewLaboratoryWorkerPage";
 import AdminProfile from "./pages/AdminProfile/AdminProfile";
 import constants from "./assets/constants/constants";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchEquipmentsAction, fetchResearchesAction, fetchUsersAction} from "./redux/actions";
 import AdminList from "./pages/AdminList/AdminList";
-import {SET_ACCOUNT_CHAT_ID} from "./redux/types";
 import CircularProgress from "./components/CircularProgress/CircularProgress";
 import * as React from "react";
 import NewPersonList from "./pages/NewPersonList/NewPersonList";
@@ -24,25 +20,25 @@ import NestedList from "./components/NestedList/NestedList";
 import OperatingEquipments from "./pages/OperatingEquipments/OperatingEquipments";
 import EmployList from "./pages/EmployList/EmployList";
 import ReagentApplication from "./pages/ReagentApplication/ReagentApplication";
-import { useFetchPersonsQuery } from './store/api/persons.api';
+import { useFetchPersonQuery } from './store/api/persons.api';
+import {useAppDispatch} from "./hooks/useAppDispatch";
+import {useAppSelector} from "./hooks/useAppSelector";
+import { setAccountData } from './store/reducers/personsSlice';
 
 function App() {
 
     const {tg, accountChatID = constants.defaultPersonChatID} = useTelegram();
     const dispatch = useAppDispatch();
+    const {data: personData, isLoading, isError, isFetching, isSuccess} = useFetchPersonQuery(accountChatID);
 
+    if(isSuccess) dispatch(setAccountData(personData))
 
     useEffect(() => {
-        tg.expand();
-        dispatch({type: SET_ACCOUNT_CHAT_ID, payload: accountChatID});
-        dispatch(fetchResearchesAction());
-        dispatch(fetchEquipmentsAction());
-        dispatch(getOperatingEquipmentsAction());
-        tg.BackButton.isVisible = true;
-    }, []);
+        tg.expand()
+        tg.BackButton.isVisible = true
+    }, [])
 
-    const role = useSelector(state => state.persons.accountData?.role);
-    const isPersonsDataUpdated = useSelector(state => state.persons.personsDataIsUpdated);
+    const {role} = useAppSelector(state => state.persons.accountData);
     const {admin, superAdmin} = constants.personRoles;
     const isAdmin = (role === admin || role === superAdmin);
 

@@ -3,16 +3,15 @@ import {Button, Card, CardActions, CardContent, CardMedia, Chip, Typography} fro
 import {useNavigate} from "react-router-dom";
 import {useTelegram} from "../../hooks/useTelegram";
 import {useEffect} from "react";
-import {updateEquipmentWorkingStatusAction} from "../../redux/actions";
 import CircularProgress from "../../components/CircularProgress/CircularProgress";
 import localisations from "../../assets/constants/localisations/localisations";
 import {createPersonName} from "../../methods/helpers";
-import {IEquipmentListItem} from "../../types/interfaces";
-import {useTypedSelector, useTypedDispatch} from "../../redux/index.ts";
+import {IEquipmentListItem} from "../../models/equipments";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {useActions} from "../../hooks/useActions";
 import {useFetchOperatingEquipmentsQuery, useStartUsingEquipmentMutation, useEndUsingEquipmentMutation} from "../../store/api/equipments.api"
 import { RootState } from "@reduxjs/toolkit/query";
+import { TEquipmentID } from "../../models/main";
 
 interface IEquipmentListProps {
     list: IEquipmentListItem[]
@@ -21,7 +20,7 @@ interface IEquipmentListProps {
 const EquipmentList = (props: IEquipmentListProps) => {
 
     const {list} = props;
-    const {accountChatID, accountData, users, admins} = useAppSelector(state => state.persons);
+    const {accountData} = useAppSelector(state => state.persons);
     const {isLoading, data: operatingEquipments} = useFetchOperatingEquipmentsQuery()
     const [startEquipment, {isLoading: isUpdated, data}] = useStartUsingEquipmentMutation()
     let navigate = useNavigate();
@@ -36,18 +35,18 @@ const EquipmentList = (props: IEquipmentListProps) => {
         }
     }, []);
 
-    function onClickStart(equipment) {
-        
-        dispatch(updateEquipmentWorkingStatusAction(accountChatID, accountData, equipment, type));
-    }
+    const [start, startResult] = useStartUsingEquipmentMutation()
+    const [end, endResult] = useEndUsingEquipmentMutation()
 
-    function onClickEnd(equipment) {
-        const type = "end";
-        dispatch(updateEquipmentWorkingStatusAction(accountChatID, accountData, equipment, type));
-    }
-
-    function onClickDownloadFiles(url) {
+    function onClickDownloadFiles(url: string) {
         tg.openLink(url)
+    }
+
+    function checkIsEquipmentWorking(equipmentID: TEquipmentID) {
+        if (!Array.isArray(operatingEquipments)) {
+            return false;
+        }
+        return operatingEquipments.some(el => el.equipmentID === equipmentID);
     }
 
     function renderEquipmentList() {
@@ -56,7 +55,7 @@ const EquipmentList = (props: IEquipmentListProps) => {
             const {filesUrl, id, imgUrl, model, name} = el;
             let started, startedByAnotherPerson, workingPerson, personName;
 
-            if (accountChatID === workingPersonChatID) started = true;
+            if (accountData?.chatID === workingPersonChatID) started = true;
             if (!started && isUsing.length > 0) startedByAnotherPerson = true;
             if (startedByAnotherPerson) {
                 workingPerson = persons.find(el => el.chatID === workingPersonChatID);
@@ -64,10 +63,10 @@ const EquipmentList = (props: IEquipmentListProps) => {
                 personName = createPersonName(workingPerson);
             }
 
-            function renderWorkingPersonButtons() {
+            function renderWorkingPersonButtons(equipmentID: TEquipmentID) {
                 return started ?
-                    <Button size="small" onClick={() => onClickEnd(el)}>Завершить</Button> :
-                    <Button size="small" onClick={() => startEquipment(accountChatID, el.id)}>Старт</Button>
+                    <Button size="small" onClick={() => end(equipmentID, accountData.chatID)}>Завершить</Button> :
+                    <Button size="small" onClick={() => start(equipmentID, accountData.chatID)}>Старт</Button>
             }
 
             return (
