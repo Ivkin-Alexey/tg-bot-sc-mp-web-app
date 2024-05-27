@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import { IPerson } from "../../models/interfaces";
+import { IPerson } from "../../models/persons";
 
 interface IPersonsState {
     accountData: IPerson | null

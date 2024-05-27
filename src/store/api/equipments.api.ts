@@ -1,5 +1,6 @@
 import {api} from "./api"
-import {IEquipmentListByCategories, IOperatingEquipment} from "../../models/interfaces";
+import {IEquipmentListByCategories, IOperatingEquipment} from "../../models/equipments";
+import { TChatID, TEquipmentID } from "../../models/main";
 
 type ApiSliceEndpoints = typeof api.endpoints;
 
@@ -11,7 +12,7 @@ export const equipmentsApi = api.injectEndpoints({
         fetchOperatingEquipments: builder.query<IEquipmentListByCategories, void>( {
             query: () => "/operatingEquipments",
         }),
-        startUsingEquipment: builder.mutation<void, {chatID: string, equipmentID: string}>({
+        startUsingEquipment: builder.mutation<void, {chatID: TChatID, equipmentID: TEquipmentID}>({
             query: data => ({
                     body: data,
                     url: "/equipmentStart",
@@ -28,7 +29,7 @@ export const equipmentsApi = api.injectEndpoints({
             //     }
             // }
         }),
-        endUsingEquipment: builder.mutation<null, {chatID: string, equipmentID: string}>({
+        endUsingEquipment: builder.mutation<null, {chatID: TChatID, equipmentID: TEquipmentID}>({
             query: data => ({
                     body: data,
                     url: "/equipmentEnd",

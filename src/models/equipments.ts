@@ -1,7 +1,7 @@
-import { TChatID } from "./main"
+import { TChatID, TEquipmentID } from "./main"
 
 export interface IEquipment {
-    id: string,
+    id: TEquipmentID,
     category: string,
     name: string,
     brand: string,
@@ -18,15 +18,5 @@ export interface IOperatingEquipment extends IEquipment {
 }
 
 export interface IEquipmentListByCategories {
-    [key: string]: IEquipment[]
-}
-
-export interface IEquipmentListItem {
-    id: string,
-    category: string,
-    name: string,
-    brand: string,
-    model: string,
-    imgUrl: string,
-    filesUrl: string,
+    [key: string]: IEquipment[] | IOperatingEquipment[]
 }

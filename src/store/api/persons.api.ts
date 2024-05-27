@@ -1,6 +1,6 @@
 import {api} from "./api"
 import {BaseQueryArg} from "@reduxjs/toolkit/dist/query/baseQueryTypes";
-import {IPerson, IUpdatedPersonData} from "../../models/interfaces";
+import {IPerson, IUpdatedPersonData} from "../../models/persons";
 
 export const personsApi = api.injectEndpoints({
     endpoints: builder => ({

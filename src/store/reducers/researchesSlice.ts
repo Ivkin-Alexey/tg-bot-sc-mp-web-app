@@ -8,7 +8,7 @@ export const researchesSlice = createSlice({
     name: "researches",
     initialState,
     reducers: {
-        setResearches: (state, {payload: list}) => state.activeReagentApplications = list,
+        setResearches: (state, {payload: list}) => state.researches = list,
     }
 })
 

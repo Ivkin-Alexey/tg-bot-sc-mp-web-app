@@ -14,12 +14,10 @@ const rootActions = {
     ...researchesActions
 }
 
-export const useActions = () => {
-    const dispatch = useAppDispatch()
+// export const useActions = () => {
+//     const dispatch = useAppDispatch()
 
-    return useMemo(() => {
-        bindActionCreators(rootActions, dispatch)
-    }, [dispatch])
-}
-
-const {} = useActions()
+//     return useMemo(() => {
+//         bindActionCreators(rootActions, dispatch)
+//     }, [dispatch])
+// }

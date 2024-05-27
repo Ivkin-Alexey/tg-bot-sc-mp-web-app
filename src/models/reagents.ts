@@ -1,3 +1,5 @@
+import { TChatID } from "./main"
+
 export interface IReagentData {
     "id": string,
     "chatID": TChatID,

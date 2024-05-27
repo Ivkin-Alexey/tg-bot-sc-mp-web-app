@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {Button, Card, CardActions, CardContent, CardMedia, Chip, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useTelegram} from "../../hooks/useTelegram";
@@ -6,23 +6,22 @@ import {useEffect} from "react";
 import CircularProgress from "../../components/CircularProgress/CircularProgress";
 import localisations from "../../assets/constants/localisations/localisations";
 import {createPersonName} from "../../methods/helpers";
-import {IEquipmentListItem} from "../../models/equipments";
+import {IEquipment, IOperatingEquipment} from "../../models/equipments";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {useActions} from "../../hooks/useActions";
 import {useFetchOperatingEquipmentsQuery, useStartUsingEquipmentMutation, useEndUsingEquipmentMutation} from "../../store/api/equipments.api"
 import { RootState } from "@reduxjs/toolkit/query";
-import { TEquipmentID } from "../../models/main";
+import { TChatID, TEquipmentID } from "../../models/main";
 
 interface IEquipmentListProps {
-    list: IEquipmentListItem[]
+    list: IEquipment[]
 }
 
 const EquipmentList = (props: IEquipmentListProps) => {
 
     const {list} = props;
     const {accountData} = useAppSelector(state => state.persons);
-    const {isLoading, data: operatingEquipments} = useFetchOperatingEquipmentsQuery()
-    const [startEquipment, {isLoading: isUpdated, data}] = useStartUsingEquipmentMutation()
+    const {isLoading, data: operatingEquipments: IEquipmentListByCategories} = useFetchOperatingEquipmentsQuery()
+    const [equipmentList, setEquipmentList] = useState<Array<IEquipment | IOperatingEquipment> | null>(null)
     let navigate = useNavigate();
     const {tg} = useTelegram();
 
@@ -33,7 +32,21 @@ const EquipmentList = (props: IEquipmentListProps) => {
         return () => {
             tg.offEvent('backButtonClicked', redirect)
         }
+        convertEquipmentList()
     }, []);
+
+    function convertEquipmentList() {
+        if(!operatingEquipments) return
+        setEquipmentList(() => list.map(callBack))
+
+        function callBack(el: IEquipment): IEquipment | IOperatingEquipment {
+            if(!operatingEquipments) return
+            const operatingItem = operatingEquipments[el.category]?.find(item => item.id === el.id)
+            if(operatingItem) return operatingItem
+            else return el
+        }
+
+    }
 
     const [start, startResult] = useStartUsingEquipmentMutation()
     const [end, endResult] = useEndUsingEquipmentMutation()
@@ -50,28 +63,33 @@ const EquipmentList = (props: IEquipmentListProps) => {
     }
 
     function renderEquipmentList() {
-        return list.length > 0 ? list.map(el => {
 
-            const {filesUrl, id, imgUrl, model, name} = el;
-            let started, startedByAnotherPerson, workingPerson, personName;
+        if(!equipmentList) return
 
-            if (accountData?.chatID === workingPersonChatID) started = true;
-            if (!started && isUsing.length > 0) startedByAnotherPerson = true;
-            if (startedByAnotherPerson) {
-                workingPerson = persons.find(el => el.chatID === workingPersonChatID);
-                if(!workingPerson) workingPerson = admins.find(el => el.chatID === workingPersonChatID);
+        return equipmentList.length > 0 ? equipmentList.map(el => {
+
+            const {filesUrl, id, imgUrl, model, name, chatID, category, brand, startTime, startDate, isLongUse} = el;
+
+            let isStarted: boolean = false;
+            let isStartedByAnotherPerson: boolean = false;
+            let personName
+            let workingPersonChatID: null | TChatID = null;
+            
+            if (accountData?.chatID === chatID) isStarted = true;
+            if (!isStarted && isUsing.length > 0) isStartedByAnotherPerson = true;
+            if (isStartedByAnotherPerson) {
                 personName = createPersonName(workingPerson);
             }
 
-            function renderWorkingPersonButtons(equipmentID: TEquipmentID) {
-                return started ?
-                    <Button size="small" onClick={() => end(equipmentID, accountData.chatID)}>Завершить</Button> :
-                    <Button size="small" onClick={() => start(equipmentID, accountData.chatID)}>Старт</Button>
+            function renderWorkingPersonButtons(equipmentID: TEquipmentID, chatID: TChatID) {
+                    return isStarted ?
+                    <Button size="small" onClick={() => end({chatID, equipmentID})}>Завершить</Button> :
+                    <Button size="small" onClick={() => start({chatID, equipmentID})}>Старт</Button>
             }
 
             return (
                 <Card key={id}>
-                    {startedByAnotherPerson && <Chip label={`Использует ${personName}`} color="primary" sx={{marginTop: "15px"}}/>}
+                    {isStartedByAnotherPerson && <Chip label={`Использует ${personName}`} color="primary" sx={{marginTop: "15px"}}/>}
                     <CardMedia
                         component="img"
                         alt={name}
@@ -84,7 +102,7 @@ const EquipmentList = (props: IEquipmentListProps) => {
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        {!startedByAnotherPerson && renderWorkingPersonButtons()}
+                        {!isStartedByAnotherPerson && accountData && renderWorkingPersonButtons(id, accountData.chatID,)}
                         <Button size="small" onClick={() => onClickDownloadFiles(filesUrl)}>Скачать файлы</Button>
                     </CardActions>
                 </Card>

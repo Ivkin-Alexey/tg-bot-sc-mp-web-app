@@ -1,7 +1,7 @@
 import { TCategory, TChatID, TRole } from "./main"
 
 export interface IPerson {
-    chatID: number,
+    chatID: TChatID,
     firstName?: string,
     lastName?: string,
     patronymic?: string,
