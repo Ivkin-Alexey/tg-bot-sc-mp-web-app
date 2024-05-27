@@ -11,6 +11,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {useFetchOperatingEquipmentsQuery, useStartUsingEquipmentMutation, useEndUsingEquipmentMutation} from "../../store/api/equipments.api"
 import { RootState } from "@reduxjs/toolkit/query";
 import { TChatID, TEquipmentID } from "../../models/main";
+import { useLazyFetchPersonQuery } from "../../store/api/persons.api";
 
 interface IEquipmentListProps {
     list: IEquipment[]
@@ -21,7 +22,8 @@ const EquipmentList = (props: IEquipmentListProps) => {
     const {list} = props;
     const {accountData} = useAppSelector(state => state.persons);
     const {isLoading, data: operatingEquipments: IEquipmentListByCategories} = useFetchOperatingEquipmentsQuery()
-    const [equipmentList, setEquipmentList] = useState<Array<IEquipment | IOperatingEquipment> | null>(null)
+    const {fetchPerson, data} = useLazyFetchPersonQuery()
+    const [equipmentList, setEquipmentList] = useState<Array<IOperatingEquipment | IEquipment> | null>(null)
     let navigate = useNavigate();
     const {tg} = useTelegram();
 
@@ -68,17 +70,23 @@ const EquipmentList = (props: IEquipmentListProps) => {
 
         return equipmentList.length > 0 ? equipmentList.map(el => {
 
-            const {filesUrl, id, imgUrl, model, name, chatID, category, brand, startTime, startDate, isLongUse} = el;
+            const {filesUrl, id, imgUrl, model, name} = el;
 
             let isStarted: boolean = false;
             let isStartedByAnotherPerson: boolean = false;
             let personName
             let workingPersonChatID: null | TChatID = null;
             
-            if (accountData?.chatID === chatID) isStarted = true;
-            if (!isStarted && isUsing.length > 0) isStartedByAnotherPerson = true;
+            
+            if (t) {
+
+            }
+                
+                && accountData?.chatID             
+                else if (chatID) isStartedByAnotherPerson = true;) isStarted = true;
+            else if (chatID) isStartedByAnotherPerson = true;
             if (isStartedByAnotherPerson) {
-                personName = createPersonName(workingPerson);
+                personName = createPersonName(await fetchPerson(chatID));
             }
 
             function renderWorkingPersonButtons(equipmentID: TEquipmentID, chatID: TChatID) {

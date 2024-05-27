@@ -1,13 +1,14 @@
 import {api} from "./api"
 import {BaseQueryArg} from "@reduxjs/toolkit/dist/query/baseQueryTypes";
 import {IPerson, IUpdatedPersonData} from "../../models/persons";
+import { TChatID } from "../../models/main";
 
 export const personsApi = api.injectEndpoints({
     endpoints: builder => ({
         fetchAllPersons: builder.query<IPerson[], void>( {
             query: () => "/persons",
         }),
-        fetchPerson: builder.query<IPerson, void>( {
+        fetchPerson: builder.query<IPerson, TChatID>( {
             query: (chatID) => "/persons" + chatID,
         }),
         fetchAdmins: builder.query<IPerson[], void>( {
@@ -43,4 +44,4 @@ export const personsApi = api.injectEndpoints({
     })
 })
 
-export const {useCreatePersonMutation, useFetchAllPersonsQuery, useFetchPersonQuery} = personsApi;
+export const {useCreatePersonMutation, useFetchAllPersonsQuery, useLazyFetchPersonQuery} = personsApi;
