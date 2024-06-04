@@ -9,8 +9,11 @@ export const equipmentsApi = api.injectEndpoints({
         fetchAllEquipments: builder.query<string, void>( {
             query: () => "/equipments",
         }),
-        fetchOperatingEquipments: builder.query<IEquipmentListByCategories, void>( {
+        fetchAllOperatingEquipments: builder.query<IEquipmentListByCategories, null>( {
             query: () => "/operatingEquipments",
+        }),
+        fetchOperatingEquipmentsByCategory: builder.query<IOperatingEquipment[], string>( {
+            query: (category) => `/operatingEquipments?category=${category}`,
         }),
         startUsingEquipment: builder.mutation<void, {chatID: TChatID, equipmentID: TEquipmentID}>({
             query: data => ({
@@ -39,4 +42,4 @@ export const equipmentsApi = api.injectEndpoints({
     })
 })
 
-export const {useFetchAllEquipmentsQuery, useFetchOperatingEquipmentsQuery, useStartUsingEquipmentMutation, useEndUsingEquipmentMutation} = equipmentsApi
+export const {useFetchAllEquipmentsQuery, useFetchAllOperatingEquipmentsQuery, useFetchOperatingEquipmentsByCategoryQuery, useStartUsingEquipmentMutation, useEndUsingEquipmentMutation} = equipmentsApi

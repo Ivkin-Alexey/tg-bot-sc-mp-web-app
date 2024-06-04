@@ -7,10 +7,8 @@ import {useSelector} from "react-redux";
 const Equipments = () => {
 
     const {category} = useParams();
-    const {equipments} = useSelector(state => state.equipments);
-    const list = equipments[category];
 
-    return <EquipmentList list={list}/>;
+    return <EquipmentList category={category}/>;
 }
 
 export default Equipments;

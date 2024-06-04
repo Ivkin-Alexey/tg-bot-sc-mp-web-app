@@ -8,21 +8,21 @@ import localisations from "../../assets/constants/localisations/localisations";
 import {createPersonName} from "../../methods/helpers";
 import {IEquipment, IOperatingEquipment} from "../../models/equipments";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {useFetchOperatingEquipmentsQuery, useStartUsingEquipmentMutation, useEndUsingEquipmentMutation} from "../../store/api/equipments.api"
+import {useFetchAllOperatingEquipmentsQuery, useStartUsingEquipmentMutation, useEndUsingEquipmentMutation, useFetchOperatingEquipmentsByCategoryQuery} from "../../store/api/equipments.api"
 import { RootState } from "@reduxjs/toolkit/query";
 import { TChatID, TEquipmentID } from "../../models/main";
 import { useLazyFetchPersonQuery } from "../../store/api/persons.api";
 
 interface IEquipmentListProps {
-    list: IEquipment[]
+    category: string
 }
 
-const EquipmentList = (props: IEquipmentListProps) => {
+const EquipmentList = (props: IEquipmentListProps): React.ReactElement | string => {
 
-    const {list} = props;
+    const {category} = props;
     const {accountData} = useAppSelector(state => state.persons);
-    const {isLoading, data: operatingEquipments: IEquipmentListByCategories} = useFetchOperatingEquipmentsQuery()
-    const {fetchPerson, data} = useLazyFetchPersonQuery()
+    const {isLoading, data: operatingEquipments} = useFetchOperatingEquipmentsByCategoryQuery(category);
+    const {fetchPerson, data} = useLazyFetchPersonQuery();
     const [equipmentList, setEquipmentList] = useState<Array<IOperatingEquipment | IEquipment> | null>(null)
     let navigate = useNavigate();
     const {tg} = useTelegram();
@@ -34,21 +34,7 @@ const EquipmentList = (props: IEquipmentListProps) => {
         return () => {
             tg.offEvent('backButtonClicked', redirect)
         }
-        convertEquipmentList()
     }, []);
-
-    function convertEquipmentList() {
-        if(!operatingEquipments) return
-        setEquipmentList(() => list.map(callBack))
-
-        function callBack(el: IEquipment): IEquipment | IOperatingEquipment {
-            if(!operatingEquipments) return
-            const operatingItem = operatingEquipments[el.category]?.find(item => item.id === el.id)
-            if(operatingItem) return operatingItem
-            else return el
-        }
-
-    }
 
     const [start, startResult] = useStartUsingEquipmentMutation()
     const [end, endResult] = useEndUsingEquipmentMutation()
@@ -57,36 +43,26 @@ const EquipmentList = (props: IEquipmentListProps) => {
         tg.openLink(url)
     }
 
-    function checkIsEquipmentWorking(equipmentID: TEquipmentID) {
-        if (!Array.isArray(operatingEquipments)) {
-            return false;
-        }
-        return operatingEquipments.some(el => el.equipmentID === equipmentID);
-    }
-
     function renderEquipmentList() {
 
-        if(!equipmentList) return
-
-        return equipmentList.length > 0 ? equipmentList.map(el => {
+        if(!Array.isArray(equipmentList)) return localisations.components.equipmentList.listIsEmpty;
+        
+        else return equipmentList?.map(el => {
 
             const {filesUrl, id, imgUrl, model, name} = el;
+
+            const operatingEquipment = operatingEquipments?.find(el => el.id === id);
 
             let isStarted: boolean = false;
             let isStartedByAnotherPerson: boolean = false;
             let personName
             let workingPersonChatID: null | TChatID = null;
             
-            
-            if (t) {
+            if (accountData?.chatID === operatingEquipment?.chatID) isStarted = true;
+            else if (operatingEquipment?.chatID) isStartedByAnotherPerson = true;
 
-            }
-                
-                && accountData?.chatID             
-                else if (chatID) isStartedByAnotherPerson = true;) isStarted = true;
-            else if (chatID) isStartedByAnotherPerson = true;
             if (isStartedByAnotherPerson) {
-                personName = createPersonName(await fetchPerson(chatID));
+                personName = createPersonName(fetchPerson(operatingEquipment?.chatID));
             }
 
             function renderWorkingPersonButtons(equipmentID: TEquipmentID, chatID: TChatID) {
@@ -115,10 +91,10 @@ const EquipmentList = (props: IEquipmentListProps) => {
                     </CardActions>
                 </Card>
             )
-        }) : localisations.components.equipmentList.listIsEmpty
-    }
+        })
+    };
 
-    return isLoading ? <CircularProgress/> : renderEquipmentList
+    return isLoading ? <CircularProgress/> : <>renderEquipmentList()</>
 };
 
 export default EquipmentList;
