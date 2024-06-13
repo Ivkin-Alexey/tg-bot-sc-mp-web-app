@@ -22,7 +22,7 @@ const EquipmentList = (props: IEquipmentListProps): React.ReactElement | string 
     const {category} = props;
     const {accountData} = useAppSelector(state => state.persons);
     const {isLoading, data: operatingEquipments} = useFetchOperatingEquipmentsByCategoryQuery(category);
-    const {fetchPerson, data} = useLazyFetchPersonQuery();
+    const [fetchPerson, data] = useLazyFetchPersonQuery();
     const [equipmentList, setEquipmentList] = useState<Array<IOperatingEquipment | IEquipment> | null>(null)
     let navigate = useNavigate();
     const {tg} = useTelegram();
@@ -61,8 +61,8 @@ const EquipmentList = (props: IEquipmentListProps): React.ReactElement | string 
             if (accountData?.chatID === operatingEquipment?.chatID) isStarted = true;
             else if (operatingEquipment?.chatID) isStartedByAnotherPerson = true;
 
-            if (isStartedByAnotherPerson) {
-                personName = createPersonName(fetchPerson(operatingEquipment?.chatID));
+            if (isStartedByAnotherPerson && operatingEquipment) {
+                personName = createPersonName(fetchPerson(operatingEquipment.chatID));
             }
 
             function renderWorkingPersonButtons(equipmentID: TEquipmentID, chatID: TChatID) {
